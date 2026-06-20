@@ -1,0 +1,206 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle';
+---
+
+<Layout 
+	title="Privacy Policy - Do Not Stop Writing | 100% Private Sessions"
+	description="Privacy Policy for Do Not Stop Writing. Read how we protect your writing sessions and keep your drafts 100% private."
+>
+	<!-- Sticky top navigation bar -->
+	<header class="sticky top-0 z-50 w-full bg-white dark:bg-[#111111] border-b border-neutral-100 dark:border-neutral-900 transition-colors duration-300">
+		<div class="max-w-[1200px] mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
+			<!-- Logo on left -->
+			<a 
+				href="/" 
+				id="logo" 
+				class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-100 lowercase select-none hover:opacity-85 no-underline font-normal"
+			>
+				donotstopwriting.com
+			</a>
+			<!-- Actions on right -->
+			<div class="flex items-center space-x-3">
+				<a 
+					href="/" 
+					class="flex items-center gap-1.5 px-3.5 py-1.5 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-white dark:bg-neutral-950 text-xs md:text-sm font-serif font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-primary dark:text-neutral-200 shadow-sm transition-all duration-200 no-underline cursor-pointer"
+				>
+					<span class="text-xs">→</span> Start Writing
+				</a>
+				<ThemeToggle client:load />
+			</div>
+		</div>
+	</header>
+
+	<main class="w-full bg-white dark:bg-[#111111] transition-colors duration-300 min-h-screen py-16 px-6 md:px-8">
+		<div class="subpage-container flex flex-col font-serif max-w-[720px] mx-auto space-y-10">
+			<!-- Back Navigation -->
+			<div>
+				<a 
+					href="/" 
+					class="inline-flex items-center text-[13px] text-neutral-400 dark:text-neutral-500 hover:text-primary dark:hover:text-neutral-200 transition-colors duration-200 no-underline font-sans"
+				>
+					<span class="mr-1.5">←</span> Back to Home
+				</a>
+			</div>
+
+			<!-- Hero Title & Subtitle -->
+			<div class="space-y-4">
+				<h1 class="text-[32px] md:text-[38px] font-bold tracking-tight text-primary dark:text-white leading-[1.15]">
+					Privacy Policy
+				</h1>
+				<p class="text-sm text-neutral-400 dark:text-neutral-500 font-sans">
+					Last updated: June 2026
+				</p>
+			</div>
+
+			<!-- Content Sections -->
+			<div class="space-y-8 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<!-- Section 1 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						1. Information We Collect
+					</h2>
+					<p class="font-bold text-primary dark:text-white">
+						We do not require you to create an account or provide any personal information to use Do Not Stop Writing.
+					</p>
+					<p>
+						The writing tool runs entirely in your browser. Any written content (your text drafts, goals, progress states) is stored only in-memory and is never transmitted to our servers or stored in any database. The moment you leave the page or refresh your browser, your writing session is deleted forever.
+					</p>
+					<p>
+						We use browser local storage (`localStorage`) strictly to save your user preferences locally, specifically:
+					</p>
+					<div class="space-y-2 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-750 dark:text-neutral-350 font-sans text-[15px]">
+						<p>Theme selection (light or dark mode preference)</p>
+					</div>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 2 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						2. Cookies
+					</h2>
+					<p>
+						We do not use cookie identifiers, tracking beacons, or third-party marketing pixels to analyze your behavior or serve targeted advertisements. The application is cookie-free.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 3 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						3. Third-Party Services
+					</h2>
+					<p>
+						We do not sell, trade, or share any personal data with third-party service providers. In the event we use hosting services or static analytics, no identifiable text drafts or user-specific data is ever shared.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 4 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						4. Data Retention
+					</h2>
+					<p>
+						Since Do Not Stop Writing runs entirely client-side, we do not store or retain your drafts or progress logs. Any data entered into the writing session exists only in your browser's active memory. Once the tab is closed, refreshed, or the session ends, the data is permanently erased and cannot be recovered by us.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 5 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						5. Children's Privacy
+					</h2>
+					<p>
+						Do Not Stop Writing is not designed for or targeted to children under the age of 13. We do not knowingly collect, store, or solicit personal data from children. If you believe a child has provided us with personal information, please contact us.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 6 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						6. Your Rights
+					</h2>
+					<p>
+						Because we do not collect identifiable personal data, there is typically nothing for us to retrieve, correct, or delete on your behalf. If you have concerns, please contact us and we will respond promptly.
+					</p>
+					<p>
+						If you are located in the European Economic Area, you have the right to access, rectify, or erase any personal data we hold, and to lodge a complaint with your local supervisory authority.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 7 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						7. Changes to This Policy
+					</h2>
+					<p>
+						We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page reflects the most recent revision. Continued use of the service after changes are posted constitutes acceptance of the revised policy.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 8 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						8. Contact
+					</h2>
+					<p>
+						Questions about this Privacy Policy? <a href="/contact" class="text-primary dark:text-white underline hover:opacity-85 font-semibold">Contact us here</a>.
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<!-- Footer Block -->
+		<footer class="footer-container border-t border-neutral-100 dark:border-neutral-900 pt-10 mt-16 select-none font-serif max-w-[720px] mx-auto">
+			<div class="flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs md:text-sm text-neutral-400 dark:text-neutral-500">
+				<!-- Left Side: Brand & Copyright -->
+				<div class="flex items-center gap-x-3">
+					<span>© 2026</span>
+					<span class="opacity-60">·</span>
+					<a href="/" class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-200 lowercase hover:opacity-85 no-underline font-normal">
+						donotstopwriting.com
+					</a>
+				</div>
+				<!-- Right Side: Links -->
+				<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+					<a href="/about" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline font-semibold">About</a>
+					<span class="opacity-60">·</span>
+					<a href="/contact" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Contact</a>
+					<span class="opacity-60">·</span>
+					<a href="/privacy" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline font-semibold">Privacy Policy</a>
+					<span class="opacity-60">·</span>
+					<a href="/terms" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Terms & Conditions</a>
+				</div>
+			</div>
+		</footer>
+	</main>
+</Layout>
+
+<style is:global>
+	header, .subpage-container {
+		font-family: var(--font-serif), Georgia, serif !important;
+	}
+	.subpage-container {
+		width: 100% !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	@media (min-width: 1024px) {
+		.subpage-container {
+			width: 80% !important;
+		}
+	}
+</style>

@@ -1,0 +1,460 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle';
+---
+
+<Layout 
+	title="About - Do Not Stop Writing | Beat Writer's Block"
+	description="Learn about the philosophy and features of Do Not Stop Writing, the free browser-based writing tool designed to help you defeat writer's block."
+>
+	<!-- Sticky top navigation bar -->
+	<header class="sticky top-0 z-50 w-full bg-white dark:bg-[#111111] border-b border-neutral-100 dark:border-neutral-900 transition-colors duration-300">
+		<div class="max-w-[1200px] mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
+			<!-- Logo on left -->
+			<a 
+				href="/" 
+				id="logo" 
+				class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-100 lowercase select-none hover:opacity-85 no-underline font-normal"
+			>
+				donotstopwriting.com
+			</a>
+			<!-- Actions on right -->
+			<div class="flex items-center space-x-3">
+				<a 
+					href="/" 
+					class="flex items-center gap-1.5 px-3.5 py-1.5 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-white dark:bg-neutral-950 text-xs md:text-sm font-serif font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-primary dark:text-neutral-200 shadow-sm transition-all duration-200 no-underline cursor-pointer"
+				>
+					<span class="text-xs">→</span> Start Writing
+				</a>
+				<ThemeToggle client:load />
+			</div>
+		</div>
+	</header>
+
+	<main class="w-full bg-white dark:bg-[#111111] transition-colors duration-300 min-h-screen py-16 px-6 md:px-8">
+		<div class="subpage-container flex flex-col font-serif max-w-[720px] mx-auto space-y-10">
+			<!-- Back Navigation -->
+			<div>
+				<a 
+					href="/" 
+					class="inline-flex items-center text-[13px] text-neutral-400 dark:text-neutral-500 hover:text-primary dark:hover:text-neutral-200 transition-colors duration-200 no-underline font-sans"
+				>
+					<span class="mr-1.5">←</span> Back to Home
+				</a>
+			</div>
+
+			<!-- Hero Title & Subtitle -->
+			<div class="space-y-4">
+				<h1 class="text-[32px] md:text-[38px] font-bold tracking-tight text-primary dark:text-white leading-[1.15]">
+					About Do Not Stop Writing
+				</h1>
+				<h2 class="text-xl md:text-[22px] font-medium text-neutral-600 dark:text-neutral-400 leading-relaxed font-serif">
+					The Free Online Writing Challenge Tool That Helps You Beat Writer's Block
+				</h2>
+				<p class="text-sm text-neutral-400 dark:text-neutral-500 font-sans">
+					Last updated: June 2026
+				</p>
+			</div>
+
+			<!-- Intro Body Content -->
+			<div class="space-y-6 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<p>
+					<strong>Do Not Stop Writing</strong> is a free online writing tool designed to help writers, students, bloggers, authors, and content creators overcome writer's block and build consistent writing habits.
+				</p>
+				<p>
+					Unlike traditional writing apps that encourage constant editing and distractions, Do Not Stop Writing challenges users to keep writing continuously until they reach their selected goal. Whether you choose a writing timer or a word-count target, the objective remains the same: keep moving forward and focus on creating instead of perfecting.
+				</p>
+				<p>
+					Our platform works directly in your browser, allowing you to start writing instantly without creating an account, downloading software, or installing extensions.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- The Creator Section -->
+			<div class="space-y-6">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					The Creator
+				</h2>
+				<div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+					<!-- Polaroid Frame Image -->
+					<div class="relative w-48 bg-white dark:bg-[#1C1C1E] p-3 pb-10 border border-neutral-250/30 dark:border-neutral-800 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.35)] flex-shrink-0 mx-auto md:mx-0 -rotate-3 transition-transform duration-300 hover:rotate-0 hover:scale-105 rounded-md">
+						<!-- Color Image (no grayscale filter) -->
+						<img 
+							src="/deepanshu.jpg" 
+							alt="Deepanshu Kashyap" 
+							class="w-full aspect-square object-cover border border-neutral-100 dark:border-neutral-900 rounded-sm"
+						/>
+						<!-- Polaroid Bottom Caption -->
+						<div class="absolute bottom-2.5 left-0 right-0 text-center font-serif italic text-[11px] tracking-wide text-neutral-450 dark:text-neutral-500 select-none">
+							Deepanshu Kashyap
+						</div>
+					</div>
+
+					<!-- Bio text -->
+					<div class="flex-1 space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300 text-center md:text-left font-serif">
+						<p>
+							My name is <strong>Deepanshu Kashyap</strong>, an aspiring developer and writer. I developed this tool because I got stuck in the slumber of perfectionism and was never able to complete my projects, looking to AI to help fix it.
+						</p>
+						<p>
+							I use this website to write whatever I want—simply putting my brain out on the page and fixing it later.
+						</p>
+						<p class="border-l-2 border-[#E52525] pl-4 italic font-medium text-neutral-900 dark:text-neutral-200">
+							This is the original website for this idea—other tools you see online today are copies of this project.
+						</p>
+						<div class="flex flex-wrap gap-3 pt-2 justify-center md:justify-start">
+							<!-- GitHub Link -->
+							<a 
+								href="https://github.com/DeepanshuK2002" 
+								target="_blank" 
+								rel="noopener noreferrer" 
+								class="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 dark:border-neutral-850 rounded-lg text-sm font-sans font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-primary dark:text-neutral-200 shadow-sm transition-all duration-200 no-underline cursor-pointer"
+							>
+								<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+									<path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.27C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+								</svg>
+								GitHub
+							</a>
+							<!-- X Link -->
+							<a 
+								href="https://x.com/Deepanshuk2002" 
+								target="_blank" 
+								rel="noopener noreferrer" 
+								class="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 dark:border-neutral-850 rounded-lg text-sm font-sans font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-primary dark:text-neutral-200 shadow-sm transition-all duration-200 no-underline cursor-pointer"
+							>
+								<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+									<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+								</svg>
+								Follow on X
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Original Icon Section -->
+			<div class="space-y-6">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Our Original Icon
+				</h2>
+				<div class="flex flex-col md:flex-row items-center gap-8 bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-2xl border border-neutral-100 dark:border-neutral-800">
+					<div class="relative w-36 h-36 flex-shrink-0 mx-auto md:mx-0 flex items-center justify-center">
+						<img 
+							src="/original-icon.png" 
+							alt="Do Not Stop Writing Original Icon" 
+							class="w-full h-full object-contain"
+						/>
+					</div>
+					<div class="flex-1 text-center md:text-left space-y-4 font-serif">
+						<p class="text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+							This is the <strong>original icon</strong> of Do Not Stop Writing. Symbolizing both the bubble of creative stream-of-consciousness and the dangerous precision of the writing instrument, this icon represents the authentic and original concept that has inspired writing apps worldwide.
+						</p>
+						<div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1">
+							<p class="text-xs text-neutral-400 dark:text-neutral-500 font-sans">
+								Designed specifically to represent distraction-free flow and high-stakes draft creation.
+							</p>
+							<a 
+								href="/original-icon.png" 
+								download="www.donotstopwriting.com.png"
+								class="inline-flex items-center gap-2 px-3.5 py-2 border border-neutral-200 dark:border-neutral-800 rounded-lg text-xs font-sans font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-primary dark:hover:text-neutral-200 shadow-sm transition-all duration-200 cursor-pointer flex-shrink-0 no-underline"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+									<polyline points="7 10 12 15 17 10" />
+									<line x1="12" y1="15" x2="12" y2="3" />
+								</svg>
+								Download Icon
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- writingos.ai Section -->
+			<div class="space-y-6">
+				<div class="flex flex-col md:flex-row items-center gap-8 bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-2xl border border-neutral-100 dark:border-neutral-800">
+					<div class="relative w-44 h-44 flex-shrink-0 mx-auto md:mx-0 flex items-center justify-center" style="filter: drop-shadow(0 0 20px rgba(229, 37, 37, 0.45));">
+						<img 
+							src="/writingos-icon.png" 
+							alt="writingos.ai Icon" 
+							class="w-full h-full object-contain"
+						/>
+					</div>
+					<div class="flex-1 text-center md:text-left space-y-4 font-serif">
+						<!-- Brand name inside card -->
+						<div class="flex items-center gap-3 justify-center md:justify-start">
+							<span class="font-serif text-[22px] md:text-[26px] font-bold tracking-tight text-primary dark:text-white leading-none">writing<span class="text-[#E52525]">OS</span></span>
+							<span class="text-[10px] font-sans font-bold tracking-wider text-[#E52525] bg-[#E52525]/10 px-2.5 py-0.5 rounded-full uppercase">Coming Soon</span>
+						</div>
+						<p class="text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+						We are excited to announce <strong class="font-bold text-[#E52525]">writingOS</strong>, our upcoming next-generation platform. Designed as an AI-powered writing studio, it will help writers shape unstructured thoughts and ideas into clear, structured, and compelling stories.
+					</p>
+						<p class="text-xs text-neutral-400 dark:text-neutral-500 font-sans">
+							Seamless integration with your writing workflow to draft, outline, and refine creative stories.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Why We Created Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Why We Created Do Not Stop Writing
+				</h2>
+				<p>
+					Many people struggle to start writing.
+				</p>
+				<p>
+					Some stare at a blank page for hours. Others constantly edit every sentence before finishing the first paragraph. This cycle of perfectionism often leads to procrastination, frustration, and unfinished projects.
+				</p>
+				<p>
+					We created Do Not Stop Writing to solve this problem.
+				</p>
+				<p>
+					By encouraging uninterrupted writing sessions and rewarding completion, our tool helps writers develop momentum, improve focus, and produce more words in less time.
+				</p>
+				<p class="text-[17px] font-semibold text-neutral-900 dark:text-white pt-2 font-serif">
+					Our philosophy is simple:
+				</p>
+				<p class="text-xl italic font-semibold text-neutral-900 dark:text-white pl-4 border-l-2 border-neutral-300 dark:border-neutral-700">
+					Write first. Edit later.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- How It Works Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					How Do Not Stop Writing Works
+				</h2>
+				<p>
+					Getting started is easy.
+				</p>
+				<p>
+					Choose a writing challenge, set your target, and begin typing. During your writing session, the system encourages continuous writing and helps eliminate the temptation to stop and overthink.
+				</p>
+				<p class="text-neutral-500 dark:text-neutral-450 font-medium">
+					Depending on the selected mode:
+				</p>
+				<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300">
+					<p>Set a custom writing timer</p>
+					<p>Set a target word count</p>
+					<p>Track progress in real time</p>
+					<p>Focus on uninterrupted writing</p>
+					<p>Complete your challenge to unlock your work</p>
+					<p>Build stronger writing habits through consistency</p>
+				</div>
+				<p>
+					Certain challenge modes may include penalties for stopping, helping users stay committed to their writing goals.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Key Features Section -->
+			<div class="space-y-6 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Key Features
+				</h2>
+				<div class="space-y-6">
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Writing Challenges</h3>
+						<p>Create focused writing sessions that motivate you to keep moving forward.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Word Count Goals</h3>
+						<p>Set personalized word targets and track your progress as you write.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Writing Timer</h3>
+						<p>Practice timed writing sprints and improve your productivity.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Writer's Block Solution</h3>
+						<p>Break through creative barriers and generate ideas faster.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Distraction-Free Writing Environment</h3>
+						<p>Write in a clean interface designed for focus and concentration.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Browser-Based Writing Tool</h3>
+						<p>Access the platform from any modern browser without installing software.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Goal-Based Progress System</h3>
+						<p>Stay motivated with visible progress toward your writing objectives.</p>
+					</div>
+					<div>
+						<h3 class="font-bold text-lg text-primary dark:text-white mb-1">Copy and Export Unlocks</h3>
+						<p>Copying, exporting, or accessing completed work may remain restricted until you successfully finish your selected writing challenge.</p>
+					</div>
+				</div>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Benefits Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Benefits of Using Do Not Stop Writing
+				</h2>
+				<p class="text-neutral-500 dark:text-neutral-450 font-medium">
+					Writers use our platform to:
+				</p>
+				<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300">
+					<p>Overcome writer's block</p>
+					<p>Increase daily word count</p>
+					<p>Improve writing speed</p>
+					<p>Build a consistent writing habit</p>
+					<p>Reduce procrastination</p>
+					<p>Improve focus and concentration</p>
+					<p>Complete first drafts faster</p>
+					<p>Stay accountable to writing goals</p>
+					<p>Practice creative writing</p>
+					<p>Improve academic writing productivity</p>
+					<p>Develop stronger writing discipline</p>
+					<p>Enter a writing flow state more easily</p>
+				</div>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Who Is This Tool For Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Who Is This Tool For?
+				</h2>
+				<p class="text-neutral-500 dark:text-neutral-450 font-medium">
+					Do Not Stop Writing is perfect for:
+				</p>
+				<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300">
+					<p>Students</p>
+					<p>Bloggers</p>
+					<p>Authors</p>
+					<p>Novelists</p>
+					<p>Screenwriters</p>
+					<p>Journalists</p>
+					<p>Copywriters</p>
+					<p>Content creators</p>
+					<p>Freelance writers</p>
+					<p>Researchers</p>
+					<p>Academic writers</p>
+					<p>Anyone looking to improve writing productivity</p>
+				</div>
+				<p>
+					Whether you're writing an essay, article, book, script, journal entry, assignment, or blog post, Do Not Stop Writing helps you stay focused and productive.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Privacy First Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Privacy First
+				</h2>
+				<p>
+					We believe your writing belongs to you.
+				</p>
+				<p>
+					Do Not Stop Writing is designed to be simple, private, and accessible. We do not require account registration for basic use, and we strive to minimize data collection wherever possible.
+				</p>
+				<p>
+					Your writing sessions are intended to remain under your control, and we encourage users to review our <a href="/privacy" class="text-primary dark:text-white underline hover:opacity-85 font-semibold">Privacy Policy</a> for complete information regarding data handling and storage.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Our Mission Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Our Mission
+				</h2>
+				<p>
+					Our mission is to become one of the best free online writing tools for writers worldwide.
+				</p>
+				<p class="text-neutral-500 dark:text-neutral-450 font-medium">
+					We want to help people:
+				</p>
+				<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300">
+					<p>Write more consistently</p>
+					<p>Build confidence in their writing</p>
+					<p>Defeat procrastination</p>
+					<p>Overcome perfectionism</p>
+					<p>Develop productive writing habits</p>
+					<p>Finish more projects</p>
+				</div>
+				<p class="font-medium pt-2">
+					Every feature in Do Not Stop Writing is built around one goal:
+				</p>
+				<p class="text-xl italic font-semibold text-neutral-900 dark:text-white pl-4 border-l-2 border-neutral-300 dark:border-neutral-700">
+					Helping you write without stopping.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Contact Us Section -->
+			<div class="space-y-4 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+					Contact Us
+				</h2>
+				<p>
+					Have a question, feature request, bug report, or suggestion?
+				</p>
+				<p>
+					We'd love to hear from you.
+				</p>
+				<p>
+					Visit our <a href="/contact" class="text-primary dark:text-white underline hover:opacity-85 font-semibold">Contact page</a> and help us improve Do Not Stop Writing for writers around the world.
+				</p>
+			</div>
+		</div>
+
+		<!-- Footer Block -->
+		<footer class="footer-container border-t border-neutral-100 dark:border-neutral-900 pt-10 mt-16 select-none font-serif max-w-[720px] mx-auto">
+			<div class="flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs md:text-sm text-neutral-400 dark:text-neutral-500">
+				<!-- Left Side: Brand & Copyright -->
+				<div class="flex items-center gap-x-3">
+					<span>© 2026</span>
+					<span class="opacity-60">·</span>
+					<a href="/" class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-200 lowercase hover:opacity-85 no-underline font-normal">
+						donotstopwriting.com
+					</a>
+				</div>
+				<!-- Right Side: Links -->
+				<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+					<a href="/about" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline font-semibold">About</a>
+					<span class="opacity-60">·</span>
+					<a href="/contact" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Contact</a>
+					<span class="opacity-60">·</span>
+					<a href="/privacy" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Privacy Policy</a>
+					<span class="opacity-60">·</span>
+					<a href="/terms" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Terms & Conditions</a>
+				</div>
+			</div>
+		</footer>
+	</main>
+</Layout>
+
+<style is:global>
+	header, .subpage-container {
+		font-family: var(--font-serif), Georgia, serif !important;
+	}
+	.subpage-container {
+		width: 100% !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	@media (min-width: 1024px) {
+		.subpage-container {
+			width: 80% !important;
+		}
+	}
+</style>

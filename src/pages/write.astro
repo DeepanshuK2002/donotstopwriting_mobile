@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Editor from '../components/Editor';
+
+// In Astro, we can get params from Astro.url
+const time = Astro.url.searchParams.get('time') || '5';
+const words = Astro.url.searchParams.get('words') || '150';
+const hardcore = Astro.url.searchParams.get('hardcore') === 'true';
+
+const goalTime = parseInt(time, 10);
+const goalWords = parseInt(words, 10);
+const mode = Astro.url.searchParams.has('words') ? 'words' : 'time';
+---
+
+<Layout title="Writing... | Dangerous Writing" robots="noindex, nofollow" hideScrollTop={true}>
+	<Editor client:only="react" goalTime={goalTime} goalWords={goalWords} isHardcore={hardcore} mode={mode} />
+</Layout>

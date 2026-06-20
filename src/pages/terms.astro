@@ -1,0 +1,346 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle';
+---
+
+<Layout 
+	title="Terms of Service - Do Not Stop Writing | Terms & Conditions"
+	description="Terms of Service for Do Not Stop Writing. Read our terms of use and data deletion liability disclaimer."
+>
+	<!-- Sticky top navigation bar -->
+	<header class="sticky top-0 z-50 w-full bg-white dark:bg-[#111111] border-b border-neutral-100 dark:border-neutral-900 transition-colors duration-300">
+		<div class="max-w-[1200px] mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
+			<!-- Logo on left -->
+			<a 
+				href="/" 
+				id="logo" 
+				class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-100 lowercase select-none hover:opacity-85 no-underline font-normal"
+			>
+				donotstopwriting.com
+			</a>
+			<!-- Actions on right -->
+			<div class="flex items-center space-x-3">
+				<a 
+					href="/" 
+					class="flex items-center gap-1.5 px-3.5 py-1.5 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-white dark:bg-neutral-950 text-xs md:text-sm font-serif font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-primary dark:text-neutral-200 shadow-sm transition-all duration-200 no-underline cursor-pointer"
+				>
+					<span class="text-xs">→</span> Start Writing
+				</a>
+				<ThemeToggle client:load />
+			</div>
+		</div>
+	</header>
+
+	<main class="w-full bg-white dark:bg-[#111111] transition-colors duration-300 min-h-screen py-16 px-6 md:px-8">
+		<div class="subpage-container flex flex-col font-serif max-w-[720px] mx-auto space-y-10">
+			<!-- Back Navigation -->
+			<div>
+				<a 
+					href="/" 
+					class="inline-flex items-center text-[13px] text-neutral-400 dark:text-neutral-500 hover:text-primary dark:hover:text-neutral-200 transition-colors duration-200 no-underline font-sans"
+				>
+					<span class="mr-1.5">←</span> Back to Home
+				</a>
+			</div>
+
+			<!-- Hero Title & Subtitle -->
+			<div class="space-y-4">
+				<h1 class="text-[32px] md:text-[38px] font-bold tracking-tight text-primary dark:text-white leading-[1.15]">
+					Terms & Conditions
+				</h1>
+				<p class="text-sm text-neutral-400 dark:text-neutral-500 font-sans">
+					Last updated: June 2026
+				</p>
+				<p class="text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+					Welcome to <strong>Do Not Stop Writing</strong> ("Website", "Service", "we", "our", or "us"). Please read these Terms & Conditions ("Terms") carefully before using our website.
+				</p>
+				<p class="text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+					By accessing or using Do Not Stop Writing, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please discontinue use of the Service.
+				</p>
+			</div>
+
+			<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+			<!-- Content Sections -->
+			<div class="space-y-8 text-base md:text-[17px] leading-[1.8] text-neutral-800 dark:text-neutral-300">
+				<!-- Section 1 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						1. About the Service
+					</h2>
+					<p>
+						Do Not Stop Writing is a browser-based writing productivity tool designed to encourage continuous writing. Depending on the selected mode and settings, text may be automatically deleted when a user stops typing for a specified period.
+					</p>
+					<p class="font-bold text-primary dark:text-white">
+						To enforce the creative focus challenge, text selection, copying, and exporting features are disabled during an active writing session. These features only become available once you have successfully completed your selected writing goal (the specific time duration or word count you selected).
+					</p>
+					<p>
+						The Service is provided free of charge unless otherwise stated.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 2 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						2. User Responsibility
+					</h2>
+					<p>
+						By using the Service, you acknowledge and agree that:
+					</p>
+					<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>You are responsible for exporting or saving your work once the goal is successfully met.</p>
+						<p>You understand that text selection, copying, and exporting are disabled during the active writing sprint.</p>
+						<p>You understand that text may be automatically deleted if you stop typing.</p>
+						<p>You use the Service at your own risk.</p>
+						<p>You are solely responsible for any content you create, store, or submit through the Service.</p>
+					</div>
+					<p class="pt-2">
+						Once you successfully complete your selected writing goal, we strongly recommend exporting or downloading your completed work immediately.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 3 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						3. Data Loss Disclaimer
+					</h2>
+					<p>
+						A core feature of Do Not Stop Writing is the automatic deletion of text when writing stops.
+					</p>
+					<p>
+						By using the Service, you acknowledge that:
+					</p>
+					<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>Text may be permanently removed based on your selected settings.</p>
+						<p>Accidental loss of content may occur due to inactivity, browser crashes, device failures, internet issues, or user actions.</p>
+						<p>We are not responsible for recovering deleted, lost, or unsaved content.</p>
+					</div>
+					<p class="pt-2">
+						Always maintain your own backups of important documents.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 4 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						4. Acceptable Use
+					</h2>
+					<p>
+						You agree not to:
+					</p>
+					<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>Use the Service for any unlawful purpose.</p>
+						<p>Attempt to disrupt, damage, or interfere with the Website or its servers.</p>
+						<p>Reverse-engineer, copy, scrape, or reproduce the Service without written permission.</p>
+						<p>Upload or distribute malicious software, viruses, or harmful code.</p>
+						<p>Use automated tools or bots to abuse the Service.</p>
+					</div>
+					<p class="pt-2">
+						We reserve the right to restrict access to users who violate these Terms.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 5 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						5. Intellectual Property
+					</h2>
+					<p>
+						All website content, including but not limited to:
+					</p>
+					<div class="space-y-2 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>Design</p>
+						<p>Source code</p>
+						<p>Branding</p>
+						<p>Logos</p>
+						<p>Graphics</p>
+						<p>User interface elements</p>
+						<p>Written content</p>
+					</div>
+					<p class="pt-2">
+						are owned by Do Not Stop Writing and protected by applicable intellectual property laws.
+					</p>
+					<p>
+						You may not copy, distribute, modify, or commercially exploit any part of the Website without prior written permission.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 6 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						6. No Warranty
+					</h2>
+					<p class="font-bold text-primary dark:text-white">
+						The Service is provided on an "as is" and "as available" basis.
+					</p>
+					<p class="font-bold">
+						We make no warranties regarding:
+					</p>
+					<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>Availability of the Service</p>
+						<p>Accuracy of functionality</p>
+						<p>Error-free operation</p>
+						<p>Continuous uptime</p>
+						<p>Compatibility with all devices or browsers</p>
+					</div>
+					<p class="pt-2">
+						We do not guarantee that the Service will meet every user's requirements.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 7 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						7. Limitation of Liability
+					</h2>
+					<p>
+						To the maximum extent permitted by law, Do Not Stop Writing and its owners, operators, and affiliates shall not be liable for:
+					</p>
+					<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>Loss of written content</p>
+						<p>Loss of data</p>
+						<p>Loss of productivity</p>
+						<p>Business interruption</p>
+						<p>Indirect, incidental, or consequential damages</p>
+					</div>
+					<p class="pt-2 font-bold text-primary dark:text-white">
+						arising from the use of, or inability to use, the Service.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 8 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						8. Third-Party Services
+					</h2>
+					<p>
+						The Website may use or link to third-party services such as analytics providers, advertising networks, hosting providers, or external websites.
+					</p>
+					<p>
+						We are not responsible for the content, policies, or practices of third-party services.
+					</p>
+					<p class="font-bold text-primary dark:text-white">
+						Your use of such services is subject to their respective terms and policies.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 9 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						9. Service Availability
+					</h2>
+					<p>
+						We reserve the right to:
+					</p>
+					<div class="space-y-3 pl-4 border-l border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-sans text-[15px]">
+						<p>Modify the Service at any time</p>
+						<p>Add or remove features</p>
+						<p>Suspend or discontinue the Website temporarily or permanently</p>
+						<p>Restrict access for maintenance, security, or operational reasons</p>
+					</div>
+					<p class="pt-2 font-bold text-primary dark:text-white">
+						without prior notice.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 10 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						10. Privacy
+					</h2>
+					<p>
+						Your use of the Website is also governed by our <a href="/privacy" class="text-primary dark:text-white underline hover:opacity-85 font-semibold">Privacy Policy</a>, which explains how information is collected, used, and protected.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 11 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						11. Changes to These Terms
+					</h2>
+					<p>
+						We may update these Terms from time to time.
+					</p>
+					<p>
+						Any changes will be posted on this page with an updated "Last updated" date.
+					</p>
+					<p class="font-bold text-primary dark:text-white">
+						Continued use of the Service after changes become effective constitutes acceptance of the revised Terms.
+					</p>
+				</section>
+
+				<hr class="border-t border-neutral-150 dark:border-neutral-900" />
+
+				<!-- Section 12 -->
+				<section class="space-y-4">
+					<h2 class="text-xl md:text-2xl font-bold text-primary dark:text-white tracking-tight">
+						12. Contact Us
+					</h2>
+					<p>
+						If you have questions regarding these Terms & Conditions, please contact us through our <a href="/contact" class="text-primary dark:text-white underline hover:opacity-85 font-semibold">Contact page</a>.
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<!-- Footer Block -->
+		<footer class="footer-container border-t border-neutral-100 dark:border-neutral-900 pt-10 mt-16 select-none font-serif max-w-[720px] mx-auto">
+			<div class="flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs md:text-sm text-neutral-400 dark:text-neutral-500">
+				<!-- Left Side: Brand & Copyright -->
+				<div class="flex items-center gap-x-3">
+					<span>© 2026</span>
+					<span class="opacity-60">·</span>
+					<a href="/" class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-200 lowercase hover:opacity-85 no-underline font-normal">
+						donotstopwriting.com
+					</a>
+				</div>
+				<!-- Right Side: Links -->
+				<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+					<a href="/about" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline font-semibold">About</a>
+					<span class="opacity-60">·</span>
+					<a href="/contact" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Contact</a>
+					<span class="opacity-60">·</span>
+					<a href="/privacy" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Privacy Policy</a>
+					<span class="opacity-60">·</span>
+					<a href="/terms" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline font-semibold">Terms & Conditions</a>
+				</div>
+			</div>
+		</footer>
+	</main>
+</Layout>
+
+<style is:global>
+	header, .subpage-container {
+		font-family: var(--font-serif), Georgia, serif !important;
+	}
+	.subpage-container {
+		width: 100% !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	@media (min-width: 1024px) {
+		.subpage-container {
+			width: 80% !important;
+		}
+	}
+</style>

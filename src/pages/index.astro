@@ -1,11 +1,360 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Home from '../components/Home';
+import ThemeToggle from '../components/ThemeToggle';
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+	title="Do Not Stop Writing - The Dangerous Writing App"
+	description="Beat writer's block and enter flow state instantly. Do Not Stop Writing is a dangerous writing app that deletes your text if you stop typing for too long. Try the ultimate distraction-free writing challenge."
+	canonicalUrl="https://donotstopwriting.com"
+	hideScrollTop={true}
+>
+	<header class="h-24 absolute top-0 left-0 right-0 z-[100] bg-transparent">
+		<div class="relative w-full h-full flex items-center px-8 md:px-12">
+			<a 
+				href="/" 
+				id="logo" 
+				class="absolute text-[19px] font-serif tracking-wide text-primary dark:text-neutral-100 lowercase select-none hover:opacity-85 no-underline"
+				style="left: 50%; transform: translateX(-50%);"
+			>
+				donotstopwriting.com
+			</a>
+		</div>
+	</header>
+
+	<!-- Sticky Theme Toggle -->
+	<div class="fixed top-6 right-8 md:right-12 z-[100] flex items-center h-12">
+		<ThemeToggle client:load />
+	</div>
+
+	<!-- Scroll to top button -->
+	<button
+		id="scroll-top-btn"
+		aria-label="Scroll to top"
+		style="position: fixed; bottom: 2rem; right: 2rem; z-index: 99; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.08);"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M18 15l-6-6-6 6"/>
+		</svg>
+	</button>
+	
+	<main>
+		<Home client:load />
+
+		<!-- SEO-Optimized Content Section -->
+		<section class="border-t border-neutral-100 dark:border-neutral-900 bg-[#FAF7F6] dark:bg-[#121212] transition-colors duration-300 relative z-20">
+			<div class="max-w-3xl mx-auto py-24 px-6 font-serif">
+				
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-6 tracking-tight">
+					What is Do Not Stop Writing?
+				</h2>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-8">
+					<strong>Do Not Stop Writing</strong> is a minimalist, premium <strong>online writing tool</strong> and <strong>minimal writing app</strong> engineered for one core purpose: to help writers break through screen paralysis, conquer self-censorship, and build unshakeable output momentum. Commonly described as a <strong>dangerous writing app</strong>, this tool introduces a high-stakes, gamified constraint to your writing sessions. If you pause typing for too long, the screen starts to blur, visual warnings activate, and the <strong>app that deletes your writing if you stop</strong> will erase your progress entirely.
+				</p>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-12">
+					By turning your drafting sessions into a fast-paced <strong>writing challenge</strong>, this tool forces you to let go of premature editing. This <strong>creative writing tool</strong> trains your brain to prioritize raw creative output over instant refinement, making it the ultimate sandbox to develop an organic <strong>daily writing practice</strong>.
+				</p>
+
+				<hr class="border-neutral-200 dark:border-neutral-800 my-12" />
+
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-6 tracking-tight">
+					How the Dangerous Writing Challenge Works
+				</h2>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-8">
+					Entering a writing sprint is designed to be immediate, focused, and completely free of digital friction. The application is built on simple rules that foster instant engagement:
+				</p>
+				
+				<div class="space-y-6 mb-12">
+					<div class="flex items-start">
+						<div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E52525]/10 flex items-center justify-center text-[#E52525] font-sans font-bold mr-4 text-sm mt-1">1</div>
+						<div>
+							<h3 class="text-xl font-semibold text-primary dark:text-neutral-100 mb-2">Select Your Goal</h3>
+							<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+								Choose whether you want to measure your session by time or word output. Set your <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing session timer</span> (options include 3, 5, 10, 15, 30, or 60 minutes) or define your target volume (250, 500, 1000, or 2000 words).
+							</p>
+						</div>
+					</div>
+					
+					<div class="flex items-start">
+						<div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E52525]/10 flex items-center justify-center text-[#E52525] font-sans font-bold mr-4 text-sm mt-1">2</div>
+						<div>
+							<h3 class="text-xl font-semibold text-primary dark:text-neutral-100 mb-2">Start Typing</h3>
+							<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+								Click the start button. The page remains completely still, keeping the timer static, until you press your first keyboard key. This lets you gather your thoughts, take a breath, and start when you are ready.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex items-start">
+						<div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E52525]/10 flex items-center justify-center text-[#E52525] font-sans font-bold mr-4 text-sm mt-1">3</div>
+						<div>
+							<h3 class="text-xl font-semibold text-primary dark:text-neutral-100 mb-2">Maintain Your Momentum</h3>
+							<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+								If you pause typing, you have a short window (3 seconds in standard mode, or 2 seconds in hardcore mode) before your work is lost. The top progress bar begins to glow red, and the background text blurs out. Typing a single key immediately clears the blur and warning glow.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex items-start">
+						<div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E52525]/10 flex items-center justify-center text-[#E52525] font-sans font-bold mr-4 text-sm mt-1">4</div>
+						<div>
+							<h3 class="text-xl font-semibold text-primary dark:text-neutral-100 mb-2">Enable Hardcore Mode</h3>
+							<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+								For the ultimate <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing focus tool</span> test, enable Hardcore Mode. This activates blind writing. The entire text area is permanently blurred and transparent, meaning you cannot read what you have previously typed. Only the current word you are typing is displayed clearly in the center of the screen, vanishing the moment you press Space.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<hr class="border-neutral-200 dark:border-neutral-800 my-12" />
+
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-6 tracking-tight">
+					How to Overcome Writer's Block
+				</h2>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-6">
+					Writers block is rarely a lack of creative ideas. Rather, it is the paralysis caused by editing your work while trying to create it. When you pause to correct a sentence, fix a typo, or search for the perfect adjective, you switch from your creative generation brain to your analytical editor brain. This friction breaks your natural writing flow.
+				</p>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-8">
+					As a premium <strong>writer's block tool</strong>, this <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing app that forces you to keep writing</span> breaks this cycle. The immediate stakes of the countdown leave no room for second-guessing. You are forced to dump your thoughts directly onto the screen. This technique, often called "free writing," separates creation from editing, allowing you to produce high-volume drafts that you can refine later.
+				</p>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-12">
+					By embracing this <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing flow tool</span>, you learn to write through fear and imperfection. You will find that once the filter is removed, your writing becomes more expressive, intuitive, and natural.
+				</p>
+
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-6 tracking-tight">
+					Entering the Elusive Flow State
+				</h2>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-6">
+					The flow state is a psychological condition where a person is fully immersed in an activity, characterized by energized focus, total involvement, and deep enjoyment. For writers, entering a <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">flow state writing</span> session is the holy grail. 
+				</p>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-12">
+					Our <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing flow state app</span> uses gamified urgency to push you into this zone quickly. When you write without the option to stop, distractions fade away. Your typing speed increases, your self-consciousness drops, and the words begin to stream directly from your imagination to your keyboard.
+				</p>
+
+				<hr class="border-neutral-200 dark:border-neutral-800 my-12" />
+
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-6 tracking-tight">
+					Why Distraction-Free Writing Matters
+				</h2>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-6">
+					Modern writing software is filled with visual clutter: toolbars, sidebars, alerts, complex formatting systems, and grammar-checking underlines. These interfaces invite you to stop, adjust, and correct, pulling you out of your creative zone.
+				</p>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-12">
+					`Do Not Stop Writing` is a <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">focus writing app</span> that strips away all elements of editing. There are no fonts to select, no margins to adjust, and no spelling corrections to draw your eye. It is just you, your thoughts, and a blinking cursor. This clean <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">distraction free writing</span> interface, paired with our <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">online writing sprint timer</span>, creates a dedicated mental space for high-volume creation.
+				</p>
+
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-6 tracking-tight">
+					A Tool for Novel Writing and Creative Projects
+				</h2>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-6">
+					For authors working on novels, essays, or screenplays, drafting the first version of a project is often the most challenging stage. Using a <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">novel writing tool</span> or <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">story writing app</span> like ours helps you practice "fast drafting." Instead of spending three months on a first chapter, you can draft it in a single, high-stakes 30-minute writing sprint.
+				</p>
+				<p class="text-neutral-600 dark:text-neutral-400 text-base md:text-lg leading-relaxed mb-12">
+					This <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing streak app</span> and <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing motivation app</span> is the perfect companion for creative challenges like NaNoWriMo, helping you hit your daily word targets, build writing discipline, and form a reliable <span class="text-[#E52525]/75 dark:text-[#E52525]/80 font-semibold italic">writing habit builder</span> routine.
+				</p>
+
+				<hr class="border-neutral-200 dark:border-neutral-800 my-12" />
+
+				<h2 class="text-3xl md:text-4xl font-semibold text-primary dark:text-neutral-100 mb-8 tracking-tight">
+					Frequently Asked Questions (FAQ)
+				</h2>
+				
+				<div class="space-y-8">
+					<div>
+						<h3 class="text-lg md:text-xl font-semibold text-primary dark:text-neutral-100 mb-2">
+							What is a dangerous writing app?
+						</h3>
+						<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+							A dangerous writing app is a minimalist writing tool that uses high-stakes constraints to eliminate writer's block. If you stop typing for more than a few seconds, the application begins to fade and eventually deletes everything you have written in that session to keep you moving forward.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="text-lg md:text-xl font-semibold text-primary dark:text-neutral-100 mb-2">
+							How does this tool help beat writer's block?
+						</h3>
+						<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+							Writer's block is usually caused by over-analyzing your sentences while you are drafting them. By forcing you to write continuously, this writer's block tool bypasses your self-criticism, allowing your ideas to flow naturally onto the screen without interruption.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="text-lg md:text-xl font-semibold text-primary dark:text-neutral-100 mb-2">
+							What is Hardcore Blind Writing Mode?
+						</h3>
+						<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+							Hardcore Mode is an advanced distraction-free writing option. When enabled, the background text is permanently blurred and transparent, so you cannot read what you have previously written. Only the current word you are actively typing appears on screen, preventing you from looking back and self-editing.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="text-lg md:text-xl font-semibold text-primary dark:text-neutral-100 mb-2">
+							Is this writing productivity app free?
+						</h3>
+						<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+							Yes, Do Not Stop Writing is a completely free online tool. It is accessible directly from your browser without any required registration, ad pop-ups, or editing limitations.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="text-lg md:text-xl font-semibold text-primary dark:text-neutral-100 mb-2">
+							Can I download my writing?
+						</h3>
+						<p class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+							Yes. Once you successfully reach your selected time limit or word count goal, the danger condition is disabled, and a download menu appears allowing you to immediately save your work in various formats, including Word (.docx, .doc), plain text (.txt), PDF (.pdf), OpenDocument (.odt), Rich Text (.rtf), Apple Pages, XML, and more.
+						</p>
+					</div>
+				</div>
+
+				<hr class="border-neutral-200 dark:border-neutral-800 my-12" />
+
+				<!-- Inline Footer Block -->
+				<footer class="select-none font-serif pt-4 pb-8">
+					<div class="flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs md:text-sm text-neutral-400 dark:text-neutral-500">
+						<!-- Left Side: Brand & Copyright -->
+						<div class="flex items-center gap-x-3">
+							<span>© 2026</span>
+							<span class="opacity-60">·</span>
+							<a href="/" class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-200 lowercase hover:opacity-85 no-underline font-normal">
+								donotstopwriting.com
+							</a>
+						</div>
+						<!-- Right Side: Links -->
+						<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+							<a href="/about" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">About</a>
+							<span class="opacity-60">·</span>
+							<a href="/contact" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Contact</a>
+							<span class="opacity-60">·</span>
+							<a href="/privacy" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Privacy Policy</a>
+							<span class="opacity-60">·</span>
+							<a href="/terms" class="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200 no-underline">Terms & Conditions</a>
+						</div>
+					</div>
+				</footer>
+
+			</div>
+		</section>
+	</main>
+
+	<!-- FAQ Page Schema Markup -->
+	<script type="application/ld+json" is:inline>
+		{
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "What is a dangerous writing app?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "A dangerous writing app is a minimalist writing tool that uses high-stakes constraints to eliminate writer's block. If you stop typing for more than a few seconds, the application begins to fade and eventually deletes everything you have written in that session to keep you moving forward."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How does this tool help beat writer's block?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Writer's block is usually caused by over-analyzing your sentences while you are drafting them. By forcing you to write continuously, this writer's block tool bypasses your self-criticism, allowing your ideas to flow naturally onto the screen without interruption."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is Hardcore Blind Writing Mode?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Hardcore Mode is an advanced distraction-free writing option. When enabled, the background text is permanently blurred and transparent, so you cannot read what you have previously written. Only the current word you are actively typing appears on screen, preventing you from looking back and self-editing."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is this writing productivity app free?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes, Do Not Stop Writing is a completely free online tool. It is accessible directly from your browser without any required registration, ad pop-ups, or editing limitations."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Can I download my writing?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes. Once you successfully reach your selected time limit or word count goal, the danger condition is disabled, and a download menu appears allowing you to immediately save your work in various formats, including Word (.docx, .doc), plain text (.txt), PDF (.pdf), OpenDocument (.odt), Rich Text (.rtf), Apple Pages, XML, and more."
+					}
+				}
+			]
+		}
+	</script>
+
+	<!-- Scroll-to-top script -->
+	<script is:inline>
+		var isBtnVisible = false;
+
+		function onScroll() {
+			var btn = document.getElementById('scroll-top-btn');
+			var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+			// Scroll-to-top button (optimized state guard)
+			var currentlyBtnVisible = scrollY > 300;
+			if (currentlyBtnVisible !== isBtnVisible) {
+				isBtnVisible = currentlyBtnVisible;
+				if (btn) {
+					if (isBtnVisible) {
+						btn.style.opacity = '1';
+						btn.style.pointerEvents = 'auto';
+					} else {
+						btn.style.opacity = '0';
+						btn.style.pointerEvents = 'none';
+					}
+				}
+			}
+		}
+
+		// Scroll-to-top click handler + hover glow
+		var topBtn = document.getElementById('scroll-top-btn');
+		if (topBtn) {
+			topBtn.style.transition = 'opacity 0.35s ease, transform 0.2s ease, box-shadow 0.2s ease';
+			topBtn.addEventListener('click', function() {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+			topBtn.addEventListener('mouseenter', function() {
+				topBtn.style.transform = 'scale(1.08)';
+				topBtn.style.boxShadow = document.documentElement.classList.contains('dark')
+					? '0 4px 20px rgba(0,0,0,0.5), 0 0 0 3px rgba(255,255,255,0.06)'
+					: '0 4px 20px rgba(0,0,0,0.14), 0 0 0 3px rgba(0,0,0,0.05)';
+			});
+			topBtn.addEventListener('mouseleave', function() {
+				topBtn.style.transform = 'scale(1)';
+				topBtn.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
+			});
+		}
+
+		// Dark mode styling for the button
+		var isDark = document.documentElement.classList.contains('dark');
+		if (isDark && topBtn) {
+			topBtn.style.background = 'rgba(30,30,30,0.85)';
+			topBtn.style.borderColor = 'rgba(255,255,255,0.1)';
+			topBtn.style.color = '#e5e5e5';
+		}
+
+		// Watch for theme changes
+		var observer = new MutationObserver(function() {
+			var btn2 = document.getElementById('scroll-top-btn');
+			if (!btn2) return;
+			if (document.documentElement.classList.contains('dark')) {
+				btn2.style.background = 'rgba(30,30,30,0.85)';
+				btn2.style.borderColor = 'rgba(255,255,255,0.1)';
+				btn2.style.color = '#e5e5e5';
+			} else {
+				btn2.style.background = 'rgba(255,255,255,0.85)';
+				btn2.style.borderColor = 'rgba(0,0,0,0.1)';
+				btn2.style.color = '#111111';
+			}
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+		window.addEventListener('scroll', onScroll);
+		onScroll();
+	</script>
 </Layout>
