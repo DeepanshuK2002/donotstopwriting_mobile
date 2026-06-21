@@ -102,6 +102,17 @@ const {
 			document.documentElement.classList.add('custom-macos-theme');
 		}
 		</script>
+
+		<!-- Register Service Worker for PWA installability -->
+		<script is:inline>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker.register('/sw.js')
+						.then(reg => console.log('Service Worker registered successfully!', reg.scope))
+						.catch(err => console.error('Service Worker registration failed:', err));
+				});
+			}
+		</script>
 	</head>
 	<body class="min-h-screen bg-background text-primary dark:bg-[#111111] dark:text-neutral-100 transition-colors duration-300">
 		<slot />

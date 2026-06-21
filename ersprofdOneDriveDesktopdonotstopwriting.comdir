@@ -1,0 +1,137 @@
+warning: in the working copy of 'src/pages/dropdata.astro', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/src/pages/dropdata.astro b/src/pages/dropdata.astro[m
+[1mindex 458d01b..bfae507 100644[m
+[1m--- a/src/pages/dropdata.astro[m
+[1m+++ b/src/pages/dropdata.astro[m
+[36m@@ -105,9 +105,9 @@[m [mimport ThemeToggle from '../components/ThemeToggle';[m
+ 						<div id="panel-receive" class="space-y-5 hidden">[m
+ 							<div class="text-center space-y-1">[m
+ 								<h3 class="text-md font-bold text-slate-900 dark:text-white">Connect to Room</h3>[m
+[31m-								<p class="text-xs text-slate-600 dark:text-slate-400">Enter the 9-digit room code from the sender.</p>[m
+[32m+[m								[32m<p class="text-xs text-slate-600 dark:text-slate-400">Enter the 9-digit room code or scan the sender's QR code.</p>[m
+ 							</div>[m
+[31m-							<div class="space-y-3">[m
+[32m+[m							[32m<div class="space-y-3" id="receive-manual-container">[m
+ 								<input [m
+ 									type="text" [m
+ 									id="input-room-code" [m
+[36m@@ -115,8 +115,30 @@[m [mimport ThemeToggle from '../components/ThemeToggle';[m
+ 									maxlength="11" [m
+ 									class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-350 dark:border-white/10 text-center text-md font-mono tracking-widest text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:border-blue-500 focus:outline-none transition-colors duration-200 uppercase"[m
+ 								/>[m
+[31m-								<button id="btn-connect-room" class="w-full py-3 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-xl text-xs font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer">[m
+[31m-									Connect to Sender[m
+[32m+[m								[32m<div class="flex gap-2 items-center">[m
+[32m+[m									[32m<button id="btn-connect-room" class="flex-1 py-3 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-xl text-xs font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer border-0">[m
+[32m+[m										[32mConnect to Sender[m
+[32m+[m									[32m</button>[m
+[32m+[m									[32m<button id="btn-scan-qr" class="p-2.5 bg-transparent text-slate-550 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center border border-slate-300 dark:border-white/10" title="Scan QR Code">[m
+[32m+[m										[32m<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">[m
+[32m+[m											[32m<path d="M4 8V6a2 2 0 0 1 2-2h2"/>[m
+[32m+[m											[32m<path d="M16 4h2a2 2 0 0 1 2 2v2"/>[m
+[32m+[m											[32m<path d="M4 16v2a2 2 0 0 0 2 2h2"/>[m
+[32m+[m											[32m<path d="M16 20h2a2 2 0 0 0 2-2v-2"/>[m
+[32m+[m											[32m<line x1="7" y1="12" x2="17" y2="12" stroke="currentColor"/>[m
+[32m+[m										[32m</svg>[m
+[32m+[m									[32m</button>[m
+[32m+[m								[32m</div>[m
+[32m+[m							[32m</div>[m
+[32m+[m
+[32m+[m							[32m<!-- QR Scanner Container (Hidden initially) -->[m
+[32m+[m							[32m<div id="receive-scanner-container" class="space-y-3 hidden">[m
+[32m+[m								[32m<div class="relative overflow-hidden rounded-2xl bg-black border border-slate-350 dark:border-white/10 w-full aspect-square max-w-[280px] mx-auto">[m
+[32m+[m									[32m<div id="qr-reader" class="w-full h-full"></div>[m
+[32m+[m									[32m<div class="absolute inset-0 border-[3px] border-dashed border-blue-500 pointer-events-none opacity-40 animate-pulse m-6 rounded-xl"></div>[m
+[32m+[m								[32m</div>[m
+[32m+[m								[32m<button id="btn-cancel-scan" class="w-full py-2 px-4 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-xs font-bold font-sans tracking-wide transition-all duration-200 cursor-pointer border border-slate-200 dark:border-white/5">[m
+[32m+[m									[32mCancel Scanner[m
+ 								</button>[m
+ 							</div>[m
+ 						</div>[m
+[36m@@ -350,6 +372,7 @@[m [mimport ThemeToggle from '../components/ThemeToggle';[m
+ [m
+ <script is:inline src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>[m
+ <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>[m
+[32m+[m[32m<script is:inline src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>[m
+ [m
+ <script is:inline>[m
+ 	(function() {[m
+[36m@@ -421,6 +444,12 @@[m [mimport ThemeToggle from '../components/ThemeToggle';[m
+ 		const inputChatMsg = document.getElementById('input-chat-msg');[m
+ 		const btnSendChat = document.getElementById('btn-send-chat');[m
+ 		const chatBadge = document.getElementById('chat-badge');[m
+[32m+[m[41m		[m
+[32m+[m		[32m// QR Code Scanner UI Selectors[m
+[32m+[m		[32mconst btnScanQr = document.getElementById('btn-scan-qr');[m
+[32m+[m		[32mconst btnCancelScan = document.getElementById('btn-cancel-scan');[m
+[32m+[m		[32mconst receiveManualContainer = document.getElementById('receive-manual-container');[m
+[32m+[m		[32mconst receiveScannerContainer = document.getElementById('receive-scanner-container');[m
+ [m
+ 		// --- State Variables ---[m
+ 		let peer = null;[m
+[36m@@ -601,6 +630,74 @@[m [mimport ThemeToggle from '../components/ThemeToggle';[m
+ 			e.target.value = formatted;[m
+ 		});[m
+ [m
+[32m+[m		[32m// --- QR Code Scanner Logic ---[m
+[32m+[m		[32mlet html5QrCode = null;[m
+[32m+[m
+[32m+[m		[32mbtnScanQr.addEventListener('click', () => {[m
+[32m+[m			[32mstartQrScanner();[m
+[32m+[m		[32m});[m
+[32m+[m
+[32m+[m		[32mbtnCancelScan.addEventListener('click', () => {[m
+[32m+[m			[32mstopQrScanner();[m
+[32m+[m		[32m});[m
+[32m+[m
+[32m+[m		[32mfunction startQrScanner() {[m
+[32m+[m			[32mreceiveManualContainer.classList.add('hidden');[m
+[32m+[m			[32mreceiveScannerContainer.classList.remove('hidden');[m
+[32m+[m[41m			[m
+[32m+[m			[32mhtml5QrCode = new Html5Qrcode("qr-reader");[m
+[32m+[m[41m			[m
+[32m+[m			[32mconst qrCodeSuccessCallback = (decodedText) => {[m
+[32m+[m				[32mconsole.log("Scanned text successfully:", decodedText);[m
+[32m+[m[41m				[m
+[32m+[m				[32mlet room = '';[m
+[32m+[m				[32mtry {[m
+[32m+[m					[32mconst url = new URL(decodedText);[m
+[32m+[m					[32mroom = url.searchParams.get('room') || '';[m
+[32m+[m				[32m} catch (e) {[m
+[32m+[m					[32m// Check if raw 9-digit code[m
+[32m+[m					[32mif (/^\d{3}-\d{3}-\d{3}$/.test(decodedText)) {[m
+[32m+[m						[32mroom = decodedText;[m
+[32m+[m					[32m}[m
+[32m+[m				[32m}[m
+[32m+[m
+[32m+[m				[32mif (room) {[m
+[32m+[m					[32mstopQrScanner();[m
+[32m+[m					[32minputRoomCode.value = room;[m
+[32m+[m					[32minitializeReceiver(room);[m
+[32m+[m				[32m}[m
+[32m+[m			[32m};[m
+[32m+[m
+[32m+[m			[32mconst config = { fps: 15, qrbox: { width: 220, height: 220 } };[m
+[32m+[m
+[32m+[m			[32mhtml5QrCode.start([m
+[32m+[m				[32m{ facingMode: "environment" },[m
+[32m+[m				[32mconfig,[m
+[32m+[m				[32mqrCodeSuccessCallback[m
+[32m+[m			[32m).catch((err) => {[m
+[32m+[m				[32mconsole.error("Failed to start QR scanner:", err);[m
+[32m+[m				[32malert("Could not access camera. Please allow camera permissions or enter the room code manually.");[m
+[32m+[m				[32mstopQrScanner();[m
+[32m+[m			[32m});[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mfunction stopQrScanner() {[m
+[32m+[m			[32mif (html5QrCode) {[m
+[32m+[m				[32mif (html5QrCode.isScanning) {[m
+[32m+[m					[32mhtml5QrCode.stop().then(() => {[m
+[32m+[m						[32mhtml5QrCode.clear();[m
+[32m+[m						[32mhtml5QrCode = null;[m
+[32m+[m					[32m}).catch(err => {[m
+[32m+[m						[32mconsole.error("Failed to stop QR scanner:", err);[m
+[32m+[m					[32m});[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32mhtml5QrCode = null;[

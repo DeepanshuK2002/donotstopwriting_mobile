@@ -195,6 +195,7 @@ import ThemeToggle from '../components/ThemeToggle';
 									<span class="w-2 h-2 rounded-full bg-blue-500"></span>
 									<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Connected to Receiver</span>
 								</div>
+								<button id="btn-leave-room-sender" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave Room</button>
 							</div>
 							
 							<!-- Drag and Drop Dropzone -->
@@ -223,7 +224,10 @@ import ThemeToggle from '../components/ThemeToggle';
 								<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
 									<div id="sender-progress-bar" class="bg-blue-500 h-full w-[0%] transition-all duration-150"></div>
 								</div>
-								<p id="sender-status-msg" class="text-[10px] text-blue-600 dark:text-blue-400 italic">Sending chunks...</p>
+								<div class="flex items-center justify-between">
+									<p id="sender-status-msg" class="text-[10px] text-blue-600 dark:text-blue-400 italic">Sending chunks...</p>
+									<button id="btn-cancel-transfer" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-transparent border-0 cursor-pointer focus:outline-none hidden">Cancel</button>
+								</div>
 							</div>
 						</div>
 
@@ -234,6 +238,7 @@ import ThemeToggle from '../components/ThemeToggle';
 									<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
 									<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Connected to Sender</span>
 								</div>
+								<button id="btn-leave-room-receiver" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave Room</button>
 							</div>
 							
 							<!-- Empty Waiting State -->
@@ -318,6 +323,13 @@ import ThemeToggle from '../components/ThemeToggle';
 						<div id="history-list" class="space-y-2 max-h-[120px] overflow-y-auto pr-1">
 							<!-- Dynamic History Items -->
 						</div>
+					</div>
+
+					<!-- PWA Install Banner (Hidden initially) -->
+					<div id="pwa-install-banner" class="hidden mt-6 pt-4 border-t border-slate-200 dark:border-white/5 text-center select-none">
+						<button id="btn-pwa-install" class="w-full py-2.5 px-4 bg-blue-500/10 text-blue-600 hover:bg-blue-500/15 dark:bg-blue-500/20 dark:text-blue-400 dark:hover:bg-blue-500/30 rounded-xl text-xs font-bold font-sans tracking-wide transition-all duration-200 cursor-pointer border border-blue-500/20">
+							Add Shortcut / Install App
+						</button>
 					</div>
 				</div>
 
@@ -425,6 +437,8 @@ import ThemeToggle from '../components/ThemeToggle';
 		const senderPercentage = document.getElementById('sender-percentage');
 		const senderProgressBar = document.getElementById('sender-progress-bar');
 		const senderStatusMsg = document.getElementById('sender-status-msg');
+		const btnCancelTransfer = document.getElementById('btn-cancel-transfer');
+		const btnLeaveRoomSender = document.getElementById('btn-leave-room-sender');
 		
 		// Receiver progress
 		const receiverIdleState = document.getElementById('receiver-idle-state');
@@ -434,6 +448,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		const receiverPercentage = document.getElementById('receiver-percentage');
 		const receiverProgressBar = document.getElementById('receiver-progress-bar');
 		const receiverStatusMsg = document.getElementById('receiver-status-msg');
+		const btnLeaveRoomReceiver = document.getElementById('btn-leave-room-receiver');
 		
 		// Connected Tab Switcher & Chat UI Selectors
 		const tabsConnectedContainer = document.getElementById('tabs-connected-container');
@@ -451,6 +466,10 @@ import ThemeToggle from '../components/ThemeToggle';
 		const btnCancelScan = document.getElementById('btn-cancel-scan');
 		const receiveManualContainer = document.getElementById('receive-manual-container');
 		const receiveScannerContainer = document.getElementById('receive-scanner-container');
+		
+		// PWA Install UI Selectors
+		const pwaInstallBanner = document.getElementById('pwa-install-banner');
+		const btnPwaInstall = document.getElementById('btn-pwa-install');
 
 		// --- State Variables ---
 		let peer = null;
@@ -933,7 +952,7 @@ import ThemeToggle from '../components/ThemeToggle';
 					if (activeConnectedTab !== 'chat') {
 						chatBadge.classList.remove('hidden');
 					}
-				} else if (data.type === 'peer-closed-tab') {
+				} else if (data.type === 'peer-closed-tab' || data.type === 'peer-left') {
 					handlePeerDisconnect();
 				}
 			});
@@ -992,22 +1011,25 @@ import ThemeToggle from '../components/ThemeToggle';
 		}
 
 		let offset = 0;
-		const CHUNK_SIZE = 65536; // 64KB optimized chunk size for fast WebRTC transmission
+		const CHUNK_SIZE = 16384; // 16KB optimized chunk size for cross-device WebRTC
 		let isFinishing = false;
+		let isCancelled = false;
 
 		function startFileSharing() {
 			if (!connection) return;
 			offset = 0;
 			isFinishing = false;
+			isCancelled = false;
 			
 			senderStatusMsg.innerText = 'Connecting transfer protocol...';
+			btnCancelTransfer.classList.remove('hidden');
 			
 			// Configure data channel buffering
 			const dc = connection.dataChannel;
 			if (dc) {
-				dc.bufferedAmountLowThreshold = 262144; // 256KB low-water mark
+				dc.bufferedAmountLowThreshold = 65536; // 64KB low-water mark
 				dc.onbufferedamountlow = () => {
-					sendChunks();
+					if (!isCancelled) sendChunks();
 				};
 			}
 			
@@ -1021,17 +1043,17 @@ import ThemeToggle from '../components/ThemeToggle';
 		}
 
 		function sendChunks() {
-			if (!connection || !fileBuffer) return;
+			if (!connection || !fileBuffer || isCancelled) return;
 			
 			const dc = connection.dataChannel;
-			// 1MB buffer limit (high-water mark)
-			const BUFFER_LIMIT = 1048576; 
+			// 256KB buffer limit (high-water mark)
+			const BUFFER_LIMIT = 262144; 
 			
 			senderStatusMsg.innerText = 'Streaming data packages...';
 
 			// If dataChannel is available, use it for buffered flow control
 			if (dc) {
-				while (offset < fileBuffer.byteLength && dc.bufferedAmount < BUFFER_LIMIT) {
+				while (offset < fileBuffer.byteLength && dc.bufferedAmount < BUFFER_LIMIT && !isCancelled) {
 					const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
 					offset += CHUNK_SIZE;
 					
@@ -1042,7 +1064,7 @@ import ThemeToggle from '../components/ThemeToggle';
 				}
 			} else {
 				// Fallback if dataChannel is not exposed
-				while (offset < fileBuffer.byteLength) {
+				while (offset < fileBuffer.byteLength && !isCancelled) {
 					const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
 					offset += CHUNK_SIZE;
 					connection.send({
@@ -1057,13 +1079,14 @@ import ThemeToggle from '../components/ThemeToggle';
 			senderPercentage.innerText = `${progress}%`;
 			senderProgressBar.style.width = `${progress}%`;
 
-			if (offset >= fileBuffer.byteLength && !isFinishing) {
+			if (offset >= fileBuffer.byteLength && !isFinishing && !isCancelled) {
 				isFinishing = true;
 				checkBufferAndFinish();
 			}
 		}
 
 		function checkBufferAndFinish() {
+			if (isCancelled) return;
 			const dc = connection ? connection.dataChannel : null;
 			if (!dc || dc.bufferedAmount === 0) {
 				// Send complete flag
@@ -1074,6 +1097,7 @@ import ThemeToggle from '../components/ThemeToggle';
 				senderPercentage.innerText = '100%';
 				senderProgressBar.style.width = '100%';
 				senderStatusMsg.innerHTML = '<span class="text-emerald-450 font-bold">✓ File transferred successfully!</span>';
+				btnCancelTransfer.classList.add('hidden');
 				
 				// Add to session history
 				sessionHistory.push({
@@ -1143,7 +1167,7 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 
 			connection.on('data', (data) => {
-				if (data.type === 'peer-closed-tab') {
+				if (data.type === 'peer-closed-tab' || data.type === 'peer-left') {
 					handlePeerDisconnect();
 					return;
 				}
@@ -1153,6 +1177,18 @@ import ThemeToggle from '../components/ThemeToggle';
 					if (activeConnectedTab !== 'chat') {
 						chatBadge.classList.remove('hidden');
 					}
+					return;
+				}
+
+				if (data.type === 'file-cancel') {
+					receiverStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Transfer cancelled by sender.</span>';
+					setTimeout(() => {
+						receiverIdleState.classList.remove('hidden');
+						receiverProgressBlock.classList.add('hidden');
+						receivedChunks = [];
+						receivedSize = 0;
+						fileMetadata = null;
+					}, 3000);
 					return;
 				}
 
@@ -1231,6 +1267,44 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 		}
 
+		// --- Button Handlers for New Actions ---
+		if (btnCancelTransfer) {
+			btnCancelTransfer.addEventListener('click', () => {
+				if (!connection || isCancelled || isFinishing) return;
+				isCancelled = true;
+				connection.send({ type: 'file-cancel' });
+				
+				senderStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Transfer cancelled.</span>';
+				btnCancelTransfer.classList.add('hidden');
+				
+				setTimeout(() => {
+					dropzone.classList.remove('hidden');
+					senderProgressBlock.classList.add('hidden');
+					fileInput.value = '';
+					activeFile = null;
+					fileBuffer = null;
+				}, 3000);
+			});
+		}
+
+		if (btnLeaveRoomSender) {
+			btnLeaveRoomSender.addEventListener('click', () => {
+				if (connection && connection.open) {
+					connection.send({ type: 'peer-left' });
+				}
+				handlePeerDisconnect();
+			});
+		}
+
+		if (btnLeaveRoomReceiver) {
+			btnLeaveRoomReceiver.addEventListener('click', () => {
+				if (connection && connection.open) {
+					connection.send({ type: 'peer-left' });
+				}
+				handlePeerDisconnect();
+			});
+		}
+
 		// --- Auto-connect from Query Param ---
 		window.addEventListener('load', () => {
 			const urlParams = new URLSearchParams(window.location.search);
@@ -1261,6 +1335,61 @@ import ThemeToggle from '../components/ThemeToggle';
 			}
 			if (peer) {
 				peer.destroy();
+			}
+		});
+
+		// --- PWA Installation Logic ---
+		let deferredPrompt = null;
+
+		const isIOS = () => {
+			return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+		};
+
+		const isStandalone = () => {
+			return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+		};
+
+		window.addEventListener('beforeinstallprompt', (e) => {
+			e.preventDefault();
+			deferredPrompt = e;
+			if (pwaInstallBanner && !isStandalone()) {
+				pwaInstallBanner.classList.remove('hidden');
+			}
+		});
+
+		window.addEventListener('load', () => {
+			if (isIOS() && !isStandalone()) {
+				if (pwaInstallBanner) {
+					pwaInstallBanner.classList.remove('hidden');
+					btnPwaInstall.innerText = "Install PWA (iOS Instructions)";
+				}
+			}
+		});
+
+		if (btnPwaInstall) {
+			btnPwaInstall.addEventListener('click', () => {
+				if (isIOS()) {
+					alert("To install DNSW on your iPhone/iPad:\n\n1. Tap the Share button in Safari (at the bottom or top of the screen).\n2. Scroll down and select 'Add to Home Screen'.");
+					return;
+				}
+				if (!deferredPrompt) return;
+				deferredPrompt.prompt();
+				deferredPrompt.userChoice.then((choiceResult) => {
+					if (choiceResult.outcome === 'accepted') {
+						console.log('User accepted PWA installation');
+					}
+					deferredPrompt = null;
+					if (pwaInstallBanner) {
+						pwaInstallBanner.classList.add('hidden');
+					}
+				});
+			});
+		}
+
+		window.addEventListener('appinstalled', () => {
+			console.log('PWA installed successfully!');
+			if (pwaInstallBanner) {
+				pwaInstallBanner.classList.add('hidden');
 			}
 		});
 
