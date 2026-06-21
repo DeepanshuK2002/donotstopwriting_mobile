@@ -466,6 +466,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		let sessionHistory = [];
 		let expiryTimerInterval = null;
 		let activeConnectedTab = 'files'; // 'files' or 'chat'
+		let isLeavingIntentionally = false;
 
 		// --- Tab Switch Logic ---
 		tabSend.addEventListener('click', () => {
@@ -786,6 +787,8 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		// --- Connection/Disconnect Handling ---
 		function handlePeerDisconnect() {
+			if (isLeavingIntentionally) return;
+			
 			clearExpiryTimer();
 			
 			if (connection) {
@@ -1353,6 +1356,7 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		if (btnLeaveRoom) {
 			btnLeaveRoom.addEventListener('click', () => {
+				isLeavingIntentionally = true;
 				broadcast({ type: 'peer-left' });
 				// Clean reset back to start screen without "Connection Lost" error
 				window.location.href = window.location.pathname;
