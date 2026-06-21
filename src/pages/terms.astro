@@ -7,29 +7,29 @@ import ThemeToggle from '../components/ThemeToggle';
 	title="Terms of Service - Do Not Stop Writing | Terms & Conditions"
 	description="Terms of Service for Do Not Stop Writing. Read our terms of use and data deletion liability disclaimer."
 >
-	<!-- Sticky top navigation bar (Floating Capsule / iPhone Notch Style) -->
-	<div class="sticky top-0 z-50 w-full pt-4 px-4 md:px-8 select-none">
-		<nav class="max-w-[1200px] mx-auto flex items-center justify-between bg-black/85 dark:bg-black/90 backdrop-blur-xl border border-white/10 rounded-full py-2.5 px-5 md:px-7 shadow-[0_8px_30px_rgba(0,0,0,0.3)]">
+	<!-- Sticky top navigation bar -->
+	<header class="sticky top-0 z-50 w-full bg-white dark:bg-[#111111] border-b border-neutral-100 dark:border-neutral-900 transition-colors duration-300">
+		<div class="max-w-[1200px] mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
 			<!-- Logo on left -->
 			<a 
 				href="/" 
 				id="logo" 
-				class="font-serif text-[18px] tracking-wide text-white lowercase select-none hover:opacity-85 no-underline font-normal"
+				class="font-serif text-[19px] tracking-wide text-primary dark:text-neutral-100 lowercase select-none hover:opacity-85 no-underline font-normal"
 			>
 				donotstopwriting.com
 			</a>
 			<!-- Actions on right -->
-			<div class="flex items-center space-x-3 md:space-x-4">
+			<div class="flex items-center space-x-3">
 				<a 
 					href="/" 
-					class="inline-flex items-center bg-white text-black hover:bg-neutral-100 rounded-full px-4.5 py-1.5 text-xs font-bold shadow-sm transition-all duration-200 no-underline cursor-pointer"
+					class="flex items-center gap-1.5 px-3.5 py-1.5 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-white dark:bg-neutral-950 text-xs md:text-sm font-serif font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 text-primary dark:text-neutral-200 shadow-sm transition-all duration-200 no-underline cursor-pointer"
 				>
-					Start Writing
+					<span class="text-xs">→</span> Start Writing
 				</a>
 				<ThemeToggle client:load />
 			</div>
-		</nav>
-	</div>
+		</div>
+	</header>
 
 	<main class="w-full bg-white dark:bg-[#111111] transition-colors duration-300 min-h-screen py-16 px-6 md:px-8">
 		<div class="subpage-container flex flex-col font-serif max-w-[720px] mx-auto space-y-10">
