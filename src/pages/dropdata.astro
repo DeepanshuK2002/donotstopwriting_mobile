@@ -188,14 +188,14 @@ import ThemeToggle from '../components/ThemeToggle';
 							</div>
 						</div>
 
-						<!-- Panel D: Connected (Active P2P Fileshare - Sender / Dropzone) (Hidden initially) -->
-						<div id="panel-sender-active" class="space-y-5 hidden">
+						<!-- Panel D: Shared Active Connection (Bidirectional) -->
+						<div id="panel-shared-active" class="space-y-5 hidden">
 							<div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-3">
 								<div class="flex items-center gap-2">
-									<span class="w-2 h-2 rounded-full bg-blue-500"></span>
-									<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Connected to Receiver</span>
+									<span class="w-2 h-2 rounded-full bg-blue-500" id="connection-status-dot"></span>
+									<span class="text-xs font-bold text-slate-700 dark:text-slate-300" id="connection-status-text">Connected to Peer</span>
 								</div>
-								<button id="btn-leave-room-sender" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave Room</button>
+								<button id="btn-leave-room" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave Room</button>
 							</div>
 							
 							<!-- Drag and Drop Dropzone -->
@@ -212,7 +212,7 @@ import ThemeToggle from '../components/ThemeToggle';
 								<input type="file" id="file-input" class="hidden" />
 							</div>
 
-							<!-- Transfer Progress Block (Hidden initially) -->
+							<!-- Transfer Progress Block (Sender) -->
 							<div id="sender-progress-block" class="space-y-3 bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/5 p-4 rounded-xl text-left hidden">
 								<div class="flex justify-between items-start gap-3">
 									<div class="truncate flex-1">
@@ -229,28 +229,8 @@ import ThemeToggle from '../components/ThemeToggle';
 									<button id="btn-cancel-transfer" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-transparent border-0 cursor-pointer focus:outline-none hidden">Cancel</button>
 								</div>
 							</div>
-						</div>
 
-						<!-- Panel E: Receiver Active (Hidden initially) -->
-						<div id="panel-receiver-active" class="space-y-5 hidden">
-							<div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-3">
-								<div class="flex items-center gap-2">
-									<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-									<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Connected to Sender</span>
-								</div>
-								<button id="btn-leave-room-receiver" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave Room</button>
-							</div>
-							
-							<!-- Empty Waiting State -->
-							<div id="receiver-idle-state" class="flex flex-col items-center justify-center py-6 gap-3">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-400 dark:text-slate-500 animate-pulse" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-									<polyline points="12 6 12 12 16 14"/>
-								</svg>
-								<p class="text-xs text-slate-650 dark:text-slate-450">Waiting for sender to select files...</p>
-							</div>
-
-							<!-- Transfer Progress Block (Hidden initially) -->
+							<!-- Transfer Progress Block (Receiver) -->
 							<div id="receiver-progress-block" class="space-y-3 bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/5 p-4 rounded-xl text-left hidden">
 								<div class="flex justify-between items-start gap-3">
 									<div class="truncate flex-1">
@@ -407,8 +387,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		const panelSend = document.getElementById('panel-send');
 		const panelReceive = document.getElementById('panel-receive');
 		const panelSenderWaiting = document.getElementById('panel-sender-waiting');
-		const panelSenderActive = document.getElementById('panel-sender-active');
-		const panelReceiverActive = document.getElementById('panel-receiver-active');
+		const panelSharedActive = document.getElementById('panel-shared-active');
 		const panelConnectionLost = document.getElementById('panel-connection-lost');
 		
 		const btnCreateRoom = document.getElementById('btn-create-room');
@@ -417,6 +396,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		const btnRefreshCode = document.getElementById('btn-refresh-code');
 		const btnReconnect = document.getElementById('btn-reconnect');
 		const btnDownloadHistory = document.getElementById('btn-download-history');
+		const btnLeaveRoom = document.getElementById('btn-leave-room');
 		
 		const displayRoomCode = document.getElementById('display-room-code');
 		const inputRoomCode = document.getElementById('input-room-code');
@@ -429,6 +409,8 @@ import ThemeToggle from '../components/ThemeToggle';
 		
 		const dropzone = document.getElementById('dropzone');
 		const fileInput = document.getElementById('file-input');
+		const connectionStatusDot = document.getElementById('connection-status-dot');
+		const connectionStatusText = document.getElementById('connection-status-text');
 		
 		// Sender progress
 		const senderProgressBlock = document.getElementById('sender-progress-block');
@@ -438,17 +420,14 @@ import ThemeToggle from '../components/ThemeToggle';
 		const senderProgressBar = document.getElementById('sender-progress-bar');
 		const senderStatusMsg = document.getElementById('sender-status-msg');
 		const btnCancelTransfer = document.getElementById('btn-cancel-transfer');
-		const btnLeaveRoomSender = document.getElementById('btn-leave-room-sender');
 		
 		// Receiver progress
-		const receiverIdleState = document.getElementById('receiver-idle-state');
 		const receiverProgressBlock = document.getElementById('receiver-progress-block');
 		const receiverFileName = document.getElementById('receiver-file-name');
 		const receiverFileSize = document.getElementById('receiver-file-size');
 		const receiverPercentage = document.getElementById('receiver-percentage');
 		const receiverProgressBar = document.getElementById('receiver-progress-bar');
 		const receiverStatusMsg = document.getElementById('receiver-status-msg');
-		const btnLeaveRoomReceiver = document.getElementById('btn-leave-room-receiver');
 		
 		// Connected Tab Switcher & Chat UI Selectors
 		const tabsConnectedContainer = document.getElementById('tabs-connected-container');
@@ -473,7 +452,9 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		// --- State Variables ---
 		let peer = null;
-		let connection = null;
+		let connections = {}; // Maps peerId -> DataConnection
+		let peerNames = {}; // Maps peerId -> string
+		let myUsername = '';
 		let roomCode = '';
 		let activeFile = null;
 		let fileBuffer = null;
@@ -542,24 +523,16 @@ import ThemeToggle from '../components/ThemeToggle';
 				
 				panelChat.classList.add('hidden');
 				
-				// Show active panel based on role
-				if (peer && peer.id === roomCode) {
-					// Sender
-					panelSenderActive.classList.remove('hidden');
-					panelSenderActive.classList.add('animate-panel-in');
-				} else {
-					// Receiver
-					panelReceiverActive.classList.remove('hidden');
-					panelReceiverActive.classList.add('animate-panel-in');
-				}
+				// Show active panel
+				panelSharedActive.classList.remove('hidden');
+				panelSharedActive.classList.add('animate-panel-in');
 			} else {
 				tabChat.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
 				tabFiles.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
 				
 				tabConnectedIndicator.style.transform = 'translateX(100%)';
 				
-				panelSenderActive.classList.add('hidden');
-				panelReceiverActive.classList.add('hidden');
+				panelSharedActive.classList.add('hidden');
 				
 				panelChat.classList.remove('hidden');
 				panelChat.classList.add('animate-panel-in');
@@ -570,10 +543,31 @@ import ThemeToggle from '../components/ThemeToggle';
 			}
 		}
 
+		// --- Connection Utilities ---
+		function broadcast(data) {
+			Object.values(connections).forEach(conn => {
+				if (conn.open) {
+					conn.send(data);
+				}
+			});
+		}
+
+		function updatePresenceUI() {
+			const activeCount = Object.keys(connections).length;
+			if (activeCount > 0) {
+				connectionStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+			} else {
+				connectionStatusDot.className = 'w-2 h-2 rounded-full bg-slate-400';
+			}
+		}
+
 		// --- Chat Message Logic ---
 		function appendChatMessage(senderName, text, time, isSelf) {
 			const msgDiv = document.createElement('div');
-			if (isSelf) {
+			if (senderName === 'System') {
+				msgDiv.className = 'flex justify-center w-full my-2';
+				msgDiv.innerHTML = `<span class="text-[10px] bg-slate-200/50 dark:bg-white/5 text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full font-mono text-center">${text}</span>`;
+			} else if (isSelf) {
 				msgDiv.className = 'flex flex-col items-end space-y-1';
 				msgDiv.innerHTML = `
 					<div class="bg-blue-500 text-white rounded-2xl rounded-tr-none px-3 py-2 text-xs max-w-[85%] break-words shadow-sm">
@@ -597,13 +591,14 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		function sendChatMessage() {
 			const text = inputChatMsg.value.trim();
-			if (!text || !connection || !connection.open) return;
+			if (!text || Object.keys(connections).length === 0) return;
 			
 			const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-			connection.send({
+			broadcast({
 				type: 'chat-message',
 				text: text,
-				time: time
+				time: time,
+				senderName: myUsername
 			});
 			
 			appendChatMessage('You', text, time, true);
@@ -802,8 +797,7 @@ import ThemeToggle from '../components/ThemeToggle';
 			panelSend.classList.add('hidden');
 			panelReceive.classList.add('hidden');
 			panelSenderWaiting.classList.add('hidden');
-			panelSenderActive.classList.add('hidden');
-			panelReceiverActive.classList.add('hidden');
+			panelSharedActive.classList.add('hidden');
 			panelChat.classList.add('hidden');
 			tabsContainer.classList.add('hidden');
 			tabsConnectedContainer.classList.add('hidden');
@@ -878,8 +872,14 @@ import ThemeToggle from '../components/ThemeToggle';
 			initializeSender();
 		});
 
+		const guestNamesList = ['Fox', 'Wolf', 'Bear', 'Lion', 'Lynx', 'Hawk', 'Dove', 'Crow', 'Swan', 'Owl'];
+		function getRandomGuestName() {
+			return guestNamesList[Math.floor(Math.random() * guestNamesList.length)];
+		}
+
 		// --- SENDER STATE ACTIONS ---
 		btnCreateRoom.addEventListener('click', () => {
+			myUsername = 'Admin';
 			initializeSender();
 		});
 
@@ -907,12 +907,12 @@ import ThemeToggle from '../components/ThemeToggle';
 
 			peer.on('open', (id) => {
 				console.log('Sender peer registry open on ID:', id);
+				setupHostEnvironment();
 			});
 
 			peer.on('connection', (conn) => {
-				console.log('Receiver connected to room!');
-				connection = conn;
-				setupSenderCommunication();
+				console.log('Peer connected to room!');
+				addConnection(conn, true);
 			});
 
 			peer.on('error', (err) => {
@@ -928,7 +928,7 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 		}
 
-		function setupSenderCommunication() {
+		function setupHostEnvironment() {
 			clearExpiryTimer();
 			
 			// Show connected tab container and set tab to files
@@ -936,33 +936,192 @@ import ThemeToggle from '../components/ThemeToggle';
 			tabsConnectedContainer.classList.remove('hidden');
 			switchConnectedTab('files');
 
-			// Update UI to active file transmission panel
 			panelSenderWaiting.classList.add('hidden');
-			panelSenderActive.classList.remove('hidden');
+			panelSharedActive.classList.remove('hidden');
+			connectionStatusText.innerText = `Connected as ${myUsername}`;
+			updatePresenceUI();
+		}
 
-			connection.on('open', () => {
-				console.log('P2P connection open between Sender & Receiver');
+		function addConnection(conn, isHost) {
+			connections[conn.peer] = conn;
+
+			conn.on('open', () => {
+				console.log(`Connected to peer ${conn.peer}`);
+				const guestName = conn.metadata?.username || 'Guest';
+				peerNames[conn.peer] = guestName;
+				
+				// If I am Host, send the new guest the current mesh info
+				if (isHost && conn.peer !== roomCode) {
+					const peerList = Object.keys(connections).map(id => ({
+						id,
+						name: peerNames[id] || 'Guest'
+					}));
+					peerList.push({ id: peer.id, name: myUsername }); // Add myself to the list
+
+					conn.send({
+						type: 'peer-list',
+						peers: peerList
+					});
+					
+					// Broadcast to other existing guests that a new guest joined
+					Object.values(connections).forEach(c => {
+						if (c.peer !== conn.peer && c.open) {
+							c.send({
+								type: 'peer-joined',
+								id: conn.peer,
+								name: guestName
+							});
+						}
+					});
+				}
+				
+				updatePresenceUI();
+				appendChatMessage('System', `${guestName} joined the room.`, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), false);
 			});
 
-			connection.on('data', (data) => {
-				if (data.type === 'start-transfer') {
-					sendChunks();
-				} else if (data.type === 'chat-message') {
-					appendChatMessage('Receiver', data.text, data.time, false);
-					if (activeConnectedTab !== 'chat') {
-						chatBadge.classList.remove('hidden');
-					}
-				} else if (data.type === 'peer-closed-tab' || data.type === 'peer-left') {
+			conn.on('data', (data) => {
+				handleIncomingData(conn, data);
+			});
+
+			conn.on('close', () => {
+				const name = peerNames[conn.peer] || 'Unknown';
+				appendChatMessage('System', `${name} left the room.`, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), false);
+				
+				delete connections[conn.peer];
+				delete peerNames[conn.peer];
+				updatePresenceUI();
+
+				if (conn.peer === roomCode) {
+					// Host left! Initiate 5 sec countdown if we have other peers, otherwise close instantly
+					handleHostDisconnect();
+				} else if (Object.keys(connections).length === 0) {
+					// Everyone left
 					handlePeerDisconnect();
 				}
 			});
-
-			connection.on('close', () => {
-				handlePeerDisconnect();
-			});
 		}
 
-		// --- DRAG AND DROP HANDLERS (SENDER) ---
+		function handleHostDisconnect() {
+			if (Object.keys(connections).length >= 1) { // We are still connected to at least 1 other guest
+				receiverStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Host left! Room closing in 5s...</span>';
+				appendChatMessage('System', `Host left! Room destroying in 5 seconds...`, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), false);
+				setTimeout(() => {
+					handlePeerDisconnect();
+				}, 5000);
+			} else {
+				handlePeerDisconnect();
+			}
+		}
+
+		function handleIncomingData(conn, data) {
+			if (data.type === 'peer-closed-tab' || data.type === 'peer-left') {
+				conn.close(); // let the close event handle UI updates
+				return;
+			}
+
+			if (data.type === 'peer-list') {
+				// Received by Guest from Host upon joining. Connect to all other guests.
+				data.peers.forEach(p => {
+					if (p.id !== peer.id && !connections[p.id]) {
+						console.log('Connecting to mesh peer:', p.id);
+						peerNames[p.id] = p.name;
+						const newConn = peer.connect(p.id, { metadata: { username: myUsername } });
+						addConnection(newConn, false);
+					}
+				});
+				return;
+			}
+
+			if (data.type === 'peer-joined') {
+				// Received by Guest from Host when another guest joins
+				peerNames[data.id] = data.name;
+				return; // The new guest will connect to us
+			}
+
+			if (data.type === 'chat-message') {
+				appendChatMessage(data.senderName || peerNames[conn.peer] || 'User', data.text, data.time, false);
+				if (activeConnectedTab !== 'chat') {
+					chatBadge.classList.remove('hidden');
+				}
+				return;
+			}
+
+			if (data.type === 'start-transfer') {
+				sendChunks();
+				return;
+			}
+
+			if (data.type === 'file-cancel') {
+				receiverStatusMsg.innerHTML = `<span class="text-red-500 font-bold">Transfer cancelled by ${peerNames[conn.peer] || 'peer'}.</span>`;
+				setTimeout(() => {
+					receiverProgressBlock.classList.add('hidden');
+					receivedChunks = [];
+					receivedSize = 0;
+					fileMetadata = null;
+				}, 3000);
+				return;
+			}
+
+			if (data.type === 'file-meta') {
+				fileMetadata = data;
+				receivedChunks = [];
+				receivedSize = 0;
+				
+				receiverProgressBlock.classList.remove('hidden');
+				receiverFileName.innerText = fileMetadata.filename;
+				receiverFileSize.innerText = formatBytes(fileMetadata.size);
+				receiverPercentage.innerText = '0%';
+				receiverProgressBar.style.width = '0%';
+				receiverStatusMsg.innerText = `Receiving from ${peerNames[conn.peer] || 'peer'}...`;
+				
+				// Automatically accept files by triggering start-transfer. We can't broadcast this! We must send to the specific sender.
+				conn.send({ type: 'start-transfer' });
+			} 
+			else if (data.type === 'file-chunk') {
+				receivedChunks.push(data.chunk);
+				receivedSize += data.chunk.byteLength;
+
+				const progress = Math.min(100, Math.trunc((receivedSize / fileMetadata.size) * 100));
+				receiverPercentage.innerText = `${progress}%`;
+				receiverProgressBar.style.width = `${progress}%`;
+				receiverStatusMsg.innerText = `Receiving package (${formatBytes(receivedSize)} / ${formatBytes(fileMetadata.size)})...`;
+			} 
+			else if (data.type === 'file-done') {
+				receiverStatusMsg.innerText = 'Reassembling file packages...';
+				
+				const blob = new Blob(receivedChunks);
+				const downloadUrl = URL.createObjectURL(blob);
+				
+				const a = document.createElement('a');
+				a.href = downloadUrl;
+				a.download = fileMetadata.filename;
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(downloadUrl);
+				
+				receiverPercentage.innerText = '100%';
+				receiverProgressBar.style.width = '100%';
+				receiverStatusMsg.innerHTML = '<span class="text-emerald-500 font-bold">✓ Download Completed! check your downloads folder.</span>';
+
+				sessionHistory.push({
+					filename: fileMetadata.filename,
+					size: fileMetadata.size,
+					type: 'Received',
+					time: new Date().toLocaleTimeString()
+				});
+				updateHistoryUI();
+
+				setTimeout(() => {
+					receiverProgressBlock.classList.add('hidden');
+					receivedChunks = [];
+					receivedSize = 0;
+					fileMetadata = null;
+				}, 5000);
+			}
+		}
+
+		// --- DRAG AND DROP HANDLERS (SHARED) ---
 		dropzone.addEventListener('click', () => fileInput.click());
 
 		dropzone.addEventListener('dragover', (e) => {
@@ -1016,7 +1175,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		let isCancelled = false;
 
 		function startFileSharing() {
-			if (!connection) return;
+			if (Object.keys(connections).length === 0) return;
 			offset = 0;
 			isFinishing = false;
 			isCancelled = false;
@@ -1024,17 +1183,7 @@ import ThemeToggle from '../components/ThemeToggle';
 			senderStatusMsg.innerText = 'Connecting transfer protocol...';
 			btnCancelTransfer.classList.remove('hidden');
 			
-			// Configure data channel buffering
-			const dc = connection.dataChannel;
-			if (dc) {
-				dc.bufferedAmountLowThreshold = 65536; // 64KB low-water mark
-				dc.onbufferedamountlow = () => {
-					if (!isCancelled) sendChunks();
-				};
-			}
-			
-			// Send metadata
-			connection.send({
+			broadcast({
 				type: 'file-meta',
 				filename: activeFile.name,
 				size: activeFile.size,
@@ -1043,43 +1192,45 @@ import ThemeToggle from '../components/ThemeToggle';
 		}
 
 		function sendChunks() {
-			if (!connection || !fileBuffer || isCancelled) return;
+			if (Object.keys(connections).length === 0 || !fileBuffer || isCancelled) return;
 			
-			const dc = connection.dataChannel;
-			// 256KB buffer limit (high-water mark)
 			const BUFFER_LIMIT = 262144; 
-			
 			senderStatusMsg.innerText = 'Streaming data packages...';
 
-			// If dataChannel is available, use it for buffered flow control
-			if (dc) {
-				while (offset < fileBuffer.byteLength && dc.bufferedAmount < BUFFER_LIMIT && !isCancelled) {
-					const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
-					offset += CHUNK_SIZE;
-					
-					connection.send({
-						type: 'file-chunk',
-						chunk: chunk
-					});
+			// Check if ANY connection has a full buffer
+			let bufferFull = false;
+			Object.values(connections).forEach(conn => {
+				if (conn.dataChannel && conn.dataChannel.bufferedAmount > BUFFER_LIMIT) {
+					bufferFull = true;
 				}
-			} else {
-				// Fallback if dataChannel is not exposed
-				while (offset < fileBuffer.byteLength && !isCancelled) {
-					const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
-					offset += CHUNK_SIZE;
-					connection.send({
-						type: 'file-chunk',
-						chunk: chunk
-					});
-				}
+			});
+
+			if (bufferFull) {
+				setTimeout(sendChunks, 50);
+				return;
 			}
 
-			// Update progress bar
+			const BATCH_SIZE = 65536; // 64KB batch
+			let sentInBatch = 0;
+
+			while (offset < fileBuffer.byteLength && sentInBatch < BATCH_SIZE && !isCancelled) {
+				const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
+				offset += CHUNK_SIZE;
+				sentInBatch += chunk.byteLength;
+				
+				broadcast({
+					type: 'file-chunk',
+					chunk: chunk
+				});
+			}
+
 			const progress = Math.min(100, Math.trunc((offset / fileBuffer.byteLength) * 100));
 			senderPercentage.innerText = `${progress}%`;
 			senderProgressBar.style.width = `${progress}%`;
 
-			if (offset >= fileBuffer.byteLength && !isFinishing && !isCancelled) {
+			if (offset < fileBuffer.byteLength && !isCancelled) {
+				setTimeout(sendChunks, 0);
+			} else if (offset >= fileBuffer.byteLength && !isFinishing && !isCancelled) {
 				isFinishing = true;
 				checkBufferAndFinish();
 			}
@@ -1087,10 +1238,16 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		function checkBufferAndFinish() {
 			if (isCancelled) return;
-			const dc = connection ? connection.dataChannel : null;
-			if (!dc || dc.bufferedAmount === 0) {
-				// Send complete flag
-				connection.send({
+			
+			let bufferClearing = false;
+			Object.values(connections).forEach(conn => {
+				if (conn.dataChannel && conn.dataChannel.bufferedAmount > 0) {
+					bufferClearing = true;
+				}
+			});
+
+			if (!bufferClearing) {
+				broadcast({
 					type: 'file-done'
 				});
 				
@@ -1099,7 +1256,6 @@ import ThemeToggle from '../components/ThemeToggle';
 				senderStatusMsg.innerHTML = '<span class="text-emerald-450 font-bold">✓ File transferred successfully!</span>';
 				btnCancelTransfer.classList.add('hidden');
 				
-				// Add to session history
 				sessionHistory.push({
 					filename: activeFile.name,
 					size: activeFile.size,
@@ -1108,7 +1264,6 @@ import ThemeToggle from '../components/ThemeToggle';
 				});
 				updateHistoryUI();
 
-				// Reset files for next round after 4 seconds
 				setTimeout(() => {
 					dropzone.classList.remove('hidden');
 					senderProgressBlock.classList.add('hidden');
@@ -1117,7 +1272,6 @@ import ThemeToggle from '../components/ThemeToggle';
 					fileBuffer = null;
 				}, 4000);
 			} else {
-				// Wait for buffer to clear before sending done message
 				setTimeout(checkBufferAndFinish, 100);
 			}
 		}
@@ -1126,6 +1280,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		btnConnectRoom.addEventListener('click', () => {
 			const code = inputRoomCode.value.trim();
 			if (code.length === 11) { // 000-000-000 is 11 chars with dashes
+				myUsername = getRandomGuestName();
 				initializeReceiver(code);
 			} else {
 				alert('Please enter a valid 9-digit Room Code.');
@@ -1140,139 +1295,40 @@ import ThemeToggle from '../components/ThemeToggle';
 			tabsContainer.classList.add('hidden');
 			panelReceive.classList.add('hidden');
 			
-			// Show connected tab container and set tab to files
 			tabsConnectedContainer.classList.remove('hidden');
 			switchConnectedTab('files');
-
-			panelReceiverActive.classList.remove('hidden');
+			panelSharedActive.classList.remove('hidden');
+			connectionStatusText.innerText = `Connected as ${myUsername}`;
+			updatePresenceUI();
 
 			// Connect
 			peer = new Peer();
 
 			peer.on('open', (id) => {
 				console.log('Receiver peer active, connecting to sender:', targetCode);
-				connection = peer.connect(targetCode);
-				setupReceiverCommunication();
+				const conn = peer.connect(targetCode, { metadata: { username: myUsername } });
+				peerNames[targetCode] = 'Admin';
+				addConnection(conn, false);
 			});
 
 			peer.on('error', (err) => {
 				console.error('PeerJS Connection Error:', err);
 				handlePeerDisconnect();
 			});
-		}
 
-		function setupReceiverCommunication() {
-			connection.on('open', () => {
-				console.log('P2P connection established on Receiver end!');
-			});
-
-			connection.on('data', (data) => {
-				if (data.type === 'peer-closed-tab' || data.type === 'peer-left') {
-					handlePeerDisconnect();
-					return;
-				}
-
-				if (data.type === 'chat-message') {
-					appendChatMessage('Sender', data.text, data.time, false);
-					if (activeConnectedTab !== 'chat') {
-						chatBadge.classList.remove('hidden');
-					}
-					return;
-				}
-
-				if (data.type === 'file-cancel') {
-					receiverStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Transfer cancelled by sender.</span>';
-					setTimeout(() => {
-						receiverIdleState.classList.remove('hidden');
-						receiverProgressBlock.classList.add('hidden');
-						receivedChunks = [];
-						receivedSize = 0;
-						fileMetadata = null;
-					}, 3000);
-					return;
-				}
-
-				if (data.type === 'file-meta') {
-					// Metadata received
-					fileMetadata = data;
-					receivedChunks = [];
-					receivedSize = 0;
-					
-					// Update UI
-					receiverIdleState.classList.add('hidden');
-					receiverProgressBlock.classList.remove('hidden');
-					
-					receiverFileName.innerText = fileMetadata.filename;
-					receiverFileSize.innerText = formatBytes(fileMetadata.size);
-					receiverPercentage.innerText = '0%';
-					receiverProgressBar.style.width = '0%';
-					receiverStatusMsg.innerText = 'Ready to stream. Initiating transfer...';
-					
-					// Request the transfer to start
-					connection.send({ type: 'start-transfer' });
-				} 
-				else if (data.type === 'file-chunk') {
-					// Chunk received
-					receivedChunks.push(data.chunk);
-					receivedSize += data.chunk.byteLength;
-
-					// Update UI progress
-					const progress = Math.min(100, Math.trunc((receivedSize / fileMetadata.size) * 100));
-					receiverPercentage.innerText = `${progress}%`;
-					receiverProgressBar.style.width = `${progress}%`;
-					receiverStatusMsg.innerText = `Receiving package (${formatBytes(receivedSize)} / ${formatBytes(fileMetadata.size)})...`;
-				} 
-				else if (data.type === 'file-done') {
-					// Transmission complete, assemble Blob and download
-					receiverStatusMsg.innerText = 'Reassembling file packages...';
-					
-					const blob = new Blob(receivedChunks);
-					const downloadUrl = URL.createObjectURL(blob);
-					
-					// Auto download
-					const a = document.createElement('a');
-					a.href = downloadUrl;
-					a.download = fileMetadata.filename;
-					document.body.appendChild(a);
-					a.click();
-					document.body.removeChild(a);
-					URL.revokeObjectURL(downloadUrl);
-					
-					receiverPercentage.innerText = '100%';
-					receiverProgressBar.style.width = '100%';
-					receiverStatusMsg.innerHTML = '<span class="text-emerald-500 font-bold">✓ Download Completed! check your downloads folder.</span>';
-
-					// Add to session history
-					sessionHistory.push({
-						filename: fileMetadata.filename,
-						size: fileMetadata.size,
-						type: 'Received',
-						time: new Date().toLocaleTimeString()
-					});
-					updateHistoryUI();
-
-					// Return back to idle after a few seconds
-					setTimeout(() => {
-						receiverIdleState.classList.remove('hidden');
-						receiverProgressBlock.classList.add('hidden');
-						receivedChunks = [];
-						receivedSize = 0;
-						fileMetadata = null;
-					}, 5000);
-				}
-			});
-
-			connection.on('close', () => {
-				handlePeerDisconnect();
+			// As a guest, I also need to accept incoming connections from other guests!
+			peer.on('connection', (conn) => {
+				console.log('Guest received mesh connection from another guest!');
+				addConnection(conn, false);
 			});
 		}
 
 		// --- Button Handlers for New Actions ---
 		if (btnCancelTransfer) {
 			btnCancelTransfer.addEventListener('click', () => {
-				if (!connection || isCancelled || isFinishing) return;
+				if (Object.keys(connections).length === 0 || isCancelled || isFinishing) return;
 				isCancelled = true;
-				connection.send({ type: 'file-cancel' });
+				broadcast({ type: 'file-cancel' });
 				
 				senderStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Transfer cancelled.</span>';
 				btnCancelTransfer.classList.add('hidden');
@@ -1287,20 +1343,9 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 		}
 
-		if (btnLeaveRoomSender) {
-			btnLeaveRoomSender.addEventListener('click', () => {
-				if (connection && connection.open) {
-					connection.send({ type: 'peer-left' });
-				}
-				handlePeerDisconnect();
-			});
-		}
-
-		if (btnLeaveRoomReceiver) {
-			btnLeaveRoomReceiver.addEventListener('click', () => {
-				if (connection && connection.open) {
-					connection.send({ type: 'peer-left' });
-				}
+		if (btnLeaveRoom) {
+			btnLeaveRoom.addEventListener('click', () => {
+				broadcast({ type: 'peer-left' });
 				handlePeerDisconnect();
 			});
 		}
