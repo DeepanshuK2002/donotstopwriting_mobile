@@ -50,13 +50,11 @@ import ThemeToggle from '../components/ThemeToggle';
 		<main class="flex-1 flex flex-col items-center justify-center px-4 py-12 md:py-16 relative z-10">
 			<div class="w-full max-w-[640px] mx-auto text-center space-y-8">
 				
-
-
 				<!-- Main Headline -->
-				<div class="space-y-3 animate-fade-in">
+				<div class="space-y-3 animate-fade-in pt-6 md:pt-10">
 					<h1 class="text-4xl md:text-[54px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] font-sans">
 						Drop once.<br />
-						<span class="italic font-serif font-light text-blue-600 dark:text-blue-400">Receive instantly.</span>
+						<span class="inline-block mt-1 italic font-serif font-light text-blue-600 dark:text-blue-400">Receive instantly.</span>
 					</h1>
 					<p class="text-slate-650 dark:text-slate-400 text-sm md:text-base max-w-[480px] mx-auto leading-relaxed">
 						dropdata transfers files directly between browser tabs using WebRTC. No file size limits, no server storage, and complete peer-to-peer security.
@@ -67,11 +65,12 @@ import ThemeToggle from '../components/ThemeToggle';
 				<div class="app-card bg-white/70 dark:bg-slate-950/40 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.7)] text-center max-w-[450px] w-full mx-auto relative overflow-hidden transition-all duration-300">
 					
 					<!-- Card Header Tab Switcher (State 1: Selection) -->
-					<div id="tabs-container" class="flex p-1 bg-slate-200/50 dark:bg-black/40 rounded-full border border-slate-350 dark:border-white/5 mb-6 select-none">
-						<button id="tab-send" class="flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-blue-600 dark:text-white bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20">
+					<div id="tabs-container" class="relative flex p-1 bg-slate-200/50 dark:bg-black/40 rounded-full border border-slate-350 dark:border-white/5 mb-6 select-none">
+						<div id="tab-indicator" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded-full transition-transform duration-300 ease-out z-0"></div>
+						<button id="tab-send" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-blue-600 dark:text-white cursor-pointer focus:outline-none">
 							Send Files
 						</button>
-						<button id="tab-receive" class="flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white">
+						<button id="tab-receive" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer focus:outline-none">
 							Receive Files
 						</button>
 					</div>
@@ -113,13 +112,21 @@ import ThemeToggle from '../components/ThemeToggle';
 						<!-- Panel C: Sender Waiting Room (Hidden initially) -->
 						<div id="panel-sender-waiting" class="space-y-5 hidden">
 							<div class="space-y-2">
-								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400">Share This Room Code</span>
+								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-650 dark:text-slate-400">Share This Room Code</span>
 								<div class="flex items-center justify-center gap-3">
 									<span id="display-room-code" class="text-2xl md:text-3xl font-mono font-bold tracking-widest text-slate-900 dark:text-white">--- --- ---</span>
 									<button id="btn-copy-code" class="p-2 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 border border-slate-200 dark:border-white/5" title="Copy code">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 											<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
 											<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+										</svg>
+									</button>
+									<button id="btn-refresh-code" class="p-2 bg-transparent hover:bg-slate-200/50 dark:hover:bg-white/10 rounded-lg text-slate-650 dark:text-slate-350 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 border-0 focus:outline-none" title="Generate new code">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+											<polyline points="16 3 21 8 16 8"/>
+											<path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+											<polyline points="8 21 3 16 8 16"/>
 										</svg>
 									</button>
 								</div>
@@ -131,11 +138,18 @@ import ThemeToggle from '../components/ThemeToggle';
 								<div class="p-2 bg-white rounded-2xl w-[140px] h-[140px] flex items-center justify-center shadow-lg">
 									<canvas id="qr-canvas"></canvas>
 								</div>
+								<!-- Expiry timer container -->
+								<div id="expiry-timer-container" class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 flex items-center justify-center gap-1.5">
+									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 animate-pulse">
+										<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+									</svg>
+									<span>Code expires in <strong id="expiry-timer" class="font-mono text-slate-800 dark:text-slate-200">5:00</strong></span>
+								</div>
 							</div>
 
 							<div class="flex flex-col items-center justify-center gap-2 pt-1">
 								<div class="w-4 h-4 rounded-full border-2 border-blue-500/20 border-t-blue-500 animate-spin"></div>
-								<p class="text-[11px] text-slate-600 dark:text-slate-400">Waiting for receiver to connect...</p>
+								<p class="text-[11px] text-slate-650 dark:text-slate-400">Waiting for receiver to connect...</p>
 							</div>
 						</div>
 
@@ -193,7 +207,7 @@ import ThemeToggle from '../components/ThemeToggle';
 									<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
 									<polyline points="12 6 12 12 16 14"/>
 								</svg>
-								<p class="text-xs text-slate-600 dark:text-slate-400">Waiting for sender to select files...</p>
+								<p class="text-xs text-slate-650 dark:text-slate-450">Waiting for sender to select files...</p>
 							</div>
 
 							<!-- Transfer Progress Block (Hidden initially) -->
@@ -212,6 +226,37 @@ import ThemeToggle from '../components/ThemeToggle';
 							</div>
 						</div>
 
+						<!-- Panel F: Connection Lost (Hidden initially) -->
+						<div id="panel-connection-lost" class="space-y-5 hidden">
+							<div class="flex flex-col items-center justify-center py-6 gap-3 select-none">
+								<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" class="animate-bounce" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+									<line x1="12" y1="9" x2="12" y2="13"/>
+									<line x1="12" y1="17" x2="12.01" y2="17"/>
+								</svg>
+								<h3 class="text-md font-bold text-slate-900 dark:text-white">Connection Lost</h3>
+								<p class="text-xs text-slate-650 dark:text-slate-450 text-center max-w-[280px]">
+									The other user has closed their tab or disconnected from this session.
+								</p>
+							</div>
+							<button id="btn-reconnect" class="w-full py-3 px-4 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 rounded-xl text-xs font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer">
+								Return to Start
+							</button>
+						</div>
+
+					</div>
+
+					<!-- Session History Container -->
+					<div id="session-history-container" class="mt-6 pt-4 border-t border-slate-200 dark:border-white/5 text-left hidden">
+						<div class="flex items-center justify-between mb-2 select-none">
+							<span class="text-[10px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400">Session History (<span id="history-count">0</span>)</span>
+							<button id="btn-download-history" class="text-[10px] font-sans font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 bg-transparent border-0 cursor-pointer focus:outline-none transition-colors">
+								Download Log
+							</button>
+						</div>
+						<div id="history-list" class="space-y-2 max-h-[120px] overflow-y-auto pr-1">
+							<!-- Dynamic History Items -->
+						</div>
 					</div>
 				</div>
 
@@ -270,23 +315,43 @@ import ThemeToggle from '../components/ThemeToggle';
 
 <script is:inline>
 	(function() {
+		// Change favicon to dropdata logo on load
+		function updateFavicon() {
+			const faviconLinks = document.querySelectorAll("link[rel*='icon']");
+			faviconLinks.forEach(link => {
+				link.href = "/dropdata-icon.png";
+			});
+		}
+		updateFavicon();
+
 		// --- UI Selectors ---
 		const tabSend = document.getElementById('tab-send');
 		const tabReceive = document.getElementById('tab-receive');
 		const tabsContainer = document.getElementById('tabs-container');
+		const tabIndicator = document.getElementById('tab-indicator');
 		
 		const panelSend = document.getElementById('panel-send');
 		const panelReceive = document.getElementById('panel-receive');
 		const panelSenderWaiting = document.getElementById('panel-sender-waiting');
 		const panelSenderActive = document.getElementById('panel-sender-active');
 		const panelReceiverActive = document.getElementById('panel-receiver-active');
+		const panelConnectionLost = document.getElementById('panel-connection-lost');
 		
 		const btnCreateRoom = document.getElementById('btn-create-room');
 		const btnConnectRoom = document.getElementById('btn-connect-room');
 		const btnCopyCode = document.getElementById('btn-copy-code');
+		const btnRefreshCode = document.getElementById('btn-refresh-code');
+		const btnReconnect = document.getElementById('btn-reconnect');
+		const btnDownloadHistory = document.getElementById('btn-download-history');
 		
 		const displayRoomCode = document.getElementById('display-room-code');
 		const inputRoomCode = document.getElementById('input-room-code');
+		
+		const expiryTimer = document.getElementById('expiry-timer');
+		const expiryTimerContainer = document.getElementById('expiry-timer-container');
+		const sessionHistoryContainer = document.getElementById('session-history-container');
+		const historyCount = document.getElementById('history-count');
+		const historyList = document.getElementById('history-list');
 		
 		const dropzone = document.getElementById('dropzone');
 		const fileInput = document.getElementById('file-input');
@@ -318,6 +383,10 @@ import ThemeToggle from '../components/ThemeToggle';
 		let receivedSize = 0;
 		let fileMetadata = null;
 
+		// New Session States
+		let sessionHistory = [];
+		let expiryTimerInterval = null;
+
 		// --- Tab Switch Logic ---
 		tabSend.addEventListener('click', () => {
 			switchTab('send');
@@ -329,17 +398,29 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		function switchTab(mode) {
 			if (mode === 'send') {
-				tabSend.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-blue-600 dark:text-white bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20';
-				tabReceive.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white';
+				tabSend.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
+				tabReceive.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
+				
+				tabIndicator.style.transform = 'translateX(0)';
+				
+				panelReceive.classList.add('hidden');
+				panelReceive.classList.remove('animate-panel-in');
 				
 				panelSend.classList.remove('hidden');
-				panelReceive.classList.add('hidden');
+				void panelSend.offsetWidth; // trigger reflow
+				panelSend.classList.add('animate-panel-in');
 			} else {
-				tabReceive.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-blue-600 dark:text-white bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20';
-				tabSend.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white';
+				tabReceive.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
+				tabSend.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
+				
+				tabIndicator.style.transform = 'translateX(100%)';
+				
+				panelSend.classList.add('hidden');
+				panelSend.classList.remove('animate-panel-in');
 				
 				panelReceive.classList.remove('hidden');
-				panelSend.classList.add('hidden');
+				void panelReceive.offsetWidth; // trigger reflow
+				panelReceive.classList.add('animate-panel-in');
 			}
 		}
 
@@ -397,6 +478,135 @@ import ThemeToggle from '../components/ThemeToggle';
 			}
 		});
 
+		// --- 5-Minute Expiry Countdown ---
+		function startExpiryTimer() {
+			if (expiryTimerInterval) {
+				clearInterval(expiryTimerInterval);
+			}
+			
+			let timeLeft = 300; // 5 minutes in seconds
+			expiryTimerContainer.classList.remove('hidden');
+			
+			function updateTimerText() {
+				const mins = Math.floor(timeLeft / 60);
+				const secs = timeLeft % 60;
+				expiryTimer.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+			}
+			
+			updateTimerText();
+			
+			expiryTimerInterval = setInterval(() => {
+				timeLeft--;
+				if (timeLeft <= 0) {
+					clearInterval(expiryTimerInterval);
+					expiryTimerInterval = null;
+					console.log('Room code expired, rotating...');
+					if (peer) {
+						peer.destroy();
+						peer = null;
+					}
+					initializeSender();
+				} else {
+					updateTimerText();
+				}
+			}, 1000);
+		}
+
+		function clearExpiryTimer() {
+			if (expiryTimerInterval) {
+				clearInterval(expiryTimerInterval);
+				expiryTimerInterval = null;
+			}
+			expiryTimerContainer.classList.add('hidden');
+		}
+
+		// --- Connection/Disconnect Handling ---
+		function handlePeerDisconnect() {
+			clearExpiryTimer();
+			
+			if (connection) {
+				try {
+					connection.close();
+				} catch (e) {}
+				connection = null;
+			}
+			if (peer) {
+				try {
+					peer.destroy();
+				} catch (e) {}
+				peer = null;
+			}
+			
+			// Hide all normal panels
+			panelSend.classList.add('hidden');
+			panelReceive.classList.add('hidden');
+			panelSenderWaiting.classList.add('hidden');
+			panelSenderActive.classList.add('hidden');
+			panelReceiverActive.classList.add('hidden');
+			tabsContainer.classList.add('hidden');
+			
+			// Show connection lost panel
+			panelConnectionLost.classList.remove('hidden');
+		}
+
+		btnReconnect.addEventListener('click', () => {
+			window.location.reload();
+		});
+
+		// --- History UI Update & Download Log ---
+		function updateHistoryUI() {
+			if (sessionHistory.length === 0) {
+				sessionHistoryContainer.classList.add('hidden');
+				return;
+			}
+			
+			sessionHistoryContainer.classList.remove('hidden');
+			historyCount.innerText = sessionHistory.length.toString();
+			
+			historyList.innerHTML = sessionHistory.map(item => `
+				<div class="flex justify-between items-center text-[11px] bg-slate-50 dark:bg-white/5 p-2 rounded-lg border border-slate-100 dark:border-white/5">
+					<div class="truncate mr-2 flex-1 font-sans">
+						<p class="font-bold text-slate-900 dark:text-white truncate" title="${escapeHtml(item.filename)}">${escapeHtml(item.filename)}</p>
+						<p class="text-[9px] text-slate-500 dark:text-slate-400">${formatBytes(item.size)} · ${item.type}</p>
+					</div>
+					<span class="text-[9px] text-slate-450 dark:text-slate-550 shrink-0 font-mono">${item.time}</span>
+				</div>
+			`).join('');
+		}
+
+		function escapeHtml(str) {
+			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+		}
+
+		btnDownloadHistory.addEventListener('click', () => {
+			if (sessionHistory.length === 0) return;
+			
+			let csvContent = "Time,Type,File Name,Size (Bytes),Size (Formatted)\n";
+			sessionHistory.forEach(item => {
+				const escapedName = `"${item.filename.replace(/"/g, '""')}"`;
+				csvContent += `${item.time},${item.type},${escapedName},${item.size},${formatBytes(item.size)}\n`;
+			});
+			
+			const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `dropdata-history-${new Date().toISOString().slice(0,10)}.csv`;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
+		});
+
+		// --- Refresh Code Button ---
+		btnRefreshCode.addEventListener('click', () => {
+			if (peer) {
+				peer.destroy();
+				peer = null;
+			}
+			initializeSender();
+		});
+
 		// --- SENDER STATE ACTIONS ---
 		btnCreateRoom.addEventListener('click', () => {
 			initializeSender();
@@ -419,6 +629,8 @@ import ThemeToggle from '../components/ThemeToggle';
 				size: 120
 			});
 
+			startExpiryTimer();
+
 			// Initialize PeerJS
 			peer = new Peer(roomCode);
 
@@ -437,15 +649,17 @@ import ThemeToggle from '../components/ThemeToggle';
 				if (err.type === 'unavailable-id') {
 					console.log('Room ID taken, retrying generation...');
 					peer.destroy();
+					peer = null;
 					initializeSender();
 				} else {
-					alert('Connection error: ' + err.message);
-					window.location.reload();
+					handlePeerDisconnect();
 				}
 			});
 		}
 
 		function setupSenderCommunication() {
+			clearExpiryTimer();
+			
 			// Update UI to active file transmission panel
 			panelSenderWaiting.classList.add('hidden');
 			panelSenderActive.classList.remove('hidden');
@@ -457,12 +671,13 @@ import ThemeToggle from '../components/ThemeToggle';
 			connection.on('data', (data) => {
 				if (data.type === 'request-chunk') {
 					sendNextChunk();
+				} else if (data.type === 'peer-closed-tab') {
+					handlePeerDisconnect();
 				}
 			});
 
 			connection.on('close', () => {
-				alert('Receiver connection closed.');
-				window.location.reload();
+				handlePeerDisconnect();
 			});
 		}
 
@@ -560,7 +775,16 @@ import ThemeToggle from '../components/ThemeToggle';
 				senderProgressBar.style.width = '100%';
 				senderStatusMsg.innerHTML = '<span class="text-emerald-450 font-bold">✓ File transferred successfully!</span>';
 				
-				// Reset files for next round after 3 seconds
+				// Add to session history
+				sessionHistory.push({
+					filename: activeFile.name,
+					size: activeFile.size,
+					type: 'Sent',
+					time: new Date().toLocaleTimeString()
+				});
+				updateHistoryUI();
+
+				// Reset files for next round after 4 seconds
 				setTimeout(() => {
 					dropzone.classList.remove('hidden');
 					senderProgressBlock.classList.add('hidden');
@@ -598,8 +822,7 @@ import ThemeToggle from '../components/ThemeToggle';
 
 			peer.on('error', (err) => {
 				console.error('PeerJS Connection Error:', err);
-				alert('Could not connect to Room. Check code and verify the sender window is open.');
-				window.location.reload();
+				handlePeerDisconnect();
 			});
 		}
 
@@ -609,6 +832,11 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 
 			connection.on('data', (data) => {
+				if (data.type === 'peer-closed-tab') {
+					handlePeerDisconnect();
+					return;
+				}
+
 				if (data.type === 'file-meta') {
 					// Metadata received
 					fileMetadata = data;
@@ -662,6 +890,15 @@ import ThemeToggle from '../components/ThemeToggle';
 					receiverProgressBar.style.width = '100%';
 					receiverStatusMsg.innerHTML = '<span class="text-emerald-500 font-bold">✓ Download Completed! check your downloads folder.</span>';
 
+					// Add to session history
+					sessionHistory.push({
+						filename: fileMetadata.filename,
+						size: fileMetadata.size,
+						type: 'Received',
+						time: new Date().toLocaleTimeString()
+					});
+					updateHistoryUI();
+
 					// Return back to idle after a few seconds
 					setTimeout(() => {
 						receiverIdleState.classList.remove('hidden');
@@ -674,8 +911,7 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 
 			connection.on('close', () => {
-				alert('Sender disconnected or closed connection.');
-				window.location.reload();
+				handlePeerDisconnect();
 			});
 		}
 
@@ -699,16 +935,51 @@ import ThemeToggle from '../components/ThemeToggle';
 			}
 		});
 
+		// Explicit closed-tab detection
+		window.addEventListener('beforeunload', () => {
+			if (connection && connection.open) {
+				try {
+					connection.send({ type: 'peer-closed-tab' });
+				} catch (e) {}
+				connection.close();
+			}
+			if (peer) {
+				peer.destroy();
+			}
+		});
+
 	})();
 </script>
 
 <style>
+	/* Panel slide & fade animation */
+	.animate-panel-in {
+		animation: panelIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	}
+
+	@keyframes panelIn {
+		from {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
 	/* Background with glowing top radial blue gradient matching screenshot */
 	.dropdata-page {
-		background: radial-gradient(130% 80% at 50% 0%, #dbeafe 0%, #FAF7F6 40%, #FAF7F6 100%);
+		background: radial-gradient(130% 80% at 50% 0%, #bfdbfe 0%, #FAF7F6 45%, #FAF7F6 100%);
 		position: relative;
 		overflow-x: hidden;
 		transition: background 0.3s ease;
+	}
+
+	@media (min-width: 768px) {
+		.dropdata-page {
+			background: radial-gradient(130% 80% at 50% 0%, #93c5fd 0%, #FAF7F6 55%, #FAF7F6 100%);
+		}
 	}
 
 	/* Ensure dark mode body also gets the correct dark background */
@@ -716,8 +987,14 @@ import ThemeToggle from '../components/ThemeToggle';
 		background-color: #030712 !important;
 	}
 
-	.dark .dropdata-page {
-		background: radial-gradient(130% 80% at 50% 0%, #1e3a8a 0%, #0f172a 40%, #030712 100%);
+	:global(.dark) .dropdata-page {
+		background: radial-gradient(130% 80% at 50% 0%, #1e40af 0%, #0f172a 45%, #030712 100%);
+	}
+
+	@media (min-width: 768px) {
+		:global(.dark) .dropdata-page {
+			background: radial-gradient(130% 80% at 50% 0%, #2563eb 0%, #0f172a 55%, #030712 100%);
+		}
 	}
 
 	.dropdata-page::before {
@@ -729,15 +1006,29 @@ import ThemeToggle from '../components/ThemeToggle';
 		width: 100%;
 		max-width: 1000px;
 		height: 400px;
-		background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(14,165,233,0.05) 50%, rgba(250,247,246,0) 80%);
+		background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, rgba(14,165,233,0.08) 50%, rgba(250,247,246,0) 80%);
 		filter: blur(60px);
 		pointer-events: none;
 		z-index: 1;
 		transition: background 0.3s ease;
 	}
 
-	.dark .dropdata-page::before {
-		background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(14,165,233,0.12) 50%, rgba(3,7,18,0) 80%);
+	@media (min-width: 768px) {
+		.dropdata-page::before {
+			height: 500px;
+			background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(14,165,233,0.12) 50%, rgba(250,247,246,0) 85%);
+		}
+	}
+
+	:global(.dark) .dropdata-page::before {
+		background: radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(14,165,233,0.18) 50%, rgba(3,7,18,0) 80%);
+	}
+
+	@media (min-width: 768px) {
+		:global(.dark) .dropdata-page::before {
+			height: 500px;
+			background: radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(14,165,233,0.25) 50%, rgba(3,7,18,0) 85%);
+		}
 	}
 
 	/* Elegant translucent macOS dock navigation */
@@ -752,7 +1043,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		transition: all 0.3s ease;
 	}
 
-	.dark .dropdata-nav {
+	:global(.dark) .dropdata-nav {
 		background: rgba(0, 0, 0, 0.98);
 		border-color: rgba(255, 255, 255, 0.08);
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -765,7 +1056,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		transition: all 0.3s ease;
 	}
 
-	.dark .app-card {
+	:global(.dark) .app-card {
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 	}
@@ -790,7 +1081,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		color: #059669;
 	}
 
-	.dark .text-emerald-450 {
+	:global(.dark) .text-emerald-450 {
 		color: #34d399;
 	}
 
@@ -814,10 +1105,10 @@ import ThemeToggle from '../components/ThemeToggle';
 		color: #111111 !important;
 	}
 
-	.dark .theme-toggle-wrapper :global(button) {
+	:global(.dark) .theme-toggle-wrapper :global(button) {
 		color: rgba(255, 255, 255, 0.75) !important;
 	}
-	.dark .theme-toggle-wrapper :global(button:hover) {
+	:global(.dark) .theme-toggle-wrapper :global(button:hover) {
 		color: #ffffff !important;
 	}
 </style>

@@ -8,6 +8,7 @@ const Home: React.FC = () => {
   const [isHardcore, setIsHardcore] = useState(false);
   const [isCustom, setIsCustom] = useState(false);
   const [customValue, setCustomValue] = useState<number | ''>('');
+  const [showPromoCard, setShowPromoCard] = useState(true);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
@@ -208,6 +209,48 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Apple-style Try dropdata Card in the bottom-right corner */}
+      {showPromoCard && (
+        <div className="absolute bottom-6 right-6 z-40 max-w-[240px] md:max-w-[265px] hidden sm:block">
+          <div className="relative group">
+            <a 
+              href="/dropdata"
+              className="block p-4 bg-white/70 dark:bg-neutral-900/40 backdrop-blur-md border border-neutral-200/50 dark:border-neutral-800/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 no-underline text-left pr-8"
+            >
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                  <img src="/dropdata-icon.png" alt="dropdata logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <p className="text-[12px] font-sans font-bold text-slate-800 dark:text-neutral-200 leading-tight">
+                    Try peer file sharing
+                  </p>
+                  <p className="text-[10px] font-sans text-slate-500 dark:text-neutral-400 mt-1.5 leading-normal font-medium">
+                    Transfer files directly tab-to-tab, securely and instantly.
+                  </p>
+                </div>
+              </div>
+            </a>
+            
+            {/* Close Button */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowPromoCard(false);
+              }}
+              className="absolute top-2.5 right-2.5 p-1 text-slate-450 hover:text-slate-650 dark:text-neutral-500 dark:hover:text-neutral-300 rounded-full hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition-colors border-0 cursor-pointer focus:outline-none"
+              aria-label="Dismiss card"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
