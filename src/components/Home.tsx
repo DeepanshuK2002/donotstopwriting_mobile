@@ -200,9 +200,9 @@ const Home: React.FC = () => {
             <span className="mx-2.5 opacity-60">·</span>
             <a href="/contact" className="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200">Contact</a>
             <span className="mx-2.5 opacity-60">·</span>
-            <a href="/privacy" className="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200">Privacy Policy</a>
+            <a href="/privacy" className="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200"><span className="hidden sm:inline">Privacy Policy</span><span className="inline sm:hidden">Privacy</span></a>
             <span className="mx-2.5 opacity-60">·</span>
-            <a href="/terms" className="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200">Terms & Conditions</a>
+            <a href="/terms" className="hover:text-primary dark:hover:text-neutral-300 transition-colors duration-200"><span className="hidden sm:inline">Terms & Conditions</span><span className="inline sm:hidden">T&C</span></a>
           </div>
         </div>
       </div>
