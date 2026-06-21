@@ -9,27 +9,36 @@ import ThemeToggle from '../components/ThemeToggle';
 >
 	<div class="dropdata-page min-h-screen text-slate-100 font-sans flex flex-col justify-between">
 		
-		<!-- Top Floating Navigation Capsule -->
-		<div class="w-full max-w-[850px] mx-auto pt-6 px-4 z-50 relative select-none">
-			<nav class="flex items-center justify-between bg-black/70 dark:bg-black/80 backdrop-blur-xl border border-white/10 rounded-full py-2.5 px-5 md:px-7 shadow-[0_12px_36px_rgba(0,0,0,0.6)]">
+		<!-- Top Floating Navigation Capsule (macOS Dock Style) -->
+		<div class="fixed top-[20px] left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[740px] h-[64px] z-50 select-none px-4 md:px-0">
+			<nav 
+				style="background-color: rgba(5, 5, 5, 0.9); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.05);" 
+				class="w-full h-full flex items-center justify-between rounded-full px-6"
+			>
 				<!-- Brand Logo + Name -->
-				<a href="/" class="flex items-center gap-2 hover:opacity-85 no-underline transition-opacity">
-					<img src="/dropdata-icon.png" alt="dropdata logo" class="w-6.5 h-6.5 object-contain" />
-					<span class="font-serif lowercase text-white text-[18px] tracking-wide">dropdata</span>
+				<a href="/" class="flex items-center gap-2.5 hover:opacity-85 no-underline transition-opacity">
+					<img src="/dropdata-icon.png" alt="dropdata logo" class="w-9 h-9 object-contain" />
+					<span class="font-serif font-semibold text-white text-[19px] tracking-wide lowercase">dropdata</span>
 				</a>
 				
 				<!-- Nav Links -->
-				<div class="hidden sm:flex items-center gap-7">
-					<a href="/" class="text-xs font-semibold tracking-wide uppercase text-neutral-400 hover:text-white no-underline transition-colors duration-200">Home</a>
-					<a href="/tools" class="text-xs font-semibold tracking-wide uppercase text-neutral-400 hover:text-white no-underline transition-colors duration-200">Tools</a>
-					<a href="/about" class="text-xs font-semibold tracking-wide uppercase text-neutral-400 hover:text-white no-underline transition-colors duration-200">About</a>
-					<a href="/contact" class="text-xs font-semibold tracking-wide uppercase text-neutral-400 hover:text-white no-underline transition-colors duration-200">Contact</a>
+				<div class="hidden sm:flex items-center gap-6">
+					<a href="/" class="text-[14.5px] font-semibold tracking-[0.02em] text-white/75 hover:text-white no-underline transition-colors duration-200">Home</a>
+					<a href="/tools" class="text-[14.5px] font-semibold tracking-[0.02em] text-white/75 hover:text-white no-underline transition-colors duration-200">Tools</a>
+					<a href="/about" class="text-[14.5px] font-semibold tracking-[0.02em] text-white/75 hover:text-white no-underline transition-colors duration-200">About</a>
+					<a href="/contact" class="text-[14.5px] font-semibold tracking-[0.02em] text-white/75 hover:text-white no-underline transition-colors duration-200">Contact</a>
 				</div>
 				
 				<!-- Action Button on Right + Theme Toggle -->
 				<div class="flex items-center gap-4">
-					<ThemeToggle client:load />
-					<a href="/dropdata" class="inline-flex items-center bg-white text-black hover:bg-neutral-100 rounded-full px-4.5 py-1.5 text-xs font-bold shadow-sm transition-all duration-200 no-underline">
+					<div class="theme-toggle-wrapper flex items-center">
+						<ThemeToggle client:load />
+					</div>
+					<a 
+						href="/dropdata" 
+						style="background-color: #ffffff; color: #000000; font-weight: 600; padding: 12px 24px; border-radius: 9999px; transition: all 0.2s ease;"
+						class="inline-flex items-center justify-center text-[13px] shadow-sm no-underline hover:-translate-y-[1px]"
+					>
 						Reset App
 					</a>
 				</div>
@@ -695,5 +704,21 @@ import ThemeToggle from '../components/ThemeToggle';
 
 	.bg-emerald-500 {
 		background-color: #10b981;
+	}
+
+	/* Theme Toggle macOS Dock Custom Styling */
+	.theme-toggle-wrapper :global(button) {
+		background: transparent !important;
+		color: rgba(255, 255, 255, 0.75) !important;
+		padding: 8px !important;
+		border-radius: 9999px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+	.theme-toggle-wrapper :global(button:hover) {
+		background: transparent !important;
+		color: #ffffff !important;
 	}
 </style>
