@@ -75,6 +75,18 @@ import ThemeToggle from '../components/ThemeToggle';
 						</button>
 					</div>
 
+					<!-- Connected Tab Switcher (Visible only when connected) -->
+					<div id="tabs-connected-container" class="relative flex p-1 bg-slate-200/50 dark:bg-black/40 rounded-full border border-slate-350 dark:border-white/5 mb-6 select-none hidden">
+						<div id="tab-connected-indicator" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded-full transition-transform duration-300 ease-out z-0"></div>
+						<button id="tab-files" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-blue-600 dark:text-white cursor-pointer focus:outline-none">
+							Transfer Files
+						</button>
+						<button id="tab-chat" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer focus:outline-none flex items-center justify-center gap-1.5">
+							Room Chat
+							<span id="chat-badge" class="hidden w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+						</button>
+					</div>
+
 					<!-- Content Panels -->
 					<div class="relative min-h-[160px] flex flex-col justify-center">
 						
@@ -244,6 +256,32 @@ import ThemeToggle from '../components/ThemeToggle';
 							</button>
 						</div>
 
+						<!-- Panel G: Room Chat (Shared) (Hidden initially) -->
+						<div id="panel-chat" class="hidden flex flex-col text-left h-[300px]">
+							<!-- Messages Container -->
+							<div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 pr-1 pb-2">
+								<div class="text-center py-1 select-none">
+									<span class="text-[10px] bg-slate-200/50 dark:bg-white/5 text-slate-550 dark:text-slate-450 px-2.5 py-1 rounded-full font-sans font-bold">Secure P2P Chat Room Connected</span>
+								</div>
+							</div>
+							
+							<!-- Input Area -->
+							<div class="flex items-center gap-2 border-t border-slate-200 dark:border-white/5 pt-3">
+								<input 
+									type="text" 
+									id="input-chat-msg" 
+									placeholder="Type a message..." 
+									class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-xs font-sans text-slate-900 dark:text-white placeholder-slate-450 dark:placeholder-slate-600 focus:border-blue-500 focus:outline-none transition-colors duration-200"
+								/>
+								<button id="btn-send-chat" class="p-2.5 bg-blue-500 text-white hover:bg-blue-600 rounded-xl transition-all duration-200 flex items-center justify-center cursor-pointer shadow-sm border-0 focus:outline-none">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+										<line x1="22" y1="2" x2="11" y2="13"/>
+										<polygon points="22 2 15 22 11 13 2 9 22 2"/>
+									</svg>
+								</button>
+							</div>
+						</div>
+
 					</div>
 
 					<!-- Session History Container -->
@@ -372,6 +410,17 @@ import ThemeToggle from '../components/ThemeToggle';
 		const receiverPercentage = document.getElementById('receiver-percentage');
 		const receiverProgressBar = document.getElementById('receiver-progress-bar');
 		const receiverStatusMsg = document.getElementById('receiver-status-msg');
+		
+		// Connected Tab Switcher & Chat UI Selectors
+		const tabsConnectedContainer = document.getElementById('tabs-connected-container');
+		const tabFiles = document.getElementById('tab-files');
+		const tabChat = document.getElementById('tab-chat');
+		const tabConnectedIndicator = document.getElementById('tab-connected-indicator');
+		const panelChat = document.getElementById('panel-chat');
+		const chatMessages = document.getElementById('chat-messages');
+		const inputChatMsg = document.getElementById('input-chat-msg');
+		const btnSendChat = document.getElementById('btn-send-chat');
+		const chatBadge = document.getElementById('chat-badge');
 
 		// --- State Variables ---
 		let peer = null;
@@ -386,6 +435,7 @@ import ThemeToggle from '../components/ThemeToggle';
 		// New Session States
 		let sessionHistory = [];
 		let expiryTimerInterval = null;
+		let activeConnectedTab = 'files'; // 'files' or 'chat'
 
 		// --- Tab Switch Logic ---
 		tabSend.addEventListener('click', () => {
@@ -423,6 +473,100 @@ import ThemeToggle from '../components/ThemeToggle';
 				panelReceive.classList.add('animate-panel-in');
 			}
 		}
+
+		// --- Connected Tab Switch Logic ---
+		tabFiles.addEventListener('click', () => {
+			switchConnectedTab('files');
+		});
+
+		tabChat.addEventListener('click', () => {
+			switchConnectedTab('chat');
+		});
+
+		function switchConnectedTab(mode) {
+			activeConnectedTab = mode;
+			if (mode === 'files') {
+				tabFiles.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
+				tabChat.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
+				
+				tabConnectedIndicator.style.transform = 'translateX(0)';
+				
+				panelChat.classList.add('hidden');
+				
+				// Show active panel based on role
+				if (peer && peer.id === roomCode) {
+					// Sender
+					panelSenderActive.classList.remove('hidden');
+					panelSenderActive.classList.add('animate-panel-in');
+				} else {
+					// Receiver
+					panelReceiverActive.classList.remove('hidden');
+					panelReceiverActive.classList.add('animate-panel-in');
+				}
+			} else {
+				tabChat.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
+				tabFiles.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
+				
+				tabConnectedIndicator.style.transform = 'translateX(100%)';
+				
+				panelSenderActive.classList.add('hidden');
+				panelReceiverActive.classList.add('hidden');
+				
+				panelChat.classList.remove('hidden');
+				panelChat.classList.add('animate-panel-in');
+				
+				chatBadge.classList.add('hidden');
+				chatMessages.scrollTop = chatMessages.scrollHeight;
+				inputChatMsg.focus();
+			}
+		}
+
+		// --- Chat Message Logic ---
+		function appendChatMessage(senderName, text, time, isSelf) {
+			const msgDiv = document.createElement('div');
+			if (isSelf) {
+				msgDiv.className = 'flex flex-col items-end space-y-1';
+				msgDiv.innerHTML = `
+					<div class="bg-blue-500 text-white rounded-2xl rounded-tr-none px-3 py-2 text-xs max-w-[85%] break-words shadow-sm">
+						${escapeHtml(text)}
+					</div>
+					<span class="text-[9px] text-slate-450 dark:text-slate-550 font-mono pr-1">${time}</span>
+				`;
+			} else {
+				msgDiv.className = 'flex flex-col items-start space-y-1';
+				msgDiv.innerHTML = `
+					<span class="text-[9px] text-slate-500 dark:text-slate-400 pl-1 font-bold">${escapeHtml(senderName)}</span>
+					<div class="bg-slate-200/60 dark:bg-white/5 text-slate-800 dark:text-slate-200 rounded-2xl rounded-tl-none px-3 py-2 text-xs max-w-[85%] break-words shadow-sm border border-slate-250/20 dark:border-white/5">
+						${escapeHtml(text)}
+					</div>
+					<span class="text-[9px] text-slate-450 dark:text-slate-550 font-mono pl-1">${time}</span>
+				`;
+			}
+			chatMessages.appendChild(msgDiv);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
+
+		function sendChatMessage() {
+			const text = inputChatMsg.value.trim();
+			if (!text || !connection || !connection.open) return;
+			
+			const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+			connection.send({
+				type: 'chat-message',
+				text: text,
+				time: time
+			});
+			
+			appendChatMessage('You', text, time, true);
+			inputChatMsg.value = '';
+		}
+
+		btnSendChat.addEventListener('click', sendChatMessage);
+		inputChatMsg.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') {
+				sendChatMessage();
+			}
+		});
 
 		// --- Helper: Format File Sizes ---
 		function formatBytes(bytes) {
@@ -543,7 +687,17 @@ import ThemeToggle from '../components/ThemeToggle';
 			panelSenderWaiting.classList.add('hidden');
 			panelSenderActive.classList.add('hidden');
 			panelReceiverActive.classList.add('hidden');
+			panelChat.classList.add('hidden');
 			tabsContainer.classList.add('hidden');
+			tabsConnectedContainer.classList.add('hidden');
+			
+			// Reset Chat Box UI
+			chatMessages.innerHTML = `
+				<div class="text-center py-1 select-none">
+					<span class="text-[10px] bg-slate-200/50 dark:bg-white/5 text-slate-550 dark:text-slate-450 px-2.5 py-1 rounded-full font-sans font-bold">Secure P2P Chat Room Connected</span>
+				</div>
+			`;
+			chatBadge.classList.add('hidden');
 			
 			// Show connection lost panel
 			panelConnectionLost.classList.remove('hidden');
@@ -660,6 +814,11 @@ import ThemeToggle from '../components/ThemeToggle';
 		function setupSenderCommunication() {
 			clearExpiryTimer();
 			
+			// Show connected tab container and set tab to files
+			tabsContainer.classList.add('hidden');
+			tabsConnectedContainer.classList.remove('hidden');
+			switchConnectedTab('files');
+
 			// Update UI to active file transmission panel
 			panelSenderWaiting.classList.add('hidden');
 			panelSenderActive.classList.remove('hidden');
@@ -669,8 +828,13 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 
 			connection.on('data', (data) => {
-				if (data.type === 'request-chunk') {
-					sendNextChunk();
+				if (data.type === 'start-transfer') {
+					sendChunks();
+				} else if (data.type === 'chat-message') {
+					appendChatMessage('Receiver', data.text, data.time, false);
+					if (activeConnectedTab !== 'chat') {
+						chatBadge.classList.remove('hidden');
+					}
 				} else if (data.type === 'peer-closed-tab') {
 					handlePeerDisconnect();
 				}
@@ -730,13 +894,24 @@ import ThemeToggle from '../components/ThemeToggle';
 		}
 
 		let offset = 0;
-		const CHUNK_SIZE = 16384; // 16KB standard WebRTC chunk
+		const CHUNK_SIZE = 65536; // 64KB optimized chunk size for fast WebRTC transmission
+		let isFinishing = false;
 
 		function startFileSharing() {
 			if (!connection) return;
 			offset = 0;
+			isFinishing = false;
 			
 			senderStatusMsg.innerText = 'Connecting transfer protocol...';
+			
+			// Configure data channel buffering
+			const dc = connection.dataChannel;
+			if (dc) {
+				dc.bufferedAmountLowThreshold = 262144; // 256KB low-water mark
+				dc.onbufferedamountlow = () => {
+					sendChunks();
+				};
+			}
 			
 			// Send metadata
 			connection.send({
@@ -747,25 +922,52 @@ import ThemeToggle from '../components/ThemeToggle';
 			});
 		}
 
-		function sendNextChunk() {
+		function sendChunks() {
 			if (!connection || !fileBuffer) return;
+			
+			const dc = connection.dataChannel;
+			// 1MB buffer limit (high-water mark)
+			const BUFFER_LIMIT = 1048576; 
 			
 			senderStatusMsg.innerText = 'Streaming data packages...';
 
-			if (offset < fileBuffer.byteLength) {
-				const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
-				offset += CHUNK_SIZE;
-				
-				connection.send({
-					type: 'file-chunk',
-					chunk: chunk
-				});
-
-				// Update progress bar
-				const progress = Math.min(100, Math.trunc((offset / fileBuffer.byteLength) * 100));
-				senderPercentage.innerText = `${progress}%`;
-				senderProgressBar.style.width = `${progress}%`;
+			// If dataChannel is available, use it for buffered flow control
+			if (dc) {
+				while (offset < fileBuffer.byteLength && dc.bufferedAmount < BUFFER_LIMIT) {
+					const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
+					offset += CHUNK_SIZE;
+					
+					connection.send({
+						type: 'file-chunk',
+						chunk: chunk
+					});
+				}
 			} else {
+				// Fallback if dataChannel is not exposed
+				while (offset < fileBuffer.byteLength) {
+					const chunk = fileBuffer.slice(offset, offset + CHUNK_SIZE);
+					offset += CHUNK_SIZE;
+					connection.send({
+						type: 'file-chunk',
+						chunk: chunk
+					});
+				}
+			}
+
+			// Update progress bar
+			const progress = Math.min(100, Math.trunc((offset / fileBuffer.byteLength) * 100));
+			senderPercentage.innerText = `${progress}%`;
+			senderProgressBar.style.width = `${progress}%`;
+
+			if (offset >= fileBuffer.byteLength && !isFinishing) {
+				isFinishing = true;
+				checkBufferAndFinish();
+			}
+		}
+
+		function checkBufferAndFinish() {
+			const dc = connection ? connection.dataChannel : null;
+			if (!dc || dc.bufferedAmount === 0) {
 				// Send complete flag
 				connection.send({
 					type: 'file-done'
@@ -792,6 +994,9 @@ import ThemeToggle from '../components/ThemeToggle';
 					activeFile = null;
 					fileBuffer = null;
 				}, 4000);
+			} else {
+				// Wait for buffer to clear before sending done message
+				setTimeout(checkBufferAndFinish, 100);
 			}
 		}
 
@@ -809,6 +1014,11 @@ import ThemeToggle from '../components/ThemeToggle';
 			// Show receiver active screen
 			tabsContainer.classList.add('hidden');
 			panelReceive.classList.add('hidden');
+			
+			// Show connected tab container and set tab to files
+			tabsConnectedContainer.classList.remove('hidden');
+			switchConnectedTab('files');
+
 			panelReceiverActive.classList.remove('hidden');
 
 			// Connect
@@ -837,6 +1047,14 @@ import ThemeToggle from '../components/ThemeToggle';
 					return;
 				}
 
+				if (data.type === 'chat-message') {
+					appendChatMessage('Sender', data.text, data.time, false);
+					if (activeConnectedTab !== 'chat') {
+						chatBadge.classList.remove('hidden');
+					}
+					return;
+				}
+
 				if (data.type === 'file-meta') {
 					// Metadata received
 					fileMetadata = data;
@@ -853,8 +1071,8 @@ import ThemeToggle from '../components/ThemeToggle';
 					receiverProgressBar.style.width = '0%';
 					receiverStatusMsg.innerText = 'Ready to stream. Initiating transfer...';
 					
-					// Request the first chunk
-					connection.send({ type: 'request-chunk' });
+					// Request the transfer to start
+					connection.send({ type: 'start-transfer' });
 				} 
 				else if (data.type === 'file-chunk') {
 					// Chunk received
@@ -866,9 +1084,6 @@ import ThemeToggle from '../components/ThemeToggle';
 					receiverPercentage.innerText = `${progress}%`;
 					receiverProgressBar.style.width = `${progress}%`;
 					receiverStatusMsg.innerText = `Receiving package (${formatBytes(receivedSize)} / ${formatBytes(fileMetadata.size)})...`;
-
-					// Request next chunk
-					connection.send({ type: 'request-chunk' });
 				} 
 				else if (data.type === 'file-done') {
 					// Transmission complete, assemble Blob and download
