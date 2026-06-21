@@ -7,24 +7,23 @@ import ThemeToggle from '../components/ThemeToggle';
 	title="dropdata - Secure Serverless P2P File Sharing"
 	description="Send files directly between browser tabs using secure end-to-peer WebRTC connections. No size limits, no server uploads, complete local privacy."
 >
-	<div class="dropdata-page min-h-screen text-slate-100 font-sans flex flex-col justify-between">
+	<div class="dropdata-page min-h-screen text-slate-800 dark:text-slate-100 font-sans flex flex-col justify-between">
 		
 		<!-- Top Floating Navigation Capsule (macOS Dock Style) -->
 		<div style="top: -1px; left: 50%; transform: translateX(-50%); z-index: 999;" class="fixed w-[calc(100%-2rem)] max-w-[580px] h-[52px] select-none px-4 md:px-0">
 			<nav 
-				style="background: rgba(0, 0, 0, 0.98); border: 1px solid rgba(255, 255, 255, 0.08); border-top: none; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.05); border-radius: 0 0 28px 28px;" 
-				class="w-full h-full flex items-center justify-between px-6"
+				class="dropdata-nav w-full h-full flex items-center justify-between px-6"
 			>
 				<!-- Brand Logo + Name -->
 				<a href="/" class="flex items-center gap-2 hover:opacity-85 no-underline transition-opacity">
 					<img src="/dropdata-icon.png" alt="dropdata logo" class="w-7.5 h-7.5 object-contain" />
-					<span class="font-serif font-semibold text-white text-[17px] tracking-wide lowercase">dropdata</span>
+					<span class="font-serif font-semibold text-slate-900 dark:text-white text-[17px] tracking-wide lowercase">dropdata</span>
 				</a>
 				
 				<!-- Nav Links -->
 				<div class="hidden sm:flex items-center gap-6">
-					<a href="/" class="text-[14.5px] font-semibold tracking-[0.02em] text-white/75 hover:text-white no-underline transition-colors duration-200">Home</a>
-					<a href="/tools" class="text-[14.5px] font-semibold tracking-[0.02em] text-white/75 hover:text-white no-underline transition-colors duration-200">Tools</a>
+					<a href="/" class="text-[14.5px] font-semibold tracking-[0.02em] text-slate-600 dark:text-white/75 hover:text-slate-900 dark:hover:text-white no-underline transition-colors duration-200">Home</a>
+					<a href="/tools" class="text-[14.5px] font-semibold tracking-[0.02em] text-slate-600 dark:text-white/75 hover:text-slate-900 dark:hover:text-white no-underline transition-colors duration-200">Tools</a>
 				</div>
 				
 				<!-- Action Button on Right + Theme Toggle -->
@@ -34,8 +33,7 @@ import ThemeToggle from '../components/ThemeToggle';
 					</div>
 					<a 
 						href="/dropdata" 
-						style="background-color: #ffffff; color: #000000; font-weight: 600; padding: 8px 18px; border-radius: 9999px; transition: all 0.2s ease;"
-						class="inline-flex items-center justify-center text-xs shadow-sm no-underline hover:-translate-y-[1px]"
+						class="inline-flex items-center justify-center text-xs shadow-sm no-underline hover:-translate-y-[1px] bg-slate-900 text-white dark:bg-white dark:text-black font-semibold px-4.5 py-2 rounded-full transition-all duration-200"
 					>
 						Reset App
 					</a>
@@ -55,24 +53,24 @@ import ThemeToggle from '../components/ThemeToggle';
 
 				<!-- Main Headline -->
 				<div class="space-y-3 animate-fade-in">
-					<h1 class="text-4xl md:text-[54px] font-extrabold tracking-tight text-white leading-[1.1] font-sans">
+					<h1 class="text-4xl md:text-[54px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] font-sans">
 						Drop once.<br />
-						<span class="italic font-serif font-light text-blue-400">Receive instantly.</span>
+						<span class="italic font-serif font-light text-blue-600 dark:text-blue-400">Receive instantly.</span>
 					</h1>
-					<p class="text-slate-400 text-sm md:text-base max-w-[480px] mx-auto leading-relaxed">
+					<p class="text-slate-650 dark:text-slate-400 text-sm md:text-base max-w-[480px] mx-auto leading-relaxed">
 						dropdata transfers files directly between browser tabs using WebRTC. No file size limits, no server storage, and complete peer-to-peer security.
 					</p>
 				</div>
 
 				<!-- Interactive Glassmorphic Card -->
-				<div class="app-card bg-slate-950/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.7)] text-center max-w-[450px] w-full mx-auto relative overflow-hidden transition-all duration-300">
+				<div class="app-card bg-white/70 dark:bg-slate-950/40 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.7)] text-center max-w-[450px] w-full mx-auto relative overflow-hidden transition-all duration-300">
 					
 					<!-- Card Header Tab Switcher (State 1: Selection) -->
-					<div id="tabs-container" class="flex p-1 bg-black/40 rounded-full border border-white/5 mb-6 select-none">
-						<button id="tab-send" class="flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-white bg-blue-500/20 border border-blue-500/20">
+					<div id="tabs-container" class="flex p-1 bg-slate-200/50 dark:bg-black/40 rounded-full border border-slate-350 dark:border-white/5 mb-6 select-none">
+						<button id="tab-send" class="flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-blue-600 dark:text-white bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20">
 							Send Files
 						</button>
-						<button id="tab-receive" class="flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-400 hover:text-white">
+						<button id="tab-receive" class="flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white">
 							Receive Files
 						</button>
 					</div>
@@ -83,10 +81,10 @@ import ThemeToggle from '../components/ThemeToggle';
 						<!-- Panel A: Send Start -->
 						<div id="panel-send" class="space-y-5">
 							<div class="text-center space-y-1">
-								<h3 class="text-md font-bold text-white">Create a Transfer Room</h3>
-								<p class="text-xs text-slate-400">Generates a unique 9-digit code for the receiver to connect.</p>
+								<h3 class="text-md font-bold text-slate-900 dark:text-white">Create a Transfer Room</h3>
+								<p class="text-xs text-slate-600 dark:text-slate-400">Generates a unique 9-digit code for the receiver to connect.</p>
 							</div>
-							<button id="btn-create-room" class="w-full py-3 px-4 bg-white text-black hover:bg-neutral-100 rounded-xl text-xs font-bold tracking-wide shadow-md transition-all duration-200 cursor-pointer">
+							<button id="btn-create-room" class="w-full py-3 px-4 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 rounded-xl text-xs font-bold tracking-wide shadow-md transition-all duration-200 cursor-pointer">
 								Generate Room Code
 							</button>
 						</div>
@@ -94,8 +92,8 @@ import ThemeToggle from '../components/ThemeToggle';
 						<!-- Panel B: Receive Start (Hidden initially) -->
 						<div id="panel-receive" class="space-y-5 hidden">
 							<div class="text-center space-y-1">
-								<h3 class="text-md font-bold text-white">Connect to Room</h3>
-								<p class="text-xs text-slate-400">Enter the 9-digit room code from the sender.</p>
+								<h3 class="text-md font-bold text-slate-900 dark:text-white">Connect to Room</h3>
+								<p class="text-xs text-slate-600 dark:text-slate-400">Enter the 9-digit room code from the sender.</p>
 							</div>
 							<div class="space-y-3">
 								<input 
@@ -103,7 +101,7 @@ import ThemeToggle from '../components/ThemeToggle';
 									id="input-room-code" 
 									placeholder="000-000-000" 
 									maxlength="11" 
-									class="w-full py-3 px-4 rounded-xl bg-black/40 border border-white/10 text-center text-md font-mono tracking-widest text-white placeholder-slate-600 focus:border-blue-500 focus:outline-none transition-colors duration-200 uppercase"
+									class="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-350 dark:border-white/10 text-center text-md font-mono tracking-widest text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:border-blue-500 focus:outline-none transition-colors duration-200 uppercase"
 								/>
 								<button id="btn-connect-room" class="w-full py-3 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-xl text-xs font-bold tracking-wide shadow-md transition-all duration-200 cursor-pointer">
 									Connect to Sender
@@ -114,10 +112,10 @@ import ThemeToggle from '../components/ThemeToggle';
 						<!-- Panel C: Sender Waiting Room (Hidden initially) -->
 						<div id="panel-sender-waiting" class="space-y-5 hidden">
 							<div class="space-y-2">
-								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Share This Room Code</span>
+								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400">Share This Room Code</span>
 								<div class="flex items-center justify-center gap-3">
-									<span id="display-room-code" class="text-2xl md:text-3xl font-mono font-bold tracking-widest text-white">--- --- ---</span>
-									<button id="btn-copy-code" class="p-2 bg-white/5 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors duration-200 border border-white/5" title="Copy code">
+									<span id="display-room-code" class="text-2xl md:text-3xl font-mono font-bold tracking-widest text-slate-900 dark:text-white">--- --- ---</span>
+									<button id="btn-copy-code" class="p-2 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 border border-slate-200 dark:border-white/5" title="Copy code">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 											<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
 											<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
@@ -127,8 +125,8 @@ import ThemeToggle from '../components/ThemeToggle';
 							</div>
 
 							<!-- QR Code for Mobile Scanning -->
-							<div class="space-y-2 pt-2 border-t border-white/5 flex flex-col items-center">
-								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Scan to Connect on Mobile</span>
+							<div class="space-y-2 pt-2 border-t border-slate-200 dark:border-white/5 flex flex-col items-center">
+								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400">Scan to Connect on Mobile</span>
 								<div class="p-2 bg-white rounded-2xl w-[140px] h-[140px] flex items-center justify-center shadow-lg">
 									<canvas id="qr-canvas"></canvas>
 								</div>
@@ -136,80 +134,80 @@ import ThemeToggle from '../components/ThemeToggle';
 
 							<div class="flex flex-col items-center justify-center gap-2 pt-1">
 								<div class="w-4 h-4 rounded-full border-2 border-blue-500/20 border-t-blue-500 animate-spin"></div>
-								<p class="text-[11px] text-slate-400">Waiting for receiver to connect...</p>
+								<p class="text-[11px] text-slate-600 dark:text-slate-400">Waiting for receiver to connect...</p>
 							</div>
 						</div>
 
 						<!-- Panel D: Connected (Active P2P Fileshare - Sender / Dropzone) (Hidden initially) -->
 						<div id="panel-sender-active" class="space-y-5 hidden">
-							<div class="flex items-center justify-between border-b border-white/5 pb-3">
+							<div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-3">
 								<div class="flex items-center gap-2">
 									<span class="w-2 h-2 rounded-full bg-blue-500"></span>
-									<span class="text-xs font-bold text-slate-300">Connected to Receiver</span>
+									<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Connected to Receiver</span>
 								</div>
 							</div>
 							
 							<!-- Drag and Drop Dropzone -->
-							<div id="dropzone" class="border-2 border-dashed border-white/15 hover:border-blue-500/50 hover:bg-blue-500/5 rounded-2xl p-6 transition-all duration-200 flex flex-col items-center justify-center gap-3 cursor-pointer">
-								<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-slate-400 group-hover:text-blue-400" stroke-linecap="round" stroke-linejoin="round">
+							<div id="dropzone" class="border-2 border-dashed border-slate-300 dark:border-white/15 hover:border-blue-500/50 hover:bg-blue-500/5 rounded-2xl p-6 transition-all duration-200 flex flex-col items-center justify-center gap-3 cursor-pointer">
+								<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-slate-500 dark:text-slate-400 group-hover:text-blue-400" stroke-linecap="round" stroke-linejoin="round">
 									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
 									<polyline points="17 8 12 3 7 8"/>
 									<line x1="12" y1="3" x2="12" y2="15"/>
 								</svg>
 								<div class="space-y-1">
-									<p class="text-xs font-bold text-white">Drag & drop files here</p>
-									<p class="text-[10px] text-slate-400">Or click to browse your local device</p>
+									<p class="text-xs font-bold text-slate-900 dark:text-white">Drag & drop files here</p>
+									<p class="text-[10px] text-slate-500 dark:text-slate-400">Or click to browse your local device</p>
 								</div>
 								<input type="file" id="file-input" class="hidden" />
 							</div>
 
 							<!-- Transfer Progress Block (Hidden initially) -->
-							<div id="sender-progress-block" class="space-y-3 bg-black/40 border border-white/5 p-4 rounded-xl text-left hidden">
+							<div id="sender-progress-block" class="space-y-3 bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/5 p-4 rounded-xl text-left hidden">
 								<div class="flex justify-between items-start gap-3">
 									<div class="truncate flex-1">
-										<p id="sender-file-name" class="text-xs font-bold text-white truncate">file.txt</p>
-										<p id="sender-file-size" class="text-[10px] text-slate-400">0 KB</p>
+										<p id="sender-file-name" class="text-xs font-bold text-slate-900 dark:text-white truncate">file.txt</p>
+										<p id="sender-file-size" class="text-[10px] text-slate-650 dark:text-slate-400">0 KB</p>
 									</div>
-									<span id="sender-percentage" class="text-xs font-mono font-bold text-blue-400">0%</span>
+									<span id="sender-percentage" class="text-xs font-mono font-bold text-blue-600 dark:text-blue-400">0%</span>
 								</div>
-								<div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+								<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
 									<div id="sender-progress-bar" class="bg-blue-500 h-full w-[0%] transition-all duration-150"></div>
 								</div>
-								<p id="sender-status-msg" class="text-[10px] text-blue-400 italic">Sending chunks...</p>
+								<p id="sender-status-msg" class="text-[10px] text-blue-600 dark:text-blue-400 italic">Sending chunks...</p>
 							</div>
 						</div>
 
 						<!-- Panel E: Receiver Active (Hidden initially) -->
 						<div id="panel-receiver-active" class="space-y-5 hidden">
-							<div class="flex items-center justify-between border-b border-white/5 pb-3">
+							<div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-3">
 								<div class="flex items-center gap-2">
 									<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-									<span class="text-xs font-bold text-slate-300">Connected to Sender</span>
+									<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Connected to Sender</span>
 								</div>
 							</div>
 							
 							<!-- Empty Waiting State -->
 							<div id="receiver-idle-state" class="flex flex-col items-center justify-center py-6 gap-3">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-500 animate-pulse" stroke-linecap="round" stroke-linejoin="round">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-400 dark:text-slate-500 animate-pulse" stroke-linecap="round" stroke-linejoin="round">
 									<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
 									<polyline points="12 6 12 12 16 14"/>
 								</svg>
-								<p class="text-xs text-slate-400">Waiting for sender to select files...</p>
+								<p class="text-xs text-slate-600 dark:text-slate-400">Waiting for sender to select files...</p>
 							</div>
 
 							<!-- Transfer Progress Block (Hidden initially) -->
-							<div id="receiver-progress-block" class="space-y-3 bg-black/40 border border-white/5 p-4 rounded-xl text-left hidden">
+							<div id="receiver-progress-block" class="space-y-3 bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/5 p-4 rounded-xl text-left hidden">
 								<div class="flex justify-between items-start gap-3">
 									<div class="truncate flex-1">
-										<p id="receiver-file-name" class="text-xs font-bold text-white truncate">file.txt</p>
-										<p id="receiver-file-size" class="text-[10px] text-slate-400">0 KB</p>
+										<p id="receiver-file-name" class="text-xs font-bold text-slate-900 dark:text-white truncate">file.txt</p>
+										<p id="receiver-file-size" class="text-[10px] text-slate-650 dark:text-slate-400">0 KB</p>
 									</div>
-									<span id="receiver-percentage" class="text-xs font-mono font-bold text-emerald-450">0%</span>
+									<span id="receiver-percentage" class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-450">0%</span>
 								</div>
-								<div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+								<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
 									<div id="receiver-progress-bar" class="bg-emerald-500 h-full w-[0%] transition-all duration-150"></div>
 								</div>
-								<p id="receiver-status-msg" class="text-[10px] text-emerald-450 italic">Receiving file data...</p>
+								<p id="receiver-status-msg" class="text-[10px] text-emerald-650 italic">Receiving file data...</p>
 							</div>
 						</div>
 
@@ -219,16 +217,16 @@ import ThemeToggle from '../components/ThemeToggle';
 				<!-- Feature Badges -->
 				<div class="grid grid-cols-3 gap-4 pt-4 max-w-[480px] mx-auto text-center animate-fade-in select-none">
 					<div class="space-y-1">
-						<p class="text-white font-bold text-[14px]">100% Private</p>
-						<p class="text-slate-500 text-[10px]">No middleman servers</p>
+						<p class="text-slate-900 dark:text-white font-bold text-[14px]">100% Private</p>
+						<p class="text-slate-500 dark:text-slate-500 text-[10px]">No middleman servers</p>
 					</div>
-					<div class="space-y-1 border-x border-white/5">
-						<p class="text-white font-bold text-[14px]">Fast WebRTC</p>
-						<p class="text-slate-500 text-[10px]">Direct tab connections</p>
+					<div class="space-y-1 border-x border-slate-200 dark:border-white/5">
+						<p class="text-slate-900 dark:text-white font-bold text-[14px]">Fast WebRTC</p>
+						<p class="text-slate-500 dark:text-slate-500 text-[10px]">Direct tab connections</p>
 					</div>
 					<div class="space-y-1">
-						<p class="text-white font-bold text-[14px]">No Size Limits</p>
-						<p class="text-slate-500 text-[10px]">Transfer any file type</p>
+						<p class="text-slate-900 dark:text-white font-bold text-[14px]">No Size Limits</p>
+						<p class="text-slate-500 dark:text-slate-500 text-[10px]">Transfer any file type</p>
 					</div>
 				</div>
 
@@ -236,28 +234,28 @@ import ThemeToggle from '../components/ThemeToggle';
 		</main>
 
 		<!-- Footer -->
-		<footer class="w-full max-w-[740px] mx-auto py-12 px-6 border-t border-white/5 space-y-6 select-none relative z-10 text-center md:text-left">
+		<footer class="w-full max-w-[740px] mx-auto py-12 px-6 border-t border-slate-200 dark:border-white/5 space-y-6 select-none relative z-10 text-center md:text-left">
 			<div class="flex flex-col md:flex-row items-center justify-between gap-6">
 				<!-- Logo Section -->
 				<a href="/" class="flex items-center gap-2 hover:opacity-85 no-underline transition-opacity">
 					<img src="/original-icon.png" alt="Do Not Stop Writing Logo" class="w-5 h-5 object-contain" />
-					<span class="font-serif text-white text-[14px] tracking-wide lowercase">donotstopwriting.com</span>
+					<span class="font-serif text-slate-900 dark:text-white text-[14px] tracking-wide lowercase">donotstopwriting.com</span>
 				</a>
 				
 				<!-- Link Tabs -->
-				<div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-400">
-					<a href="/" class="hover:text-white transition-colors no-underline">Home</a>
-					<a href="/tools" class="hover:text-white transition-colors no-underline">Tools</a>
-					<a href="/about" class="hover:text-white transition-colors no-underline">About</a>
-					<a href="/contact" class="hover:text-white transition-colors no-underline">Contact</a>
-					<a href="/terms" class="hover:text-white transition-colors no-underline">Terms of Service</a>
-					<a href="/privacy" class="hover:text-white transition-colors no-underline">Privacy Policy</a>
+				<div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+					<a href="/" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Home</a>
+					<a href="/tools" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Tools</a>
+					<a href="/about" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">About</a>
+					<a href="/contact" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Contact</a>
+					<a href="/terms" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Terms of Service</a>
+					<a href="/privacy" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Privacy Policy</a>
 				</div>
 			</div>
 			
-			<div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-white/5 text-[10px] text-slate-500">
+			<div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-white/5 text-[10px] text-slate-500">
 				<p>&copy; 2026 donotstopwriting.com / dropdata secure peer transfers.</p>
-				<p class="max-w-[420px] text-center md:text-right leading-relaxed text-slate-600">
+				<p class="max-w-[420px] text-center md:text-right leading-relaxed text-slate-600 dark:text-slate-500">
 					Powered by PeerJS WebRTC cloud infrastructure. Files are transferred exclusively locally between browsers and never cached online.
 				</p>
 			</div>
@@ -330,18 +328,14 @@ import ThemeToggle from '../components/ThemeToggle';
 
 		function switchTab(mode) {
 			if (mode === 'send') {
-				tabSend.classList.add('text-white', 'bg-blue-500/20', 'border', 'border-blue-500/20');
-				tabSend.classList.remove('text-slate-400');
-				tabReceive.classList.remove('text-white', 'bg-blue-500/20', 'border', 'border-blue-500/20');
-				tabReceive.classList.add('text-slate-400');
+				tabSend.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-blue-600 dark:text-white bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20';
+				tabReceive.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white';
 				
 				panelSend.classList.remove('hidden');
 				panelReceive.classList.add('hidden');
 			} else {
-				tabReceive.classList.add('text-white', 'bg-blue-500/20', 'border', 'border-blue-500/20');
-				tabReceive.classList.remove('text-slate-400');
-				tabSend.classList.remove('text-white', 'bg-blue-500/20', 'border', 'border-blue-500/20');
-				tabSend.classList.add('text-slate-400');
+				tabReceive.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-blue-600 dark:text-white bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20';
+				tabSend.className = 'flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white';
 				
 				panelReceive.classList.remove('hidden');
 				panelSend.classList.add('hidden');
@@ -710,9 +704,14 @@ import ThemeToggle from '../components/ThemeToggle';
 <style>
 	/* Background with glowing top radial blue gradient matching screenshot */
 	.dropdata-page {
-		background: radial-gradient(130% 80% at 50% 0%, #1e3a8a 0%, #0f172a 40%, #030712 100%);
+		background: radial-gradient(130% 80% at 50% 0%, #dbeafe 0%, #FAF7F6 40%, #FAF7F6 100%);
 		position: relative;
 		overflow-x: hidden;
+		transition: background 0.3s ease;
+	}
+
+	.dark .dropdata-page {
+		background: radial-gradient(130% 80% at 50% 0%, #1e3a8a 0%, #0f172a 40%, #030712 100%);
 	}
 
 	.dropdata-page::before {
@@ -724,14 +723,43 @@ import ThemeToggle from '../components/ThemeToggle';
 		width: 100%;
 		max-width: 1000px;
 		height: 400px;
-		background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(14,165,233,0.12) 50%, rgba(3,7,18,0) 80%);
+		background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(14,165,233,0.05) 50%, rgba(250,247,246,0) 80%);
 		filter: blur(60px);
 		pointer-events: none;
 		z-index: 1;
+		transition: background 0.3s ease;
+	}
+
+	.dark .dropdata-page::before {
+		background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(14,165,233,0.12) 50%, rgba(3,7,18,0) 80%);
+	}
+
+	/* Elegant translucent macOS dock navigation */
+	.dropdata-nav {
+		background: rgba(250, 247, 246, 0.98);
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-top: none;
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+		border-radius: 0 0 28px 28px;
+		transition: all 0.3s ease;
+	}
+
+	.dark .dropdata-nav {
+		background: rgba(0, 0, 0, 0.98);
+		border-color: rgba(255, 255, 255, 0.08);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	}
 
 	/* Beautiful custom inputs and cards */
 	.app-card {
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+		transition: all 0.3s ease;
+	}
+
+	.dark .app-card {
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 	}
@@ -753,6 +781,10 @@ import ThemeToggle from '../components/ThemeToggle';
 	}
 
 	.text-emerald-450 {
+		color: #059669;
+	}
+
+	.dark .text-emerald-450 {
 		color: #34d399;
 	}
 
@@ -763,7 +795,7 @@ import ThemeToggle from '../components/ThemeToggle';
 	/* Theme Toggle macOS Dock Custom Styling */
 	.theme-toggle-wrapper :global(button) {
 		background: transparent !important;
-		color: rgba(255, 255, 255, 0.75) !important;
+		color: rgba(17, 17, 17, 0.75) !important;
 		padding: 8px !important;
 		border-radius: 9999px;
 		display: flex;
@@ -773,6 +805,13 @@ import ThemeToggle from '../components/ThemeToggle';
 	}
 	.theme-toggle-wrapper :global(button:hover) {
 		background: transparent !important;
+		color: #111111 !important;
+	}
+
+	.dark .theme-toggle-wrapper :global(button) {
+		color: rgba(255, 255, 255, 0.75) !important;
+	}
+	.dark .theme-toggle-wrapper :global(button:hover) {
 		color: #ffffff !important;
 	}
 </style>
