@@ -189,27 +189,16 @@ const {
 		overflow-x: hidden;
 	}
 
-	/* Vercel-like scrollbar for native macOS or other defaults */
-	::-webkit-scrollbar {
-		width: 8px;
-		height: 8px;
-	}
-	::-webkit-scrollbar-track {
-		background: transparent;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #888;
-		border-radius: 10px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #555;
+	/* Hide scrollbar globally */
+	* {
+		scrollbar-width: none !important;
+		-ms-overflow-style: none !important;
 	}
 
-	.dark ::-webkit-scrollbar-thumb {
-		background: #333;
-	}
-	.dark ::-webkit-scrollbar-thumb:hover {
-		background: #444;
+	*::-webkit-scrollbar {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
 	}
 
 	/* macOS Style Cursors for Windows/Linux */
@@ -276,43 +265,4 @@ const {
 		cursor: url("../assets/mac cursor/resizenortheastsouthwest.svg") 10 10, nesw-resize !important;
 	}
 
-	/* macOS Style Scrollbar for Windows/Linux (WebKit) */
-	.custom-macos-theme::-webkit-scrollbar {
-		width: 8px;
-		height: 8px;
-	}
-	.custom-macos-theme::-webkit-scrollbar-track {
-		background: transparent;
-	}
-	.custom-macos-theme::-webkit-scrollbar-thumb {
-		background: rgba(120, 120, 120, 0.4);
-		border-radius: 10px;
-		border: 2px solid transparent;
-		background-clip: padding-box;
-	}
-	.custom-macos-theme::-webkit-scrollbar-thumb:hover {
-		background: rgba(100, 100, 100, 0.7);
-		border: 2px solid transparent;
-		background-clip: padding-box;
-	}
-
-	.custom-macos-theme.dark::-webkit-scrollbar-thumb {
-		background: rgba(150, 150, 150, 0.3);
-		border: 2px solid transparent;
-		background-clip: padding-box;
-	}
-	.custom-macos-theme.dark::-webkit-scrollbar-thumb:hover {
-		background: rgba(180, 180, 180, 0.5);
-		border: 2px solid transparent;
-		background-clip: padding-box;
-	}
-
-	/* macOS Style Scrollbar for Windows/Linux (Firefox) */
-	html.custom-macos-theme {
-		scrollbar-width: thin;
-		scrollbar-color: rgba(120, 120, 120, 0.4) transparent;
-	}
-	html.custom-macos-theme.dark {
-		scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
-	}
 </style>

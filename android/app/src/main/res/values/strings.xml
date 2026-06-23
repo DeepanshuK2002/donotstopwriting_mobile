@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">KTOOTH</string>
-    <string name="title_activity_main">KTOOTH</string>
+    <string name="app_name">Ktooth</string>
+    <string name="title_activity_main">Ktooth</string>
     <string name="package_name">com.kols.app</string>
     <string name="custom_url_scheme">com.kols.app</string>
 </resources>

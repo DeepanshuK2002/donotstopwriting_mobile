@@ -169,62 +169,19 @@
   }
 }
 
-/* Minimal scrollbar for the writing textarea */
-.writing-scrollbar::-webkit-scrollbar {
-  width: 4px;
+/* Chrome, Edge, Android WebView */
+::-webkit-scrollbar {
+  display: none;
 }
 
-.writing-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+/* Firefox */
+html {
+  scrollbar-width: none;
 }
 
-.writing-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.08);
-  border-radius: 99px;
-}
-
-.dark .writing-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.writing-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.18);
-}
-
-.dark .writing-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* Main writing area scrollbar — flush to right screen edge, no margin */
-.writing-main-scrollbar {
-  scrollbar-gutter: stable;
-}
-
-.writing-main-scrollbar::-webkit-scrollbar {
-  width: 4px;
-  margin-right: 0;
-}
-
-.writing-main-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-  margin: 0;
-}
-
-.writing-main-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 0;
-}
-
-.dark .writing-main-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.writing-main-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.22);
-}
-
-.dark .writing-main-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+/* IE/Legacy */
+body {
+  -ms-overflow-style: none;
 }
 
 /* Animations */
