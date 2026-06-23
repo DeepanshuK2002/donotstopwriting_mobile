@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 
     if (isCapacitor) {
       e.preventDefault();
-      window.location.href = href + '/index.html';
+      window.location.href = './' + href + '/index.html';
     }
   };
 
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
         </h1>
 
         <a
-          href="/settings/index.html"
+          href="./settings/index.html"
           onClick={(e) => handleLink(e, 'settings')}
           className="p-2 text-neutral-500 hover:text-primary dark:text-neutral-400 dark:hover:text-white transition-colors cursor-pointer no-underline"
           aria-label="Settings"
