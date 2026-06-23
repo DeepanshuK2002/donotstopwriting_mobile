@@ -5,45 +5,41 @@ import ThemeToggle from '../components/ThemeToggle';
 
 <Layout 
 	title="dropdata - Secure Serverless P2P File Sharing"
-	description="Send files directly between browser tabs using secure end-to-peer WebRTC connections. No size limits, no server uploads, complete local privacy."
+	description="Send files directly between browser tabs using secure end-to-peer WebRTC connections."
 >
-	<div class="dropdata-page min-h-screen text-slate-800 dark:text-slate-100 font-serif flex flex-col justify-between">
+	<div class="dropdata-page min-h-screen text-slate-800 dark:text-slate-100 font-serif flex flex-col">
 		
-		<!-- Top Floating Navigation Capsule (macOS Dock Style) -->
-		<div style="top: -1px; left: 50%; transform: translateX(-50%); z-index: 999;" class="fixed w-[calc(100%-2rem)] max-w-[580px] h-[52px] select-none px-4 md:px-0">
-			<nav 
-				class="dropdata-nav w-full h-full flex items-center justify-between px-6"
-			>
-				<!-- Brand Logo + Name -->
-				<a href="/" class="flex items-center gap-2 hover:opacity-85 no-underline transition-opacity">
-					<img src="/dropdata-icon.png" alt="dropdata logo" class="w-7.5 h-7.5 object-contain" />
-					<span class="font-serif font-semibold text-slate-900 dark:text-white text-[17px] tracking-wide lowercase">dropdata</span>
+		<!-- Header (Matched to DNSW style) -->
+		<header class="h-24 relative z-[100] bg-transparent">
+			<div class="relative w-full h-full flex items-center px-8 md:px-12">
+				<a
+					href="/index.html"
+					id="logo"
+					class="absolute text-[19px] font-serif tracking-wide text-primary dark:text-neutral-100 lowercase select-none hover:opacity-85 no-underline"
+					style="left: 50%; transform: translateX(-50%);"
+				>
+					dropdata
 				</a>
-				
-				<!-- Nav Links -->
-				<div class="hidden sm:flex items-center gap-6 font-sans">
-					<a href="/" class="text-[14.5px] font-semibold tracking-[0.02em] text-slate-600 dark:text-white/75 hover:text-slate-900 dark:hover:text-white no-underline transition-colors duration-200">Home</a>
-					<a href="/tools" class="text-[14.5px] font-semibold tracking-[0.02em] text-slate-600 dark:text-white/75 hover:text-slate-900 dark:hover:text-white no-underline transition-colors duration-200">Tools</a>
-				</div>
-				
-				<!-- Action Button on Right + Theme Toggle -->
-				<div class="flex items-center gap-3">
-					<div class="theme-toggle-wrapper flex items-center">
-						<ThemeToggle client:load />
-					</div>
-					<a 
-						href="/dropdata" 
-						class="inline-flex items-center justify-center text-xs border-0 shadow-none sm:shadow-sm no-underline bg-transparent sm:bg-slate-900 sm:dark:bg-white text-slate-900 dark:text-white sm:text-white sm:dark:text-black font-semibold font-sans p-2 sm:px-4.5 sm:py-2 rounded-full transition-all duration-200 hover:opacity-85 sm:hover:opacity-100 sm:hover:-translate-y-[1px]"
-						title="Reset App"
-					>
-						<span class="hidden sm:inline">Reset App</span>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="block sm:hidden w-4 h-4">
-							<polyline points="23 4 23 10 17 10"></polyline>
-							<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-						</svg>
-					</a>
-				</div>
-			</nav>
+			</div>
+		</header>
+
+		<!-- Home Button (Top Left) -->
+		<div class="absolute top-6 left-8 md:left-12 z-[100] flex items-center h-12">
+			<a
+				href="/index.html"
+				class="p-3 text-neutral-500 hover:text-primary dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-full transition-colors cursor-pointer focus:outline-none no-underline"
+				aria-label="Back to Home"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+					<polyline points="9 22 9 12 15 12 15 22"></polyline>
+				</svg>
+			</a>
+		</div>
+
+		<!-- Theme Toggle (Top Right) -->
+		<div class="absolute top-6 right-8 md:right-12 z-[100] flex items-center h-12">
+			<ThemeToggle client:load />
 		</div>
 
 		<!-- Global Drag & Drop Overlay -->
@@ -54,46 +50,45 @@ import ThemeToggle from '../components/ThemeToggle';
 				<line x1="12" y1="3" x2="12" y2="15"/>
 			</svg>
 			<h2 class="text-4xl font-bold font-sans tracking-tight">Drop file anywhere</h2>
-			<p class="text-white/80 mt-2 font-mono">Transfer directly to peer</p>
 		</div>
 
-		<!-- Main Hero & Interface -->
-		<main class="flex-1 flex flex-col items-center justify-center px-4 py-12 md:py-16 relative z-10">
-			<div class="w-full max-w-[640px] mx-auto text-center space-y-8">
-				
-				<!-- Main Headline -->
-				<div class="space-y-3 animate-fade-in pt-6 md:pt-10">
-					<h1 class="text-4xl md:text-[54px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] font-sans">
-						Drop once.<br />
-						<span class="inline-block mt-1 italic font-serif font-light text-blue-600 dark:text-blue-400">Receive instantly.</span>
-					</h1>
-					<p class="text-slate-650 dark:text-slate-400 text-sm md:text-base max-w-[480px] mx-auto leading-relaxed">
-						dropdata transfers files directly between browser tabs using WebRTC. No file size limits, no server storage, and complete peer-to-peer security.
-					</p>
-				</div>
+		<!-- Main Interface -->
+		<main class="flex-1 flex flex-col items-center justify-center px-4 relative z-10">
 
-				<!-- Interactive Glassmorphic Card -->
-				<div class="app-card bg-white/70 dark:bg-slate-950/40 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.7)] text-center max-w-[450px] w-full mx-auto relative overflow-hidden transition-all duration-300">
+			<!-- Added descriptive text block -->
+			<div class="text-center pb-8 animate-fade-in">
+				<h1 class="text-[64px] md:text-[80px] font-serif leading-[0.92] tracking-tight mb-5 text-primary dark:text-neutral-100 font-medium">
+					Drop once.<br />Receive instantly.
+				</h1>
+				<p class="text-[13px] md:text-sm text-slate-400 dark:text-slate-500 font-serif italic tracking-wide">
+					secure peer-to-peer file sharing.
+				</p>
+			</div>
+
+			<div class="w-full max-w-[450px] mx-auto text-center">
+				
+				<!-- Interactive Glassmorphic Card (Added border, removed shadow) -->
+				<div class="app-card bg-white/70 dark:bg-slate-950/40 backdrop-blur-2xl border border-neutral-300 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-none text-center w-full relative overflow-hidden transition-all duration-300">
 					
-					<!-- Card Header Tab Switcher (State 1: Selection) -->
+					<!-- Card Header Tab Switcher -->
 					<div id="tabs-container" class="relative flex p-1 bg-slate-200/50 dark:bg-black/40 rounded-full border border-slate-350 dark:border-white/5 mb-6 select-none">
 						<div id="tab-indicator" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded-full transition-transform duration-300 ease-out z-0"></div>
 						<button id="tab-send" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-blue-600 dark:text-white cursor-pointer focus:outline-none">
-							Send Files
+							Send
 						</button>
 						<button id="tab-receive" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer focus:outline-none">
-							Receive Files
+							Receive
 						</button>
 					</div>
 
-					<!-- Connected Tab Switcher (Visible only when connected) -->
+					<!-- Connected Tab Switcher -->
 					<div id="tabs-connected-container" class="relative flex p-1 bg-slate-200/50 dark:bg-black/40 rounded-full border border-slate-350 dark:border-white/5 mb-6 select-none hidden">
 						<div id="tab-connected-indicator" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded-full transition-transform duration-300 ease-out z-0"></div>
 						<button id="tab-files" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-blue-600 dark:text-white cursor-pointer focus:outline-none">
-							Transfer Files
+							Transfer
 						</button>
 						<button id="tab-chat" class="relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-200 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer focus:outline-none flex items-center justify-center gap-1.5">
-							Room Chat
+							Chat
 							<span id="chat-badge" class="hidden w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
 						</button>
 					</div>
@@ -103,21 +98,13 @@ import ThemeToggle from '../components/ThemeToggle';
 						
 						<!-- Panel A: Send Start -->
 						<div id="panel-send" class="space-y-5">
-							<div class="text-center space-y-1">
-								<h3 class="text-md font-bold text-slate-900 dark:text-white">Create a Transfer Room</h3>
-								<p class="text-xs text-slate-600 dark:text-slate-400">Generates a unique 9-digit code for the receiver to connect.</p>
-							</div>
-							<button id="btn-create-room" class="w-full py-3 px-4 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 rounded-xl text-xs font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer">
-								Generate Room Code
+							<button id="btn-create-room" class="w-full py-4 px-4 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 rounded-2xl text-sm font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer">
+								Generate Code
 							</button>
 						</div>
 
-						<!-- Panel B: Receive Start (Hidden initially) -->
+						<!-- Panel B: Receive Start -->
 						<div id="panel-receive" class="space-y-5 hidden">
-							<div class="text-center space-y-1">
-								<h3 class="text-md font-bold text-slate-900 dark:text-white">Connect to Room</h3>
-								<p class="text-xs text-slate-600 dark:text-slate-400">Enter the 9-digit room code or scan the sender's QR code.</p>
-							</div>
 							<div class="space-y-3" id="receive-manual-container">
 								<input 
 									type="text" 
@@ -129,7 +116,7 @@ import ThemeToggle from '../components/ThemeToggle';
 								/>
 								<div class="flex gap-2 items-center">
 									<button id="btn-connect-room" class="flex-1 py-3 px-4 bg-blue-500 text-white hover:bg-blue-600 rounded-xl text-xs font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer border-0">
-										Connect to Sender
+										Connect
 									</button>
 									<button id="btn-scan-qr" class="p-2.5 bg-transparent text-slate-550 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center border border-slate-300 dark:border-white/10" title="Scan QR Code">
 										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -143,22 +130,21 @@ import ThemeToggle from '../components/ThemeToggle';
 								</div>
 							</div>
 
-							<!-- QR Scanner Container (Hidden initially) -->
+							<!-- QR Scanner Container -->
 							<div id="receive-scanner-container" class="space-y-3 hidden">
 								<div class="relative overflow-hidden rounded-2xl bg-black border border-slate-350 dark:border-white/10 w-full aspect-square max-w-[280px] mx-auto">
 									<div id="qr-reader" class="w-full h-full"></div>
 									<div class="absolute inset-0 border-[3px] border-dashed border-blue-500 pointer-events-none opacity-40 animate-pulse m-6 rounded-xl"></div>
 								</div>
 								<button id="btn-cancel-scan" class="w-full py-2 px-4 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 rounded-xl text-xs font-bold font-sans tracking-wide transition-all duration-200 cursor-pointer border border-slate-200 dark:border-white/5">
-									Cancel Scanner
+									Cancel
 								</button>
 							</div>
 						</div>
 
-						<!-- Panel C: Sender Waiting Room (Hidden initially) -->
+						<!-- Panel C: Sender Waiting Room -->
 						<div id="panel-sender-waiting" class="space-y-5 hidden">
 							<div class="space-y-2">
-								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-650 dark:text-slate-400">Share This Room Code</span>
 								<div class="flex items-center justify-center gap-3">
 									<span id="display-room-code" class="text-2xl md:text-3xl font-mono font-bold tracking-widest text-slate-900 dark:text-white">--- --- ---</span>
 									<button id="btn-copy-code" class="p-2 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 border border-slate-200 dark:border-white/5" title="Copy code">
@@ -167,20 +153,11 @@ import ThemeToggle from '../components/ThemeToggle';
 											<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
 										</svg>
 									</button>
-									<button id="btn-refresh-code" class="p-2 bg-transparent hover:bg-slate-200/50 dark:hover:bg-white/10 rounded-lg text-slate-650 dark:text-slate-350 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 border-0 focus:outline-none" title="Generate new code">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-											<polyline points="16 3 21 8 16 8"/>
-											<path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-											<polyline points="8 21 3 16 8 16"/>
-										</svg>
-									</button>
 								</div>
 							</div>
 
 							<!-- QR Code for Mobile Scanning -->
 							<div class="space-y-2 pt-2 border-t border-slate-200 dark:border-white/5 flex flex-col items-center">
-								<span class="text-[10px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400">Scan to Connect on Mobile</span>
 								<div class="p-2 bg-white rounded-2xl w-[140px] h-[140px] flex items-center justify-center shadow-lg">
 									<canvas id="qr-canvas"></canvas>
 								</div>
@@ -189,27 +166,21 @@ import ThemeToggle from '../components/ThemeToggle';
 									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 animate-pulse">
 										<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
 									</svg>
-									<span>Code expires in <strong id="expiry-timer" class="font-mono text-slate-800 dark:text-slate-200">5:00</strong></span>
+									<span>Expires in <strong id="expiry-timer" class="font-mono text-slate-800 dark:text-slate-200">5:00</strong></span>
 								</div>
-							</div>
-
-							<div class="flex flex-col items-center justify-center gap-2 pt-1">
-								<div class="w-4 h-4 rounded-full border-2 border-blue-500/20 border-t-blue-500 animate-spin"></div>
-								<p class="text-[11px] text-slate-650 dark:text-slate-400">Waiting for receiver to connect...</p>
 							</div>
 						</div>
 
-						<!-- Panel D: Shared Active Connection (Bidirectional) -->
+						<!-- Panel D: Shared Active Connection -->
 						<div id="panel-shared-active" class="space-y-5 hidden">
 							<div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-3">
 								<div class="flex items-center gap-2">
 									<span class="w-2 h-2 rounded-full bg-blue-500" id="connection-status-dot"></span>
-									<span class="text-xs font-bold text-slate-700 dark:text-slate-300" id="connection-status-text">Connected to Peer</span>
+									<span class="text-xs font-bold text-slate-700 dark:text-slate-300" id="connection-status-text">Connected</span>
 								</div>
-								<button id="btn-leave-room" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave Room</button>
+								<button id="btn-leave-room" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded transition-colors border-0 cursor-pointer">Leave</button>
 							</div>
 							
-							<!-- Drag and Drop Dropzone -->
 							<div id="dropzone" class="border-2 border-dashed border-slate-300 dark:border-white/15 hover:border-blue-500/50 hover:bg-blue-500/5 rounded-2xl p-6 transition-all duration-200 flex flex-col items-center justify-center gap-3 cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-slate-500 dark:text-slate-400 group-hover:text-blue-400" stroke-linecap="round" stroke-linejoin="round">
 									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -217,8 +188,7 @@ import ThemeToggle from '../components/ThemeToggle';
 									<line x1="12" y1="3" x2="12" y2="15"/>
 								</svg>
 								<div class="space-y-1">
-									<p class="text-xs font-bold text-slate-900 dark:text-white">Drag & drop files here</p>
-									<p class="text-[10px] text-slate-500 dark:text-slate-400">Or click to browse your local device</p>
+									<p class="text-xs font-bold text-slate-900 dark:text-white">Choose Files</p>
 								</div>
 								<input type="file" id="file-input" class="hidden" multiple />
 							</div>
@@ -228,16 +198,11 @@ import ThemeToggle from '../components/ThemeToggle';
 								<div class="flex justify-between items-start gap-3">
 									<div class="truncate flex-1">
 										<p id="sender-file-name" class="text-xs font-bold text-slate-900 dark:text-white truncate">file.txt</p>
-										<p id="sender-file-size" class="text-[10px] text-slate-650 dark:text-slate-400">0 KB</p>
 									</div>
 									<span id="sender-percentage" class="text-xs font-mono font-bold text-blue-600 dark:text-blue-400">0%</span>
 								</div>
 								<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
 									<div id="sender-progress-bar" class="bg-blue-500 h-full w-[0%] transition-all duration-150"></div>
-								</div>
-								<div class="flex items-center justify-between">
-									<p id="sender-status-msg" class="text-[10px] text-blue-600 dark:text-blue-400 italic">Sending chunks...</p>
-									<button id="btn-cancel-transfer" class="text-[10px] font-bold text-red-500 hover:text-red-600 bg-transparent border-0 cursor-pointer focus:outline-none hidden">Cancel</button>
 								</div>
 							</div>
 
@@ -246,18 +211,16 @@ import ThemeToggle from '../components/ThemeToggle';
 								<div class="flex justify-between items-start gap-3">
 									<div class="truncate flex-1">
 										<p id="receiver-file-name" class="text-xs font-bold text-slate-900 dark:text-white truncate">file.txt</p>
-										<p id="receiver-file-size" class="text-[10px] text-slate-650 dark:text-slate-400">0 KB</p>
 									</div>
-									<span id="receiver-percentage" class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-450">0%</span>
+									<span id="receiver-percentage" class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-455">0%</span>
 								</div>
 								<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
 									<div id="receiver-progress-bar" class="bg-emerald-500 h-full w-[0%] transition-all duration-150"></div>
 								</div>
-								<p id="receiver-status-msg" class="text-[10px] text-emerald-650 italic">Receiving file data...</p>
 							</div>
 						</div>
 
-						<!-- Panel F: Connection Lost (Hidden initially) -->
+						<!-- Panel F: Connection Lost -->
 						<div id="panel-connection-lost" class="space-y-5 hidden">
 							<div class="flex flex-col items-center justify-center py-6 gap-3 select-none">
 								<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" class="animate-bounce" stroke-linecap="round" stroke-linejoin="round">
@@ -266,31 +229,21 @@ import ThemeToggle from '../components/ThemeToggle';
 									<line x1="12" y1="17" x2="12.01" y2="17"/>
 								</svg>
 								<h3 class="text-md font-bold text-slate-900 dark:text-white">Connection Lost</h3>
-								<p class="text-xs text-slate-650 dark:text-slate-450 text-center max-w-[280px]">
-									The other user has closed their tab or disconnected from this session.
-								</p>
 							</div>
 							<button id="btn-reconnect" class="w-full py-3 px-4 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 rounded-xl text-xs font-bold font-sans tracking-wide shadow-md transition-all duration-200 cursor-pointer">
-								Return to Start
+								Start Over
 							</button>
 						</div>
 
-						<!-- Panel G: Room Chat (Shared) (Hidden initially) -->
+						<!-- Panel G: Room Chat -->
 						<div id="panel-chat" class="hidden flex flex-col text-left h-[300px]">
-							<!-- Messages Container -->
-							<div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 pr-1 pb-2">
-								<div class="text-center py-1 select-none">
-									<span class="text-[10px] bg-slate-200/50 dark:bg-white/5 text-slate-550 dark:text-slate-450 px-2.5 py-1 rounded-full font-sans font-bold">Secure P2P Chat Room Connected</span>
-								</div>
-							</div>
-							
-							<!-- Input Area -->
+							<div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 pr-1 pb-2"></div>
 							<div class="flex items-center gap-2 border-t border-slate-200 dark:border-white/5 pt-3">
 								<input 
 									type="text" 
 									id="input-chat-msg" 
-									placeholder="Type a message..." 
-									class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-xs font-sans text-slate-900 dark:text-white placeholder-slate-450 dark:placeholder-slate-600 focus:border-blue-500 focus:outline-none transition-colors duration-200"
+									placeholder="Message..."
+									class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-xs font-sans text-slate-900 dark:text-white placeholder-slate-455 dark:placeholder-slate-600 focus:border-blue-500 focus:outline-none transition-colors duration-200"
 								/>
 								<button id="btn-send-chat" class="p-2.5 bg-blue-500 text-white hover:bg-blue-600 rounded-xl transition-all duration-200 flex items-center justify-center cursor-pointer shadow-sm border-0 focus:outline-none">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -302,73 +255,29 @@ import ThemeToggle from '../components/ThemeToggle';
 						</div>
 
 					</div>
-
-					<!-- Session History Container -->
-					<div id="session-history-container" class="mt-6 pt-4 border-t border-slate-200 dark:border-white/5 text-left hidden">
-						<div class="flex items-center justify-between mb-2 select-none">
-							<span class="text-[10px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400">Session History (<span id="history-count">0</span>)</span>
-							<button id="btn-download-history" class="text-[10px] font-sans font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 bg-transparent border-0 cursor-pointer focus:outline-none transition-colors">
-								Download Log
-							</button>
-						</div>
-						<div id="history-list" class="space-y-2 max-h-[120px] overflow-y-auto pr-1">
-							<!-- Dynamic History Items -->
-						</div>
-					</div>
-
-					<!-- PWA Install Banner (Hidden initially) -->
-					<div id="pwa-install-banner" class="hidden mt-6 pt-4 border-t border-slate-200 dark:border-white/5 text-center select-none">
-						<button id="btn-pwa-install" class="w-full py-2.5 px-4 bg-blue-500/10 text-blue-600 hover:bg-blue-500/15 dark:bg-blue-500/20 dark:text-blue-400 dark:hover:bg-blue-500/30 rounded-xl text-xs font-bold font-sans tracking-wide transition-all duration-200 cursor-pointer border border-blue-500/20">
-							Add Shortcut / Install App
-						</button>
-					</div>
 				</div>
-
-				<!-- Feature Badges -->
-				<div class="grid grid-cols-3 gap-4 pt-4 max-w-[480px] mx-auto text-center animate-fade-in select-none">
-					<div class="space-y-1">
-						<p class="text-slate-900 dark:text-white font-bold text-[14px]">100% Private</p>
-						<p class="text-slate-500 dark:text-slate-500 text-[10px]">No middleman servers</p>
-					</div>
-					<div class="space-y-1 border-x border-slate-200 dark:border-white/5">
-						<p class="text-slate-900 dark:text-white font-bold text-[14px]">Fast WebRTC</p>
-						<p class="text-slate-500 dark:text-slate-500 text-[10px]">Direct tab connections</p>
-					</div>
-					<div class="space-y-1">
-						<p class="text-slate-900 dark:text-white font-bold text-[14px]">No Size Limits</p>
-						<p class="text-slate-500 dark:text-slate-500 text-[10px]">Transfer any file type</p>
-					</div>
+				<!-- Reset button moved below card -->
+				<div class="mt-8">
+					<a
+						href="/dropdata/index.html"
+						class="inline-flex items-center gap-2 text-[13px] text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-neutral-200 transition-colors duration-200 no-underline font-sans"
+						title="Reset App"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+							<path d="M3 3v5h5"></path>
+							<path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+							<path d="M16 16h5v5"></path>
+						</svg>
+						Reset Tool
+					</a>
 				</div>
-
 			</div>
 		</main>
 
-		<!-- Footer -->
-		<footer class="w-full max-w-[740px] mx-auto py-12 px-6 border-t border-slate-200 dark:border-white/5 space-y-6 select-none relative z-10 text-center md:text-left">
-			<div class="flex flex-col md:flex-row items-center justify-between gap-6">
-				<!-- Logo Section -->
-				<a href="/" class="flex items-center gap-2 hover:opacity-85 no-underline transition-opacity">
-					<img src="/original-icon.png" alt="Do Not Stop Writing Logo" class="w-5 h-5 object-contain" />
-					<span class="font-serif text-slate-900 dark:text-white text-[14px] tracking-wide lowercase">donotstopwriting.com</span>
-				</a>
-				
-				<!-- Link Tabs -->
-				<div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-					<a href="/" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Home</a>
-					<a href="/tools" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Tools</a>
-					<a href="/about" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">About</a>
-					<a href="/contact" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Contact</a>
-					<a href="/terms" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Terms of Service</a>
-					<a href="/privacy" class="hover:text-slate-900 dark:hover:text-white transition-colors no-underline">Privacy Policy</a>
-				</div>
-			</div>
-			
-			<div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-white/5 text-[10px] text-slate-500">
-				<p>&copy; 2026 donotstopwriting.com / dropdata secure peer transfers.</p>
-				<p class="max-w-[420px] text-center md:text-right leading-relaxed text-slate-600 dark:text-slate-500">
-					Powered by PeerJS WebRTC cloud infrastructure. Files are transferred exclusively locally between browsers and never cached online.
-				</p>
-			</div>
+		<!-- Minimal Footer -->
+		<footer class="py-12 text-center text-[10px] text-slate-400 dark:text-slate-600">
+			<p>&copy; 2026 donotstopwriting.com / dropdata</p>
 		</footer>
 
 	</div>
@@ -404,20 +313,12 @@ import ThemeToggle from '../components/ThemeToggle';
 		const btnCreateRoom = document.getElementById('btn-create-room');
 		const btnConnectRoom = document.getElementById('btn-connect-room');
 		const btnCopyCode = document.getElementById('btn-copy-code');
-		const btnRefreshCode = document.getElementById('btn-refresh-code');
 		const btnReconnect = document.getElementById('btn-reconnect');
-		const btnDownloadHistory = document.getElementById('btn-download-history');
 		const btnLeaveRoom = document.getElementById('btn-leave-room');
 		
 		const displayRoomCode = document.getElementById('display-room-code');
 		const inputRoomCode = document.getElementById('input-room-code');
-		
-		const expiryTimer = document.getElementById('expiry-timer');
-		const expiryTimerContainer = document.getElementById('expiry-timer-container');
-		const sessionHistoryContainer = document.getElementById('session-history-container');
-		const historyCount = document.getElementById('history-count');
-		const historyList = document.getElementById('history-list');
-		
+
 		const dropzone = document.getElementById('dropzone');
 		const fileInput = document.getElementById('file-input');
 		const connectionStatusDot = document.getElementById('connection-status-dot');
@@ -426,19 +327,14 @@ import ThemeToggle from '../components/ThemeToggle';
 		// Sender progress
 		const senderProgressBlock = document.getElementById('sender-progress-block');
 		const senderFileName = document.getElementById('sender-file-name');
-		const senderFileSize = document.getElementById('sender-file-size');
-		const senderPercentage = document.getElementById('sender-percentage');
 		const senderProgressBar = document.getElementById('sender-progress-bar');
-		const senderStatusMsg = document.getElementById('sender-status-msg');
-		const btnCancelTransfer = document.getElementById('btn-cancel-transfer');
+		const senderPercentage = document.getElementById('sender-percentage');
 		
 		// Receiver progress
 		const receiverProgressBlock = document.getElementById('receiver-progress-block');
 		const receiverFileName = document.getElementById('receiver-file-name');
-		const receiverFileSize = document.getElementById('receiver-file-size');
-		const receiverPercentage = document.getElementById('receiver-percentage');
 		const receiverProgressBar = document.getElementById('receiver-progress-bar');
-		const receiverStatusMsg = document.getElementById('receiver-status-msg');
+		const receiverPercentage = document.getElementById('receiver-percentage');
 		
 		// Connected Tab Switcher & Chat UI Selectors
 		const tabsConnectedContainer = document.getElementById('tabs-connected-container');
@@ -457,386 +353,80 @@ import ThemeToggle from '../components/ThemeToggle';
 		const receiveManualContainer = document.getElementById('receive-manual-container');
 		const receiveScannerContainer = document.getElementById('receive-scanner-container');
 		
-		// PWA Install UI Selectors
-		const pwaInstallBanner = document.getElementById('pwa-install-banner');
-		const btnPwaInstall = document.getElementById('btn-pwa-install');
-
 		// --- State Variables ---
 		let peer = null;
-		let connections = {}; // Maps peerId -> DataConnection
-		let peerNames = {}; // Maps peerId -> string
+		let connections = {};
+		let peerNames = {};
 		let myUsername = '';
 		let roomCode = '';
 		let activeFile = null;
-		let fileBuffer = null;
 		let fileQueue = [];
 		let receivedChunks = [];
 		let receivedSize = 0;
 		let fileMetadata = null;
 		let isTransferring = false;
 		let receiverHideTimeout = null;
-
-		// New Session States
-		let sessionHistory = [];
-		let expiryTimerInterval = null;
-		let activeConnectedTab = 'files'; // 'files' or 'chat'
 		let isLeavingIntentionally = false;
+		let activeConnectedTab = 'files';
 
 		// --- Tab Switch Logic ---
-		tabSend.addEventListener('click', () => {
-			switchTab('send');
-		});
-
-		tabReceive.addEventListener('click', () => {
-			switchTab('receive');
-		});
+		tabSend.addEventListener('click', () => switchTab('send'));
+		tabReceive.addEventListener('click', () => switchTab('receive'));
 
 		function switchTab(mode) {
 			if (mode === 'send') {
 				tabSend.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
 				tabReceive.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
-				
 				tabIndicator.style.transform = 'translateX(0)';
-				
 				panelReceive.classList.add('hidden');
-				panelReceive.classList.remove('animate-panel-in');
-				
 				panelSend.classList.remove('hidden');
-				void panelSend.offsetWidth; // trigger reflow
-				panelSend.classList.add('animate-panel-in');
 			} else {
 				tabReceive.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
 				tabSend.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
-				
 				tabIndicator.style.transform = 'translateX(100%)';
-				
 				panelSend.classList.add('hidden');
-				panelSend.classList.remove('animate-panel-in');
-				
 				panelReceive.classList.remove('hidden');
-				void panelReceive.offsetWidth; // trigger reflow
-				panelReceive.classList.add('animate-panel-in');
 			}
 		}
 
 		// --- Connected Tab Switch Logic ---
-		tabFiles.addEventListener('click', () => {
-			switchConnectedTab('files');
-		});
-
-		tabChat.addEventListener('click', () => {
-			switchConnectedTab('chat');
-		});
+		tabFiles.addEventListener('click', () => switchConnectedTab('files'));
+		tabChat.addEventListener('click', () => switchConnectedTab('chat'));
 
 		function switchConnectedTab(mode) {
 			activeConnectedTab = mode;
 			if (mode === 'files') {
 				tabFiles.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
 				tabChat.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
-				
 				tabConnectedIndicator.style.transform = 'translateX(0)';
-				
 				panelChat.classList.add('hidden');
-				
-				// Show active panel
 				panelSharedActive.classList.remove('hidden');
-				panelSharedActive.classList.add('animate-panel-in');
 			} else {
 				tabChat.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-blue-600 dark:text-white cursor-pointer';
 				tabFiles.className = 'relative z-10 flex-1 text-center py-2 text-xs font-bold rounded-full transition-colors duration-250 text-slate-550 dark:text-slate-400 hover:text-slate-900 hover:dark:text-white cursor-pointer';
-				
 				tabConnectedIndicator.style.transform = 'translateX(100%)';
-				
 				panelSharedActive.classList.add('hidden');
-				
 				panelChat.classList.remove('hidden');
-				panelChat.classList.add('animate-panel-in');
-				
 				chatBadge.classList.add('hidden');
-				chatMessages.scrollTop = chatMessages.scrollHeight;
-				inputChatMsg.focus();
 			}
 		}
 
 		// --- Connection Utilities ---
 		function broadcast(data) {
-			Object.values(connections).forEach(conn => {
-				if (conn.open) {
-					conn.send(data);
-				}
-			});
+			Object.values(connections).forEach(conn => { if (conn.open) conn.send(data); });
 		}
 
 		function updatePresenceUI() {
 			const activeCount = Object.keys(connections).length;
-			const totalPeople = activeCount + 1; // connections + myself
-
-			if (activeCount > 0) {
-				connectionStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
-			} else {
-				connectionStatusDot.className = 'w-2 h-2 rounded-full bg-slate-400';
-			}
-
-			if (totalPeople > 2) {
-				connectionStatusText.innerText = `Connected as ${myUsername} (${totalPeople} people)`;
-			} else {
-				connectionStatusText.innerText = `Connected as ${myUsername}`;
-			}
+			connectionStatusDot.className = activeCount > 0 ? 'w-2 h-2 rounded-full bg-emerald-500' : 'w-2 h-2 rounded-full bg-slate-400';
+			connectionStatusText.innerText = `Connected (${activeCount + 1})`;
 		}
 
-		// --- Chat Message Logic ---
-		function appendChatMessage(senderName, text, time, isSelf) {
-			const msgDiv = document.createElement('div');
-			if (senderName === 'System') {
-				msgDiv.className = 'flex justify-center w-full my-2';
-				msgDiv.innerHTML = `<span class="text-[10px] bg-slate-200/50 dark:bg-white/5 text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full font-mono text-center">${text}</span>`;
-			} else if (isSelf) {
-				msgDiv.className = 'flex flex-col items-end space-y-1';
-				msgDiv.innerHTML = `
-					<div class="bg-blue-500 text-white rounded-2xl rounded-tr-none px-3 py-2 text-xs max-w-[85%] break-words shadow-sm">
-						${escapeHtml(text)}
-					</div>
-					<span class="text-[9px] text-slate-450 dark:text-slate-550 font-mono pr-1">${time}</span>
-				`;
-			} else {
-				msgDiv.className = 'flex flex-col items-start space-y-1';
-				msgDiv.innerHTML = `
-					<span class="text-[9px] text-slate-500 dark:text-slate-400 pl-1 font-bold">${escapeHtml(senderName)}</span>
-					<div class="bg-slate-200/60 dark:bg-white/5 text-slate-800 dark:text-slate-200 rounded-2xl rounded-tl-none px-3 py-2 text-xs max-w-[85%] break-words shadow-sm border border-slate-250/20 dark:border-white/5">
-						${escapeHtml(text)}
-					</div>
-					<span class="text-[9px] text-slate-450 dark:text-slate-550 font-mono pl-1">${time}</span>
-				`;
-			}
-			chatMessages.appendChild(msgDiv);
-			chatMessages.scrollTop = chatMessages.scrollHeight;
-		}
-
-		function sendChatMessage() {
-			const text = inputChatMsg.value.trim();
-			if (!text || Object.keys(connections).length === 0) return;
-			
-			const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-			broadcast({
-				type: 'chat-message',
-				text: text,
-				time: time,
-				senderName: myUsername
-			});
-			
-			appendChatMessage('You', text, time, true);
-			inputChatMsg.value = '';
-		}
-
-		btnSendChat.addEventListener('click', sendChatMessage);
-		inputChatMsg.addEventListener('keydown', (e) => {
-			if (e.key === 'Enter') {
-				sendChatMessage();
-			}
-		});
-
-		// --- Helper: Format File Sizes ---
-		function formatBytes(bytes) {
-			if (bytes === 0) return '0 Bytes';
-			const k = 1024;
-			const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-			const i = Math.floor(Math.log(bytes) / Math.log(k));
-			return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-		}
-
-		function formatSpeed(bps) {
-			if (bps === 0) return '0 B/s';
-			const k = 1024;
-			const sizes = ['B/s', 'KB/s', 'MB/s', 'GB/s'];
-			const i = Math.floor(Math.log(bps) / Math.log(k));
-			return parseFloat((bps / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-		}
-
-		function formatETA(seconds) {
-			if (!isFinite(seconds) || seconds < 0) return 'calculating...';
-			if (seconds === 0) return 'almost done';
-			if (seconds < 60) return `${seconds}s left`;
-			const m = Math.floor(seconds / 60);
-			const s = seconds % 60;
-			return `${m}m ${s}s left`;
-		}
-
-		// --- Helper: Generate Room ID ---
-		function generateRoomCode() {
-			const part1 = Math.floor(100 + Math.random() * 900);
-			const part2 = Math.floor(100 + Math.random() * 900);
-			const part3 = Math.floor(100 + Math.random() * 900);
-			return `${part1}-${part2}-${part3}`;
-		}
-
-		// --- Helper: Format Room Code Input ---
-		inputRoomCode.addEventListener('input', (e) => {
-			let val = e.target.value.replace(/\D/g, ''); // Numbers only
-			if (val.length > 9) val = val.substring(0, 9);
-			
-			let formatted = '';
-			if (val.length > 6) {
-				formatted = `${val.substring(0, 3)}-${val.substring(3, 6)}-${val.substring(6)}`;
-			} else if (val.length > 3) {
-				formatted = `${val.substring(0, 3)}-${val.substring(3)}`;
-			} else {
-				formatted = val;
-			}
-			e.target.value = formatted;
-		});
-
-		// --- QR Code Scanner Logic ---
-		let html5QrCode = null;
-
-		btnScanQr.addEventListener('click', () => {
-			startQrScanner();
-		});
-
-		btnCancelScan.addEventListener('click', () => {
-			stopQrScanner();
-		});
-
-		function startQrScanner() {
-			receiveManualContainer.classList.add('hidden');
-			receiveScannerContainer.classList.remove('hidden');
-			
-			html5QrCode = new Html5Qrcode("qr-reader");
-			
-			const qrCodeSuccessCallback = (decodedText) => {
-				console.log("Scanned text successfully:", decodedText);
-				
-				let room = '';
-				try {
-					const url = new URL(decodedText);
-					room = url.searchParams.get('room') || '';
-				} catch (e) {
-					// Check if raw 9-digit code
-					if (/^\d{3}-\d{3}-\d{3}$/.test(decodedText)) {
-						room = decodedText;
-					}
-				}
-
-				if (room) {
-					stopQrScanner();
-					inputRoomCode.value = room;
-					initializeReceiver(room);
-				}
-			};
-
-			const config = { fps: 15, qrbox: { width: 220, height: 220 } };
-
-			html5QrCode.start(
-				{ facingMode: "environment" },
-				config,
-				qrCodeSuccessCallback
-			).catch((err) => {
-				console.error("Failed to start QR scanner:", err);
-				alert("Could not access camera. Please allow camera permissions or enter the room code manually.");
-				stopQrScanner();
-			});
-		}
-
-		function stopQrScanner() {
-			if (html5QrCode) {
-				if (html5QrCode.isScanning) {
-					html5QrCode.stop().then(() => {
-						html5QrCode.clear();
-						html5QrCode = null;
-					}).catch(err => {
-						console.error("Failed to stop QR scanner:", err);
-					});
-				} else {
-					html5QrCode = null;
-				}
-			}
-			receiveScannerContainer.classList.add('hidden');
-			receiveManualContainer.classList.remove('hidden');
-		}
-
-		// --- Copy Code to Clipboard ---
-		btnCopyCode.addEventListener('click', () => {
-			if (roomCode) {
-				navigator.clipboard.writeText(roomCode).then(() => {
-					btnCopyCode.innerHTML = `
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-							<polyline points="20 6 9 17 4 12"/>
-						</svg>
-					`;
-					setTimeout(() => {
-						btnCopyCode.innerHTML = `
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-								<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-							</svg>
-						`;
-					}, 2000);
-				});
-			}
-		});
-
-		// --- 5-Minute Expiry Countdown ---
-		function startExpiryTimer() {
-			if (expiryTimerInterval) {
-				clearInterval(expiryTimerInterval);
-			}
-			
-			let timeLeft = 300; // 5 minutes in seconds
-			expiryTimerContainer.classList.remove('hidden');
-			
-			function updateTimerText() {
-				const mins = Math.floor(timeLeft / 60);
-				const secs = timeLeft % 60;
-				expiryTimer.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
-			}
-			
-			updateTimerText();
-			
-			expiryTimerInterval = setInterval(() => {
-				timeLeft--;
-				if (timeLeft <= 0) {
-					clearInterval(expiryTimerInterval);
-					expiryTimerInterval = null;
-					console.log('Room code expired, rotating...');
-					if (peer) {
-						peer.destroy();
-						peer = null;
-					}
-					initializeSender();
-				} else {
-					updateTimerText();
-				}
-			}, 1000);
-		}
-
-		function clearExpiryTimer() {
-			if (expiryTimerInterval) {
-				clearInterval(expiryTimerInterval);
-				expiryTimerInterval = null;
-			}
-			expiryTimerContainer.classList.add('hidden');
-		}
-
-		// --- Connection/Disconnect Handling ---
 		function handlePeerDisconnect() {
 			if (isLeavingIntentionally) return;
-			
-			clearExpiryTimer();
-			
-			Object.values(connections).forEach(conn => {
-				try {
-					conn.close();
-				} catch (e) {}
-			});
+			Object.values(connections).forEach(conn => { try { conn.close(); } catch (e) {} });
 			connections = {};
-			
-			if (peer) {
-				try {
-					peer.destroy();
-				} catch (e) {}
-				peer = null;
-			}
-			
-			// Hide all normal panels
+			if (peer) { try { peer.destroy(); } catch (e) {} peer = null; }
 			panelSend.classList.add('hidden');
 			panelReceive.classList.add('hidden');
 			panelSenderWaiting.classList.add('hidden');
@@ -844,924 +434,177 @@ import ThemeToggle from '../components/ThemeToggle';
 			panelChat.classList.add('hidden');
 			tabsContainer.classList.add('hidden');
 			tabsConnectedContainer.classList.add('hidden');
-			
-			// Reset Chat Box UI
-			chatMessages.innerHTML = `
-				<div class="text-center py-1 select-none">
-					<span class="text-[10px] bg-slate-200/50 dark:bg-white/5 text-slate-550 dark:text-slate-450 px-2.5 py-1 rounded-full font-sans font-bold">Secure P2P Chat Room Connected</span>
-				</div>
-			`;
-			chatBadge.classList.add('hidden');
-			
-			// Show connection lost panel
 			panelConnectionLost.classList.remove('hidden');
 		}
 
-		btnReconnect.addEventListener('click', () => {
-			window.location.reload();
-		});
-
-		// --- History UI Update & Download Log ---
-		function updateHistoryUI() {
-			if (sessionHistory.length === 0) {
-				sessionHistoryContainer.classList.add('hidden');
-				return;
-			}
-			
-			sessionHistoryContainer.classList.remove('hidden');
-			historyCount.innerText = sessionHistory.length.toString();
-			
-			historyList.innerHTML = sessionHistory.map(item => `
-				<div class="flex justify-between items-center text-[11px] bg-slate-50 dark:bg-white/5 p-2 rounded-lg border border-slate-100 dark:border-white/5">
-					<div class="truncate mr-2 flex-1 font-sans">
-						<p class="font-bold text-slate-900 dark:text-white truncate" title="${escapeHtml(item.filename)}">${escapeHtml(item.filename)}</p>
-						<p class="text-[9px] text-slate-500 dark:text-slate-400">${formatBytes(item.size)} · ${item.type}</p>
-					</div>
-					<span class="text-[9px] text-slate-450 dark:text-slate-550 shrink-0 font-mono">${item.time}</span>
-				</div>
-			`).join('');
-		}
-
-		function escapeHtml(str) {
-			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-		}
-
-		btnDownloadHistory.addEventListener('click', () => {
-			if (sessionHistory.length === 0) return;
-			
-			let csvContent = "Time,Type,File Name,Size (Bytes),Size (Formatted)\n";
-			sessionHistory.forEach(item => {
-				const escapedName = `"${item.filename.replace(/"/g, '""')}"`;
-				csvContent += `${item.time},${item.type},${escapedName},${item.size},${formatBytes(item.size)}\n`;
-			});
-			
-			const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-			const url = URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.href = url;
-			a.download = `dropdata-history-${new Date().toISOString().slice(0,10)}.csv`;
-			document.body.appendChild(a);
-			a.click();
-			document.body.removeChild(a);
-			URL.revokeObjectURL(url);
-		});
-
-		// --- Refresh Code Button ---
-		btnRefreshCode.addEventListener('click', () => {
-			if (peer) {
-				peer.destroy();
-				peer = null;
-			}
-			initializeSender();
-		});
-
-		const guestNamesList = ['Fox', 'Wolf', 'Bear', 'Lion', 'Lynx', 'Hawk', 'Dove', 'Crow', 'Swan', 'Owl'];
-		function getRandomGuestName() {
-			return guestNamesList[Math.floor(Math.random() * guestNamesList.length)];
-		}
+		btnReconnect.addEventListener('click', () => window.location.reload());
 
 		// --- SENDER STATE ACTIONS ---
-		btnCreateRoom.addEventListener('click', () => {
-			myUsername = 'Admin';
-			initializeSender();
-		});
+		btnCreateRoom.addEventListener('click', () => { myUsername = 'Admin'; initializeSender(); });
 
 		function initializeSender() {
-			roomCode = generateRoomCode();
-			
-			// Show waiting panel
+			roomCode = Math.floor(100 + Math.random() * 900) + '-' + Math.floor(100 + Math.random() * 900) + '-' + Math.floor(100 + Math.random() * 900);
 			tabsContainer.classList.add('hidden');
 			panelSend.classList.add('hidden');
 			panelSenderWaiting.classList.remove('hidden');
 			displayRoomCode.innerText = roomCode;
 
-			// Generate QR code for mobile scanning
-			const shareUrl = `${window.location.origin}${window.location.pathname}?room=${roomCode}`;
-			new QRious({
-				element: document.getElementById('qr-canvas'),
-				value: shareUrl,
-				size: 120
-			});
+			new QRious({ element: document.getElementById('qr-canvas'), value: `${window.location.origin}${window.location.pathname}?room=${roomCode}`, size: 120 });
 
-			startExpiryTimer();
-
-			// Initialize PeerJS
 			peer = new Peer(roomCode);
-
-			peer.on('open', (id) => {
-				console.log('Sender peer registry open on ID:', id);
-			});
-
 			peer.on('connection', (conn) => {
-				console.log('Peer connected to room!');
-				if (Object.keys(connections).length === 0) {
-					setupHostEnvironment();
-				}
+				if (Object.keys(connections).length === 0) setupHostEnvironment();
 				addConnection(conn, true);
 			});
-
 			peer.on('error', (err) => {
-				console.error('PeerJS error:', err);
-				if (err.type === 'unavailable-id') {
-					console.log('Room ID taken, retrying generation...');
-					peer.destroy();
-					peer = null;
-					initializeSender();
-				} else {
-					handlePeerDisconnect();
-				}
+				if (err.type === 'unavailable-id') { peer.destroy(); initializeSender(); }
+				else handlePeerDisconnect();
 			});
 		}
 
 		function setupHostEnvironment() {
-			clearExpiryTimer();
-			
-			// Show connected tab container and set tab to files
 			tabsContainer.classList.add('hidden');
 			tabsConnectedContainer.classList.remove('hidden');
 			switchConnectedTab('files');
-
 			panelSenderWaiting.classList.add('hidden');
 			panelSharedActive.classList.remove('hidden');
-			connectionStatusText.innerText = `Connected as ${myUsername}`;
 			updatePresenceUI();
 		}
 
 		function addConnection(conn, isHost) {
 			connections[conn.peer] = conn;
-
 			conn.on('open', () => {
-				console.log(`Connected to peer ${conn.peer}`);
-				const guestName = conn.metadata?.username || 'Guest';
-				peerNames[conn.peer] = guestName;
-				
-				// If I am Host, send the new guest the current mesh info
-				if (isHost && conn.peer !== roomCode) {
-					const peerList = Object.keys(connections).map(id => ({
-						id,
-						name: peerNames[id] || 'Guest'
-					}));
-					peerList.push({ id: peer.id, name: myUsername }); // Add myself to the list
-
-					conn.send({
-						type: 'peer-list',
-						peers: peerList
-					});
-					
-					// Broadcast to other existing guests that a new guest joined
-					Object.values(connections).forEach(c => {
-						if (c.peer !== conn.peer && c.open) {
-							c.send({
-								type: 'peer-joined',
-								id: conn.peer,
-								name: guestName
-							});
-						}
-					});
+				peerNames[conn.peer] = conn.metadata?.username || 'Guest';
+				if (isHost) {
+					const peerList = Object.keys(connections).map(id => ({ id, name: peerNames[id] }));
+					peerList.push({ id: peer.id, name: myUsername });
+					conn.send({ type: 'peer-list', peers: peerList });
+					Object.values(connections).forEach(c => { if (c.peer !== conn.peer && c.open) c.send({ type: 'peer-joined', id: conn.peer, name: peerNames[conn.peer] }); });
 				}
-				
 				updatePresenceUI();
-				appendChatMessage('System', `${guestName} joined the room.`, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), false);
 			});
-
-			conn.on('data', (data) => {
-				handleIncomingData(conn, data);
-			});
-
-			conn.on('close', () => {
-				const name = peerNames[conn.peer] || 'Unknown';
-				appendChatMessage('System', `${name} left the room.`, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), false);
-				
-				delete connections[conn.peer];
-				delete peerNames[conn.peer];
-				updatePresenceUI();
-
-				if (conn.peer === roomCode) {
-					// Host left! Initiate 5 sec countdown if we have other peers, otherwise close instantly
-					handleHostDisconnect();
-				} else if (Object.keys(connections).length === 0) {
-					// Everyone left
-					handlePeerDisconnect();
-				}
-			});
-		}
-
-		function handleHostDisconnect() {
-			if (Object.keys(connections).length >= 1) { // We are still connected to at least 1 other guest
-				receiverStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Host left! Room closing in 5s...</span>';
-				appendChatMessage('System', `Host left! Room destroying in 5 seconds...`, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), false);
-				setTimeout(() => {
-					handlePeerDisconnect();
-				}, 5000);
-			} else {
-				handlePeerDisconnect();
-			}
+			conn.on('data', (data) => handleIncomingData(conn, data));
+			conn.on('close', () => { delete connections[conn.peer]; delete peerNames[conn.peer]; updatePresenceUI(); if (Object.keys(connections).length === 0) handlePeerDisconnect(); });
 		}
 
 		function handleIncomingData(conn, data) {
-			if (data.type === 'peer-closed-tab' || data.type === 'peer-left') {
-				conn.close(); // let the close event handle UI updates
-				return;
-			}
-
-			if (data.type === 'peer-list') {
-				// Received by Guest from Host upon joining. Connect to all other guests.
-				data.peers.forEach(p => {
-					if (p.id !== peer.id && !connections[p.id]) {
-						console.log('Connecting to mesh peer:', p.id);
-						peerNames[p.id] = p.name;
-						const newConn = peer.connect(p.id, { metadata: { username: myUsername } });
-						addConnection(newConn, false);
-					}
-				});
-				return;
-			}
-
-			if (data.type === 'peer-joined') {
-				// Received by Guest from Host when another guest joins
-				peerNames[data.id] = data.name;
-				return; // The new guest will connect to us
-			}
-
-			if (data.type === 'chat-message') {
-				appendChatMessage(data.senderName || peerNames[conn.peer] || 'User', data.text, data.time, false);
-				if (activeConnectedTab !== 'chat') {
-					chatBadge.classList.remove('hidden');
-				}
-				return;
-			}
-
-			if (data.type === 'start-transfer') {
-				if (!isTransferring) {
-					isTransferring = true;
-					sendChunks();
-				}
-				return;
-			}
-
-			if (data.type === 'file-cancel') {
-				receiverStatusMsg.innerHTML = `<span class="text-red-500 font-bold">Transfer cancelled by ${peerNames[conn.peer] || 'peer'}.</span>`;
-				setTimeout(() => {
-					receiverProgressBlock.classList.add('hidden');
-					receivedChunks = [];
-					receivedSize = 0;
-					fileMetadata = null;
-				}, 3000);
-				return;
-			}
-
-			if (data.type === 'file-meta') {
-				if (receiverHideTimeout) {
-					clearTimeout(receiverHideTimeout);
-					receiverHideTimeout = null;
-				}
-				fileMetadata = data;
-				receivedChunks = [];
-				receivedSize = 0;
-				
-				receiverProgressBlock.classList.remove('hidden');
-				receiverFileName.innerText = fileMetadata.filename;
-				receiverFileSize.innerText = formatBytes(fileMetadata.size);
-				receiverPercentage.innerText = '0%';
-				receiverProgressBar.style.width = '0%';
-				receiverStatusMsg.innerText = `Receiving from ${peerNames[conn.peer] || 'peer'}...`;
-				
-				// Automatically accept files by triggering start-transfer. We can't broadcast this! We must send to the specific sender.
-				conn.send({ type: 'start-transfer' });
-			} 
+			if (data.type === 'peer-list') { data.peers.forEach(p => { if (p.id !== peer.id && !connections[p.id]) { peerNames[p.id] = p.name; addConnection(peer.connect(p.id, { metadata: { username: myUsername } }), false); } }); }
+			else if (data.type === 'peer-joined') { peerNames[data.id] = data.name; }
+			else if (data.type === 'chat-message') { appendChatMessage(data.senderName, data.text, data.time, false); if (activeConnectedTab !== 'chat') chatBadge.classList.remove('hidden'); }
+			else if (data.type === 'start-transfer') { if (!isTransferring) { isTransferring = true; sendChunks(); } }
+			else if (data.type === 'file-meta') { fileMetadata = data; receivedChunks = []; receivedSize = 0; receiverProgressBlock.classList.remove('hidden'); receiverFileName.innerText = data.filename; conn.send({ type: 'start-transfer' }); }
 			else if (data.type === 'file-chunk') {
-				receivedChunks.push(data.chunk);
-				receivedSize += data.chunk.byteLength;
-
-				const progress = Math.min(100, Math.trunc((receivedSize / fileMetadata.size) * 100));
+				receivedChunks.push(data.chunk); receivedSize += data.chunk.byteLength;
+				const progress = Math.trunc((receivedSize / fileMetadata.size) * 100);
 				receiverPercentage.innerText = `${progress}%`;
 				receiverProgressBar.style.width = `${progress}%`;
-				
-				if (!fileMetadata.startTime) {
-					fileMetadata.startTime = Date.now();
-					fileMetadata.lastUpdate = Date.now();
-					fileMetadata.lastBytes = 0;
-				}
-				
-				const now = Date.now();
-				if (now - fileMetadata.lastUpdate > 500) {
-					const bytesSinceUpdate = receivedSize - fileMetadata.lastBytes;
-					const timeSinceUpdate = (now - fileMetadata.lastUpdate) / 1000;
-					const speedBps = bytesSinceUpdate / timeSinceUpdate;
-					const bytesRemaining = fileMetadata.size - receivedSize;
-					const etaSeconds = speedBps > 0 ? Math.ceil(bytesRemaining / speedBps) : 0;
-					
-					receiverStatusMsg.innerText = `Receiving: ${formatSpeed(speedBps)} · ${formatETA(etaSeconds)}`;
-					
-					fileMetadata.lastUpdate = now;
-					fileMetadata.lastBytes = receivedSize;
-				}
-			} 
+			}
 			else if (data.type === 'file-done') {
-				receiverStatusMsg.innerText = 'Reassembling file packages...';
-				
 				const blob = new Blob(receivedChunks);
-				const downloadUrl = URL.createObjectURL(blob);
-				
-				const a = document.createElement('a');
-				a.href = downloadUrl;
-				a.download = fileMetadata.filename;
-				document.body.appendChild(a);
-				a.click();
-				document.body.removeChild(a);
-				URL.revokeObjectURL(downloadUrl);
-				
-				receiverPercentage.innerText = '100%';
-				receiverProgressBar.style.width = '100%';
-				receiverStatusMsg.innerHTML = '<span class="text-emerald-500 font-bold">✓ Download Completed! check your downloads folder.</span>';
-
-				sessionHistory.push({
-					filename: fileMetadata.filename,
-					size: fileMetadata.size,
-					type: 'Received',
-					time: new Date().toLocaleTimeString()
-				});
-				updateHistoryUI();
-
-				receiverHideTimeout = setTimeout(() => {
-					receiverProgressBlock.classList.add('hidden');
-					receivedChunks = [];
-					receivedSize = 0;
-					fileMetadata = null;
-				}, 4000);
+				const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fileMetadata.filename; a.click();
+				receiverPercentage.innerText = '100%'; receiverProgressBar.style.width = '100%';
+				setTimeout(() => { receiverProgressBlock.classList.add('hidden'); }, 3000);
 			}
 		}
 
-		// --- DRAG AND DROP HANDLERS (SHARED) ---
-		const globalDragOverlay = document.getElementById('global-drag-overlay');
-		let dragCounter = 0;
+		function appendChatMessage(sender, text, time, isSelf) {
+			const div = document.createElement('div');
+			div.className = isSelf ? 'flex flex-col items-end space-y-1' : 'flex flex-col items-start space-y-1';
+			div.innerHTML = `<div class="${isSelf ? 'bg-blue-500 text-white' : 'bg-slate-200 dark:bg-white/5'} rounded-2xl px-3 py-2 text-xs max-w-[85%] break-words">${text}</div>`;
+			chatMessages.appendChild(div);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
 
-		window.addEventListener('dragenter', (e) => {
-			e.preventDefault();
-			const hasOpenConnection = Object.values(connections).some(conn => conn.open);
-			if (hasOpenConnection) {
-				dragCounter++;
-				globalDragOverlay.classList.remove('hidden');
-				requestAnimationFrame(() => globalDragOverlay.classList.remove('opacity-0'));
-			}
+		btnSendChat.addEventListener('click', () => {
+			const text = inputChatMsg.value.trim(); if (!text) return;
+			const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+			broadcast({ type: 'chat-message', text, time, senderName: myUsername });
+			appendChatMessage('You', text, time, true); inputChatMsg.value = '';
 		});
-
-		window.addEventListener('dragleave', (e) => {
-			e.preventDefault();
-			const hasOpenConnection = Object.values(connections).some(conn => conn.open);
-			if (hasOpenConnection) {
-				dragCounter--;
-				if (dragCounter === 0) {
-					globalDragOverlay.classList.add('opacity-0');
-					setTimeout(() => {
-						if (dragCounter === 0) globalDragOverlay.classList.add('hidden');
-					}, 300);
-				}
-			}
-		});
-
-		window.addEventListener('dragover', (e) => {
-			e.preventDefault(); // Required to allow dropping
-		});
-
-		window.addEventListener('drop', (e) => {
-			e.preventDefault();
-			dragCounter = 0;
-			globalDragOverlay.classList.add('opacity-0');
-			setTimeout(() => globalDragOverlay.classList.add('hidden'), 300);
-
-			const hasOpenConnection = Object.values(connections).some(conn => conn.open);
-			if (hasOpenConnection && e.dataTransfer.files.length > 0) {
-				handleFileSelection(e.dataTransfer.files);
-			}
-		});
-
-		dropzone.addEventListener('click', () => fileInput.click());
-
-		fileInput.addEventListener('change', (e) => {
-			if (e.target.files.length > 0) {
-				handleFileSelection(e.target.files);
-			}
-		});
-
-		function handleFileSelection(files) {
-			const hasOpenConnection = Object.values(connections).some(conn => conn.open);
-			if (!hasOpenConnection) {
-				alert("Please wait for a peer to fully connect before sending files.");
-				return;
-			}
-			
-			for (let i = 0; i < files.length; i++) {
-				fileQueue.push(files[i]);
-			}
-			
-			if (!isTransferring) {
-				processFileQueue();
-			} else {
-				senderStatusMsg.innerText = `Queued ${fileQueue.length} files...`;
-			}
-		}
-
-		function processFileQueue() {
-			if (fileQueue.length === 0) return;
-			activeFile = fileQueue.shift();
-			
-			dropzone.classList.add('hidden');
-			senderProgressBlock.classList.remove('hidden');
-			
-			senderFileName.innerText = activeFile.name;
-			senderFileSize.innerText = formatBytes(activeFile.size);
-			senderPercentage.innerText = '0%';
-			senderProgressBar.style.width = '0%';
-			
-			if (fileQueue.length > 0) {
-				senderStatusMsg.innerText = `Preparing transfer (${fileQueue.length} queued)...`;
-			} else {
-				senderStatusMsg.innerText = 'Preparing transfer...';
-			}
-
-			startFileSharing();
-		}
-
-		let offset = 0;
-		const CHUNK_SIZE = 65536; // 64KB optimized chunk size for modern WebRTC
-		let isFinishing = false;
-		let isCancelled = false;
-		
-		let transferStartTime = 0;
-		let lastSpeedUpdate = 0;
-		let lastBytesTransferred = 0;
-
-		function startFileSharing() {
-			offset = 0;
-			isFinishing = false;
-			isCancelled = false;
-			isTransferring = false;
-			transferStartTime = 0;
-			
-			senderStatusMsg.innerText = 'Connecting transfer protocol...';
-			btnCancelTransfer.classList.remove('hidden');
-			
-			broadcast({
-				type: 'file-meta',
-				filename: activeFile.name,
-				size: activeFile.size,
-				chunkSize: CHUNK_SIZE
-			});
-		}
-
-		async function sendChunks() {
-			if (Object.keys(connections).length === 0 || !activeFile || isCancelled) return;
-			
-			// Setup speed tracking
-			if (transferStartTime === 0) {
-				transferStartTime = Date.now();
-				lastSpeedUpdate = transferStartTime;
-				lastBytesTransferred = 0;
-			}
-			
-			const BUFFER_LIMIT = 524288; // 512KB for faster modern networks
-			
-			// Check if ANY connection has a full buffer
-			let bufferFull = false;
-			Object.values(connections).forEach(conn => {
-				if (conn.dataChannel && conn.dataChannel.bufferedAmount > BUFFER_LIMIT) {
-					bufferFull = true;
-				}
-			});
-
-			if (bufferFull) {
-				setTimeout(sendChunks, 50);
-				return;
-			}
-
-			const BATCH_SIZE = 524288; // 512KB batch
-			let sentInBatch = 0;
-
-			try {
-				while (offset < activeFile.size && sentInBatch < BATCH_SIZE && !isCancelled) {
-					const chunkBlob = activeFile.slice(offset, offset + CHUNK_SIZE);
-					const chunkBuf = await chunkBlob.arrayBuffer();
-					
-					offset += chunkBuf.byteLength;
-					sentInBatch += chunkBuf.byteLength;
-					
-					broadcast({
-						type: 'file-chunk',
-						chunk: chunkBuf
-					});
-				}
-			} catch (err) {
-				console.error("Error reading file slice:", err);
-				senderStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Error reading file from disk.</span>';
-				return;
-			}
-
-			const progress = Math.min(100, Math.trunc((offset / activeFile.size) * 100));
-			senderPercentage.innerText = `${progress}%`;
-			senderProgressBar.style.width = `${progress}%`;
-
-			// Calculate Speed and ETA
-			const now = Date.now();
-			if (now - lastSpeedUpdate > 500) {
-				const bytesSinceUpdate = offset - lastBytesTransferred;
-				const timeSinceUpdate = (now - lastSpeedUpdate) / 1000;
-				const speedBps = bytesSinceUpdate / timeSinceUpdate;
-				
-				const bytesRemaining = activeFile.size - offset;
-				const etaSeconds = speedBps > 0 ? Math.ceil(bytesRemaining / speedBps) : 0;
-				
-				senderStatusMsg.innerText = `Sending: ${formatSpeed(speedBps)} · ${formatETA(etaSeconds)}`;
-				
-				lastSpeedUpdate = now;
-				lastBytesTransferred = offset;
-			}
-
-			if (offset < activeFile.size && !isCancelled) {
-				setTimeout(sendChunks, 0);
-			} else if (offset >= activeFile.size && !isFinishing && !isCancelled) {
-				isFinishing = true;
-				checkBufferAndFinish();
-			}
-		}
-
-		function checkBufferAndFinish() {
-			if (isCancelled) return;
-			
-			let bufferClearing = false;
-			Object.values(connections).forEach(conn => {
-				if (conn.dataChannel && conn.dataChannel.bufferedAmount > 0) {
-					bufferClearing = true;
-				}
-			});
-
-			if (!bufferClearing) {
-				broadcast({
-					type: 'file-done'
-				});
-				
-				senderPercentage.innerText = '100%';
-				senderProgressBar.style.width = '100%';
-				senderStatusMsg.innerHTML = '<span class="text-emerald-450 font-bold">✓ File transferred successfully!</span>';
-				btnCancelTransfer.classList.add('hidden');
-				isTransferring = false;
-				
-				sessionHistory.push({
-					filename: activeFile.name,
-					size: activeFile.size,
-					type: 'Sent',
-					time: new Date().toLocaleTimeString()
-				});
-				updateHistoryUI();
-
-				if (fileQueue.length > 0) {
-					setTimeout(() => {
-						processFileQueue();
-					}, 1000);
-				} else {
-					setTimeout(() => {
-						dropzone.classList.remove('hidden');
-						senderProgressBlock.classList.add('hidden');
-						fileInput.value = '';
-						activeFile = null;
-					}, 4000);
-				}
-			} else {
-				setTimeout(checkBufferAndFinish, 100);
-			}
-		}
 
 		// --- RECEIVER STATE ACTIONS ---
 		btnConnectRoom.addEventListener('click', () => {
 			const code = inputRoomCode.value.trim();
-			if (code.length === 11) { // 000-000-000 is 11 chars with dashes
-				myUsername = getRandomGuestName();
-				initializeReceiver(code);
-			} else {
-				alert('Please enter a valid 9-digit Room Code.');
-			}
+			if (code.length === 11) { myUsername = 'Guest'; initializeReceiver(code); }
 		});
 
 		function initializeReceiver(targetCode) {
-			// Stop QR scanner if active
 			stopQrScanner();
-
-			// Show receiver active screen
 			tabsContainer.classList.add('hidden');
 			panelReceive.classList.add('hidden');
-			
 			tabsConnectedContainer.classList.remove('hidden');
 			switchConnectedTab('files');
 			panelSharedActive.classList.remove('hidden');
-			connectionStatusText.innerText = `Connected as ${myUsername}`;
 			updatePresenceUI();
 
-			// Connect
 			peer = new Peer();
-
-			peer.on('open', (id) => {
-				console.log('Receiver peer active, connecting to sender:', targetCode);
-				const conn = peer.connect(targetCode, { metadata: { username: myUsername } });
-				peerNames[targetCode] = 'Admin';
-				addConnection(conn, false);
-			});
-
-			peer.on('error', (err) => {
-				console.error('PeerJS Connection Error:', err);
-				handlePeerDisconnect();
-			});
-
-			// As a guest, I also need to accept incoming connections from other guests!
-			peer.on('connection', (conn) => {
-				console.log('Guest received mesh connection from another guest!');
-				addConnection(conn, false);
-			});
+			peer.on('open', () => { addConnection(peer.connect(targetCode, { metadata: { username: myUsername } }), false); });
+			peer.on('connection', (conn) => addConnection(conn, false));
+			peer.on('error', () => handlePeerDisconnect());
 		}
 
-		// --- Button Handlers for New Actions ---
-		if (btnCancelTransfer) {
-			btnCancelTransfer.addEventListener('click', () => {
-				if (Object.keys(connections).length === 0 || isCancelled || isFinishing) return;
-				isCancelled = true;
-				isTransferring = false;
-				fileQueue = [];
-				broadcast({ type: 'file-cancel' });
-				
-				senderStatusMsg.innerHTML = '<span class="text-red-500 font-bold">Transfer cancelled.</span>';
-				btnCancelTransfer.classList.add('hidden');
-				
-				setTimeout(() => {
-					dropzone.classList.remove('hidden');
-					senderProgressBlock.classList.add('hidden');
-					fileInput.value = '';
-					activeFile = null;
-					fileBuffer = null;
-				}, 3000);
+		function stopQrScanner() { if (html5QrCode) { html5QrCode.stop(); receiveScannerContainer.classList.add('hidden'); receiveManualContainer.classList.remove('hidden'); } }
+		let html5QrCode = null;
+		btnScanQr.addEventListener('click', () => {
+			receiveManualContainer.classList.add('hidden'); receiveScannerContainer.classList.remove('hidden');
+			html5QrCode = new Html5Qrcode("qr-reader");
+			html5QrCode.start({ facingMode: "environment" }, { fps: 15, qrbox: 220 }, (decoded) => {
+				stopQrScanner(); inputRoomCode.value = decoded; initializeReceiver(decoded);
 			});
+		});
+
+		dropzone.addEventListener('click', () => fileInput.click());
+		fileInput.addEventListener('change', (e) => { if (e.target.files.length > 0) handleFileSelection(e.target.files); });
+		function handleFileSelection(files) { for (let i = 0; i < files.length; i++) fileQueue.push(files[i]); if (!isTransferring) processFileQueue(); }
+		function processFileQueue() {
+			if (fileQueue.length === 0) return;
+			activeFile = fileQueue.shift();
+			dropzone.classList.add('hidden'); senderProgressBlock.classList.remove('hidden');
+			senderFileName.innerText = activeFile.name;
+			startFileSharing();
 		}
 
-		if (btnLeaveRoom) {
-			btnLeaveRoom.addEventListener('click', () => {
-				isLeavingIntentionally = true;
-				broadcast({ type: 'peer-left' });
-				// Clean reset back to start screen without "Connection Lost" error
-				window.location.href = window.location.pathname;
-			});
+		let offset = 0;
+		function startFileSharing() { offset = 0; isTransferring = false; broadcast({ type: 'file-meta', filename: activeFile.name, size: activeFile.size }); }
+		async function sendChunks() {
+			const CHUNK_SIZE = 65536;
+			while (offset < activeFile.size) {
+				const buf = await activeFile.slice(offset, offset + CHUNK_SIZE).arrayBuffer();
+				offset += buf.byteLength;
+				broadcast({ type: 'file-chunk', chunk: buf });
+				const progress = Math.trunc((offset / activeFile.size) * 100);
+				senderPercentage.innerText = `${progress}%`;
+				senderProgressBar.style.width = `${progress}%`;
+				if (offset % (CHUNK_SIZE * 10) === 0) await new Promise(r => setTimeout(r, 0));
+			}
+			broadcast({ type: 'file-done' });
+			senderPercentage.innerText = '100%'; senderProgressBar.style.width = '100%';
+			setTimeout(() => { dropzone.classList.remove('hidden'); senderProgressBlock.classList.add('hidden'); isTransferring = false; }, 3000);
 		}
 
-		// --- Auto-connect from Query Param ---
-		window.addEventListener('load', () => {
-			const urlParams = new URLSearchParams(window.location.search);
-			const roomParam = urlParams.get('room');
-			if (roomParam) {
-				switchTab('receive');
-				inputRoomCode.value = roomParam;
-				
-				// Show receiver active screen
-				tabsContainer.classList.add('hidden');
-				panelReceive.classList.add('hidden');
-				panelSharedActive.classList.remove('hidden');
-				
-				// Connect
-				setTimeout(() => {
-					initializeReceiver(roomParam);
-				}, 500);
-			}
-		});
-
-		// Explicit closed-tab detection
-		window.addEventListener('beforeunload', () => {
-			Object.values(connections).forEach(conn => {
-				if (conn.open) {
-					try {
-						conn.send({ type: 'peer-closed-tab' });
-					} catch (e) {}
-					try {
-						conn.close();
-					} catch (e) {}
-				}
-			});
-			if (peer) {
-				peer.destroy();
-			}
-		});
-
-		// --- PWA Installation Logic ---
-		let deferredPrompt = null;
-
-		const isIOS = () => {
-			return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-		};
-
-		const isStandalone = () => {
-			return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-		};
-
-		window.addEventListener('beforeinstallprompt', (e) => {
-			e.preventDefault();
-			deferredPrompt = e;
-			if (pwaInstallBanner && !isStandalone()) {
-				pwaInstallBanner.classList.remove('hidden');
-			}
-		});
-
-		window.addEventListener('load', () => {
-			if (isIOS() && !isStandalone()) {
-				if (pwaInstallBanner) {
-					pwaInstallBanner.classList.remove('hidden');
-					btnPwaInstall.innerText = "Install PWA (iOS Instructions)";
-				}
-			}
-		});
-
-		if (btnPwaInstall) {
-			btnPwaInstall.addEventListener('click', () => {
-				if (isIOS()) {
-					alert("To install DNSW on your iPhone/iPad:\n\n1. Tap the Share button in Safari (at the bottom or top of the screen).\n2. Scroll down and select 'Add to Home Screen'.");
-					return;
-				}
-				if (!deferredPrompt) return;
-				deferredPrompt.prompt();
-				deferredPrompt.userChoice.then((choiceResult) => {
-					if (choiceResult.outcome === 'accepted') {
-						console.log('User accepted PWA installation');
-					}
-					deferredPrompt = null;
-					if (pwaInstallBanner) {
-						pwaInstallBanner.classList.add('hidden');
-					}
-				});
-			});
-		}
-
-		window.addEventListener('appinstalled', () => {
-			console.log('PWA installed successfully!');
-			if (pwaInstallBanner) {
-				pwaInstallBanner.classList.add('hidden');
-			}
+		btnLeaveRoom.addEventListener('click', () => { isLeavingIntentionally = true; window.location.href = '/index.html'; });
+		inputRoomCode.addEventListener('input', (e) => {
+			let val = e.target.value.replace(/\D/g, '').substring(0, 9);
+			let f = ''; if (val.length > 6) f = `${val.substring(0, 3)}-${val.substring(3, 6)}-${val.substring(6)}`; else if (val.length > 3) f = `${val.substring(0, 3)}-${val.substring(3)}`; else f = val;
+			e.target.value = f;
 		});
 
 	})();
 </script>
 
 <style>
-	/* Panel slide & fade animation */
-	.animate-panel-in {
-		animation: panelIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-	}
-
-	@keyframes panelIn {
-		from {
-			opacity: 0;
-			transform: translateY(8px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	/* Background with glowing top radial blue gradient matching screenshot */
 	.dropdata-page {
 		background: radial-gradient(130% 80% at 50% 0%, #bfdbfe 0%, #FAF7F6 45%, #FAF7F6 100%);
-		position: relative;
-		overflow-x: hidden;
-		transition: background 0.3s ease;
 	}
-
-	@media (min-width: 768px) {
-		.dropdata-page {
-			background: radial-gradient(130% 80% at 50% 0%, #93c5fd 0%, #FAF7F6 55%, #FAF7F6 100%);
-		}
-	}
-
-	/* Ensure dark mode body also gets the correct dark background */
-	:global(.dark) body {
-		background-color: #030712 !important;
-	}
-
 	:global(.dark) .dropdata-page {
 		background: radial-gradient(130% 80% at 50% 0%, #1e40af 0%, #0f172a 45%, #030712 100%);
 	}
-
-	@media (min-width: 768px) {
-		:global(.dark) .dropdata-page {
-			background: radial-gradient(130% 80% at 50% 0%, #2563eb 0%, #0f172a 55%, #030712 100%);
-		}
-	}
-
-	.dropdata-page::before {
-		content: '';
-		position: absolute;
-		top: 0%;
-		left: 50%;
-		transform: translate(-50%, -10%);
-		width: 100%;
-		max-width: 1000px;
-		height: 400px;
-		background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, rgba(14,165,233,0.08) 50%, rgba(250,247,246,0) 80%);
-		filter: blur(60px);
-		pointer-events: none;
-		z-index: 1;
-		transition: background 0.3s ease;
-	}
-
-	@media (min-width: 768px) {
-		.dropdata-page::before {
-			height: 500px;
-			background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(14,165,233,0.12) 50%, rgba(250,247,246,0) 85%);
-		}
-	}
-
-	:global(.dark) .dropdata-page::before {
-		background: radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(14,165,233,0.18) 50%, rgba(3,7,18,0) 80%);
-	}
-
-	@media (min-width: 768px) {
-		:global(.dark) .dropdata-page::before {
-			height: 500px;
-			background: radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(14,165,233,0.25) 50%, rgba(3,7,18,0) 85%);
-		}
-	}
-
-	/* Elegant translucent macOS dock navigation */
-	.dropdata-nav {
-		background: rgba(250, 247, 246, 0.98);
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		border-top: none;
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-		border-radius: 0 0 28px 28px;
-		transition: all 0.3s ease;
-	}
-
-	:global(.dark) .dropdata-nav {
-		background: rgba(0, 0, 0, 0.98);
-		border-color: rgba(255, 255, 255, 0.08);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-	}
-
-	/* Beautiful custom inputs and cards */
 	.app-card {
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-		transition: all 0.3s ease;
+		/* Visible but subtle border */
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		box-shadow: none; /* Removed background shadow */
 	}
-
 	:global(.dark) .app-card {
 		border: 1px solid rgba(255, 255, 255, 0.1);
-		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-	}
-
-	/* Fade-in transitions */
-	.animate-fade-in {
-		animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-	}
-
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(12px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	.text-emerald-450 {
-		color: #059669;
-	}
-
-	:global(.dark) .text-emerald-450 {
-		color: #34d399;
-	}
-
-	.bg-emerald-500 {
-		background-color: #10b981;
-	}
-
-	/* Theme Toggle macOS Dock Custom Styling */
-	.theme-toggle-wrapper :global(button) {
-		background: transparent !important;
-		color: rgba(17, 17, 17, 0.75) !important;
-		padding: 8px !important;
-		border-radius: 9999px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: color 0.2s ease, transform 0.2s ease;
-	}
-	.theme-toggle-wrapper :global(button:hover) {
-		background: transparent !important;
-		color: #111111 !important;
-	}
-
-	:global(.dark) .theme-toggle-wrapper :global(button) {
-		color: rgba(255, 255, 255, 0.75) !important;
-	}
-	:global(.dark) .theme-toggle-wrapper :global(button:hover) {
-		color: #ffffff !important;
 	}
 </style>
